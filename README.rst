@@ -23,6 +23,7 @@ Capstone project utilized to create an injury predictors that can assist footbal
 Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
+ - `Quick Start`_
  - `Simple training pipeline`_
  - `Examples`_
  - `Models and Backbones`_
@@ -33,35 +34,50 @@ Table of Contents
  - `License`_
  
 Overview
+~~~~~~~~
+- The main programming language used in this project is Python. 
+- VSCode is the code-editor used since it allows the connection of the GitHub repository as well as working cooperatively in real time.
+- Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations and creation of all Machine Learning models. 
+- Google Drive has been mirrored into our local machines in order read and write large files through VSCode since our GitHub repository had a limit capacity. 
+- AnAmazon Web Services(AWS) environment had been generated and linked to VSCode in order to be able to be more productive when building applications that requires high computation since our local machines experienced multiple memory timeouts and limitations.
+
+Quick Start
 ~~~~~~~~~~~
-The main programming language used in this project is Python. In addition, Jupyter notebooks files are produced to run all scripts for data scrapping, manipulation and creation of all models. 
-Additonaly, Google Drive has been mirrored into local machines in order read and write large files through VSCode since our GitHub repository had a limit capacity. Last, 
 
-
-
-
+- Import the following Libraries:
 
 .. code:: python
 
-    import segmentation_models as sm
-    # Segmentation Models: using `keras` framework.
+    import datetime
+    from datetime import date
+    import requests
+    import pprint
+    from bs4 import BeautifulSoup
+    import pandas as pd
+    import re
+    import pickle
+    from urllib.request import urlopen
 
-By default it tries to import ``keras``, if it is not installed, it will try to start with ``tensorflow.keras`` framework.
-There are several ways to choose framework:
-
-- Provide environment variable ``SM_FRAMEWORK=keras`` / ``SM_FRAMEWORK=tf.keras`` before import ``segmentation_models``
-- Change framework ``sm.set_framework('keras')`` /  ``sm.set_framework('tf.keras')``
-
-You can also specify what kind of ``image_data_format`` to use, segmentation-models works with both: ``channels_last`` and ``channels_first``.
-This can be useful for further model conversion to Nvidia TensorRT format or optimizing model for cpu/gpu computations.
-
+- Use BeautifulSoup to first obtain the league URLs
 .. code:: python
 
-    import keras
-    # or from tensorflow import keras
+big_5_leagues = []
 
-    keras.backend.set_image_data_format('channels_last')
-    # or keras.backend.set_image_data_format('channels_first')
+    for j in soup.find_all('tbody')[2].find_all("tr", {"class": "gender-m"}):
+        if (j.find('td') != None):
+            big_5_leagues.append(j.find('a')['href'])
+
+    big_5_leagues = big_5_leagues[:-1]
+
+
+
+
+
+
+
+
+
+
 
 Created segmentation model is just an instance of Keras Model, which can be build as easy as:
 
