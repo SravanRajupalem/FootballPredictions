@@ -1,22 +1,23 @@
 # FootballPredictions
-Capstone project dealing with predictions for Football such as injury prediction.
+Capstone project utilized to create an injury predictors that can assist football managers or club to make a decision when it comes to investing on a football player.
 
 **The main features** of this library are:
 
--  High level API (just two lines of code to create model for segmentation)
--  **4** models architectures for binary and multi-class image segmentation
-   (including legendary **Unet**)
--  **25** available backbones for each architecture
--  All backbones have **pre-trained** weights for faster and better
-   convergence
-- Helpful segmentation losses (Jaccard, Dice, Focal) and metrics (IoU, F-score)
+- High level API that allows data scraping from the FBRef website (fbref.com) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani and England).
+- High level API that allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players injury data.
+- Reference Table of of mapped IDs from Fbref players and TransferMarkt sites
+- Time series ML models to build our injury predictors ...
+
 
 **Important note**
 
-    Some models of version ``1.*`` are not compatible with previously trained models,
-    if you have such models and want to load them - roll back with:
+    Data scrapping from FBRef website comes at a high computational cost since each of top 5 European leagues has about 20 team, and those teams have an approximate number of 30+ players. This takes accounts for every single season available.
 
-    $ pip install -U segmentation-models==0.2.1
+    The Beautiful Soup Python library was used for pulling data of the web. This requires a basic knowledge on how to read and interpret HTML and XML files.
+
+    The library first needs to be installed:
+
+    $ pip install beautifulsoup4
 
 Table of Contents
 ~~~~~~~~~~~~~~~~~
