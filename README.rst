@@ -3,7 +3,7 @@ Capstone project utilized to create an injury predictors that can assist footbal
 
 **The main features** of this library are:
 
-- High level API that allows data scraping from the FBRef website (fbref.com) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani and England).
+- High level API that allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani and England).
 - High level API that allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players injury data.
 - Reference Table of of mapped IDs from Fbref players and TransferMarkt sites
 - Time series ML models to build our injury predictors ...
@@ -21,7 +21,7 @@ Capstone project utilized to create an injury predictors that can assist footbal
 
 Table of Contents
 ~~~~~~~~~~~~~~~~~
- - `Quick start`_
+ - `Overview`_
  - `Simple training pipeline`_
  - `Examples`_
  - `Models and Backbones`_
@@ -31,9 +31,14 @@ Table of Contents
  - `Citing`_
  - `License`_
  
-Quick start
+Overview
 ~~~~~~~~~~~
-Library is build to work together with Keras and TensorFlow Keras frameworks
+The main programming language used in this project is Python. In addition, Jupyter notebooks files are produced to run all scripts for data scrapping, manipulation and creation of all models. 
+Additonaly, Google Drive has been mirrored into local machines in order read and write large files through VSCode since our GitHub repository had a limit capacity. Last, 
+
+
+
+
 
 .. code:: python
 
