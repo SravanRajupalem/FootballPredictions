@@ -1,4 +1,5 @@
-# FootballPredictions
+Football Predictions Capstone Project
+~~~~~~~~~~~~~~~~~
 Capstone project utilized to create an injury predictors that can assist football managers or club to make a decision when it comes to investing on a football player.
 
 **The main features** of this library are:
