@@ -184,6 +184,70 @@ the Google Drive.
     # Export as CSV
     pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
 
+2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283 
+
+It is time to do the real data scrapping. Here, we are pulling data from the above list, which contains a total of 118,283 URLs. 
+This step took a significant amount of memory usage, this was necessary to split the list into multiple batches. 
+Thus, a total of 15 notebooks were created in order to run the complete list. 
+
+.. code:: python
+
+# Pull all match_log_lists. We will convert each list individually WORK IN PROCESS
+
+def create_match_logs_tables(match_logs_list_urls_x):
+
+    df_30_columns = pd.DataFrame([])
+    df_39_columns = pd.DataFrame([])
+
+    count = 0
+
+    for player in match_logs_list_urls_x:
+        try: # this may fix "HTTP Error 404: Not Found"
+            # urlopen(player)
+
+            new_table = pd.read_html(player)[0]
+            new_table.columns = new_table.columns.droplevel()
+            new_table['name'] = player.split('/')[-1].replace("-Match-Logs", "")
+            
+            if new_table.shape[1] == 30:
+                new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                df_30_columns = df_30_columns.append(new_table, ignore_index=True)
+                count += 1
+                
+                
+            if new_table.shape[1] == 39:
+                new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                df_39_columns = df_39_columns.append(new_table, ignore_index=True)
+                count += 1
+
+            sys.stdout.write("\r{0} percent player urls have just scraped!".format(count / len(match_logs_list_urls_x)*100))
+            sys.stdout.flush()
+
+        except:
+            pass
+    
+
+    return df_30_columns, df_39_columns
+
+
+asd 
+
+# Creating different length data frames
+
+df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])
+
+
+asdasdasd
+
+#Combining Df_30_columns_1 and df_39_columns_1 to dataframe_1
+
+cols = ['Date', 'Day', 'Comp', 'Round', 'Venue', 'Result', 'Squad', 'Opponent', 'Start', 'Pos', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY',
+       'CrdR', 'Match Report', 'Int', 'name', 'FBRefID']
+
+df1 = df_39_columns_1
+df2 = df_30_columns_1
+
+df_final_1 = df1.merge(df2,how='outer', left_on=cols, right_on=cols)
 
 
 
