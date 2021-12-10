@@ -127,8 +127,6 @@ but only the most important ones are shown; refer to the notebooks for the compl
 The following function had to be applied in multiple batches since this operation required high computation; this method allowed us to produce a single list of 
 all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs(except for the last one) were created to generate the match_logs_urls list.
 
-
-
 .. code:: python
     # Generate the match log urls for all players across all leagues and seasons
 
@@ -160,6 +158,7 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
 
 
 
+asdasd
 
 
 
@@ -176,160 +175,10 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
 
 
 
-   
-Simple training pipeline
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: python
-
-    import segmentation_models as sm
-
-    BACKBONE = 'resnet34'
-    preprocess_input = sm.get_preprocessing(BACKBONE)
-
-    # load your data
-    x_train, y_train, x_val, y_val = load_data(...)
-
-    # preprocess input
-    x_train = preprocess_input(x_train)
-    x_val = preprocess_input(x_val)
-
-    # define model
-    model = sm.Unet(BACKBONE, encoder_weights='imagenet')
-    model.compile(
-        'Adam',
-        loss=sm.losses.bce_jaccard_loss,
-        metrics=[sm.metrics.iou_score],
-    )
-
-    # fit model
-    # if you use data generator use model.fit_generator(...) instead of model.fit(...)
-    # more about `fit_generator` here: https://keras.io/models/sequential/#fit_generator
-    model.fit(
-       x=x_train,
-       y=y_train,
-       batch_size=16,
-       epochs=100,
-       validation_data=(x_val, y_val),
-    )
-
-Same manipulations can be done with ``Linknet``, ``PSPNet`` and ``FPN``. For more detailed information about models API and  use cases `Read the Docs <https://segmentation-models.readthedocs.io/en/latest/>`__.
-
-Examples
-~~~~~~~~
-Models training examples:
- - [Jupyter Notebook] Binary segmentation (`cars`) on CamVid dataset `here <https://github.com/qubvel/segmentation_models/blob/master/examples/binary%20segmentation%20(camvid).ipynb>`__.
- - [Jupyter Notebook] Multi-class segmentation (`cars`, `pedestrians`) on CamVid dataset `here <https://github.com/qubvel/segmentation_models/blob/master/examples/multiclass%20segmentation%20(camvid).ipynb>`__.
-
-Models and Backbones
-~~~~~~~~~~~~~~~~~~~~
-**Models**
-
--  `Unet <https://arxiv.org/abs/1505.04597>`__
--  `FPN <http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf>`__
--  `Linknet <https://arxiv.org/abs/1707.03718>`__
--  `PSPNet <https://arxiv.org/abs/1612.01105>`__
-
-============= ==============
-Unet          Linknet
-============= ==============
-|unet_image|  |linknet_image|
-============= ==============
-
-============= ==============
-PSPNet        FPN
-============= ==============
-|psp_image|   |fpn_image|
-============= ==============
-
-.. _Unet: https://github.com/qubvel/segmentation_models/blob/readme/LICENSE
-.. _Linknet: https://arxiv.org/abs/1707.03718
-.. _PSPNet: https://arxiv.org/abs/1612.01105
-.. _FPN: http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf
-
-.. |unet_image| image:: https://github.com/qubvel/segmentation_models/blob/master/images/unet.png
-.. |linknet_image| image:: https://github.com/qubvel/segmentation_models/blob/master/images/linknet.png
-.. |psp_image| image:: https://github.com/qubvel/segmentation_models/blob/master/images/pspnet.png
-.. |fpn_image| image:: https://github.com/qubvel/segmentation_models/blob/master/images/fpn.png
-
-**Backbones**
-
-.. table:: 
-
-    =============  ===== 
-    Type           Names
-    =============  =====
-    VGG            ``'vgg16' 'vgg19'``
-    ResNet         ``'resnet18' 'resnet34' 'resnet50' 'resnet101' 'resnet152'``
-    SE-ResNet      ``'seresnet18' 'seresnet34' 'seresnet50' 'seresnet101' 'seresnet152'``
-    ResNeXt        ``'resnext50' 'resnext101'``
-    SE-ResNeXt     ``'seresnext50' 'seresnext101'``
-    SENet154       ``'senet154'``
-    DenseNet       ``'densenet121' 'densenet169' 'densenet201'`` 
-    Inception      ``'inceptionv3' 'inceptionresnetv2'``
-    MobileNet      ``'mobilenet' 'mobilenetv2'``
-    EfficientNet   ``'efficientnetb0' 'efficientnetb1' 'efficientnetb2' 'efficientnetb3' 'efficientnetb4' 'efficientnetb5' efficientnetb6' efficientnetb7'``
-    =============  =====
-
-.. epigraph::
-    All backbones have weights trained on 2012 ILSVRC ImageNet dataset (``encoder_weights='imagenet'``). 
 
 
-Installation
-~~~~~~~~~~~~
 
-**Requirements**
 
-1) python 3
-2) keras >= 2.2.0 or tensorflow >= 1.13
-3) keras-applications >= 1.0.7, <=1.0.8
-4) image-classifiers == 1.0.*
-5) efficientnet == 1.0.*
 
-**PyPI stable package**
 
-.. code:: bash
 
-    $ pip install -U segmentation-models
-
-**PyPI latest package**
-
-.. code:: bash
-
-    $ pip install -U --pre segmentation-models
-
-**Source latest version**
-
-.. code:: bash
-
-    $ pip install git+https://github.com/qubvel/segmentation_models
-    
-Documentation
-~~~~~~~~~~~~~
-Latest **documentation** is avaliable on `Read the
-Docs <https://segmentation-models.readthedocs.io/en/latest/>`__
-
-Change Log
-~~~~~~~~~~
-To see important changes between versions look at CHANGELOG.md_
-
-Citing
-~~~~~~~~
-
-.. code::
-
-    @misc{Yakubovskiy:2019,
-      Author = {Pavel Yakubovskiy},
-      Title = {Segmentation Models},
-      Year = {2019},
-      Publisher = {GitHub},
-      Journal = {GitHub repository},
-      Howpublished = {\url{https://github.com/qubvel/segmentation_models}}
-    } 
-
-License
-~~~~~~~
-Project is distributed under `MIT Licence`_.
-
-.. _CHANGELOG.md: https://github.com/qubvel/segmentation_models/blob/master/CHANGELOG.md
-.. _`MIT Licence`: https://github.com/qubvel/segmentation_models/blob/master/LICENSE
