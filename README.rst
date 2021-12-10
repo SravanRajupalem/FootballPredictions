@@ -50,7 +50,7 @@ Overview
 Quick Start
 ~~~~~~~~~~~
 
-1. FBRED Extrack.ipynb
+1. FBREF Extract.ipynb
 
 In this notebook, we create an extensive list of all match logs for all players and all the seasons they played in. This also includes match logs of other 
 competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as their national team matches. 
