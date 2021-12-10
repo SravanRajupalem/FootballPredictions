@@ -50,12 +50,12 @@ Overview
 Quick Start
 ~~~~~~~~~~~
 
-- 1. FBRED Extrack.ipynb
+1. FBRED Extrack.ipynb
 
 In this notebook, we create an extensive list of all match logs for all players and all the seasons they played in. This also includes match logs of other 
 competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as their national team matches. 
 
-- Import the following Libraries:
+Import the following Libraries:
 
 .. code:: python
 
@@ -69,7 +69,7 @@ competitions such as their previous clubs(even if they played outside of the top
     import pickle
     from urllib.request import urlopen
 
-- Use BeautifulSoup to first obtain the league URLs
+Use BeautifulSoup to first obtain the league URLs
 
 .. code:: python
 
@@ -105,9 +105,8 @@ competitions such as their previous clubs(even if they played outside of the top
         league_seasons = get_all_seasons(i)
         all_seasons_big_5 += league_seasons
 
-    
-- Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more steps during the data scrapping, 
-  but only the most important ones are shown; refer to the notebooks for the complete code.
+Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more steps during the data scrapping, 
+but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
 
@@ -126,8 +125,8 @@ competitions such as their previous clubs(even if they played outside of the top
 
     player_all_competitions = get_players_all_competitions(player_table_big_5)
 
-- The following function had to be applied in multiple batches since this operation required high computation; this method allowed us to produce a single list of 
-  all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs(except for the last one) were created to generate the match_logs_urls list.
+The following function had to be applied in multiple batches since this operation required high computation; this method allowed us to produce a single list of 
+all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs(except for the last one) were created to generate the match_logs_urls list.
 
 .. code:: python
     # Generate the match log urls for all players across all leagues and seasons
@@ -146,7 +145,6 @@ competitions such as their previous clubs(even if they played outside of the top
                         match_logs_list.append(j.find('a')['href'])
                         
         return list(set(match_logs_list))
-
 
     match_logs_list = []
 
