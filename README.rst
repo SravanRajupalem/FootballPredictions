@@ -65,9 +65,10 @@ Quick Start
     from urllib.request import urlopen
 
 - Use BeautifulSoup to first obtain the league URLs
+
 .. code:: python
 
-big_5_leagues = []
+    big_5_leagues = []
 
     for j in soup.find_all('tbody')[2].find_all("tr", {"class": "gender-m"}):
         if (j.find('td') != None):
@@ -75,7 +76,6 @@ big_5_leagues = []
 
     big_5_leagues = big_5_leagues[:-1]
 
-#####
 
 
 
