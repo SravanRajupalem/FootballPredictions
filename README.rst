@@ -127,6 +127,8 @@ but only the most important ones are shown; refer to the notebooks for the compl
 The following function had to be applied in multiple batches since this operation required high computation; this method allowed us to produce a single list of 
 all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs(except for the last one) were created to generate the match_logs_urls list.
 
+
+
 .. code:: python
     # Generate the match log urls for all players across all leagues and seasons
 
@@ -154,6 +156,10 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
         count += 1
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
         sys.stdout.flush()
+
+
+
+
 
 
 
