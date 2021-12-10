@@ -68,6 +68,8 @@ Quick Start
 
 .. code:: python
 
+    # Big 5 European Leagues (Spain, England, Germany, France, Italy)
+
     big_5_leagues = []
 
     for j in soup.find_all('tbody')[2].find_all("tr", {"class": "gender-m"}):
@@ -76,13 +78,77 @@ Quick Start
 
     big_5_leagues = big_5_leagues[:-1]
 
-    
-    
-    ['/en/comps/9/history/Premier-League-Seasons',
-    '/en/comps/12/history/La-Liga-Seasons',
-    '/en/comps/13/history/Ligue-1-Seasons',
-    '/en/comps/20/history/Bundesliga-Seasons',
-    '/en/comps/11/history/Serie-A-Seasons']
+    # function to obtain league/season URLs
+
+    def get_all_seasons(url):
+        URL = 'https://fbref.com/' + url
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        url_list = []
+        
+        for row in soup.find_all('tr'):
+            if row.find('th',{"scope":"row"}) != None:
+                url_list.append((row.find('a')['href']))
+        
+    return url_list
+
+    # All Seasons Big 5 Leagues
+
+    all_seasons_big_5 = []
+
+    for i in big_5_leagues:
+        league_seasons = get_all_seasons(i)
+        all_seasons_big_5 += league_seasons
+
+    print(len(all_seasons_big_5))
+
+    # Pull all player stats for all competitions
+
+    def get_players_all_competitions(player_list):
+        
+        player_urls = []
+
+        for i in player_list:
+            # player_urls.append('https://fbref.com/en/players/' + i.split('/')[3:4][0] + '/' + i.split('/')[7:][0].replace("-Match-Logs", ""))
+            player_urls.append('https://fbref.com/en/players/' + i.split('/')[3:4][0] + '/all_comps/' 
+                                + i.split('/')[7:][0].replace("-Match-Logs", "") + '/-Stats---All-Competitions')
+
+        return list(set(player_urls))
+
+
+    player_all_competitions = get_players_all_competitions(player_table_big_5)
+
+
+    # Generate the match log urls for all players across all 
+
+    def get_player_match_logs(player_list_summary, line):
+        
+        res = requests.get(player_list_summary[line])
+        soup = BeautifulSoup(res.text,'lxml')
+
+        match_logs_list = []
+
+        for i in soup.find_all('tbody'):
+            for j in i.find_all('td', {'data-stat':'matches'}):
+                if j.find('a') != None:
+                    if 'summary' in j.find('a')['href']:
+                        match_logs_list.append(j.find('a')['href'])
+                        
+        return list(set(match_logs_list))
+
+
+    match_logs_list = []
+
+    # 1st batch 0:5000 - DONE
+    count = 0
+    for i in range(len(player_all_competitions[0:5000])):
+        match_logs_list.extend(get_player_match_logs(player_all_competitions[0:5000], i))
+        count += 1
+        sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
+        sys.stdout.flush()
+
+
+
 
 
 
