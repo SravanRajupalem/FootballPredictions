@@ -1,22 +1,27 @@
 Football Predictions Capstone Project
-~~~~~~~~~~~~~~~~~
-Capstone project utilized to create an injury predictors that can assist football managers or club to make a decision when it comes to investing on a football player.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This capstone project consists of developing an injury predictor that can assist football managers or clubs to make a decision when it comes to investing in football players.
 
 **The main features** of this library are:
 
-- High level API that allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani and England).
-- High level API that allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players injury data.
-- Reference Table of of mapped IDs from Fbref players and TransferMarkt sites
-- Time series ML models to build our injury predictors ...
+- A high-level API allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani, and England).
+- A high-level API allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players' injury data.
+- Reference Table of mapped IDs from Fbref players and TransferMarkt sites
+- Time series ML models to build injury predictors ...
 
 
 **Important note**
 
-    Data scrapping from FBRef website comes at a high computational cost since each of top 5 European leagues has about 20 team, and those teams have an approximate number of 30+ players. This takes accounts for every single season available.
+    Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an 
+    approximate number of 30+ players. The entire data set takes accounts of every single available season.
+    
+    Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an approximate number of 30+ players.
+    The entire data pulling accounts for every single season available.
+    
 
-    The Beautiful Soup Python library was used for pulling data of the web. This requires a basic knowledge on how to read and interpret HTML and XML files.
+    The Beautiful Soup Python library was used for pulling data from the web. This requires basic knowledge of how to read and interpret HTML and XML files.
 
-    The library first needs to be installed:
+    The library needs to be installed:
 
     $ pip install beautifulsoup4
 
@@ -36,10 +41,11 @@ Table of Contents
 Overview
 ~~~~~~~~
 - The main programming language used in this project is Python. 
-- VSCode is the code-editor used since it allows the connection of the GitHub repository as well as working cooperatively in real time.
-- Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations and creation of all Machine Learning models. 
-- Google Drive has been mirrored into our local machines in order read and write large files through VSCode since our GitHub repository had a limit capacity. 
-- AnAmazon Web Services(AWS) environment had been generated and linked to VSCode in order to be able to be more productive when building applications that requires high computation since our local machines experienced multiple memory timeouts and limitations.
+- VSCode is the code-editor employed since it allows the connection of the GitHub repository as well as working cooperatively in real-time.
+- Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations, and creation of all Machine Learning models. 
+- Google Drive has been mirrored into our local machines in order to read and write large files through VSCode since our GitHub repository had a limited capacity. 
+- An Amazon Web Services(AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive when building applications 
+  that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
 Quick Start
 ~~~~~~~~~~~
