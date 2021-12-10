@@ -117,7 +117,6 @@ but only the most important ones are shown; refer to the notebooks for the compl
         player_urls = []
 
         for i in player_list:
-            # player_urls.append('https://fbref.com/en/players/' + i.split('/')[3:4][0] + '/' + i.split('/')[7:][0].replace("-Match-Logs", ""))
             player_urls.append('https://fbref.com/en/players/' + i.split('/')[3:4][0] + '/all_comps/' 
                                 + i.split('/')[7:][0].replace("-Match-Logs", "") + '/-Stats---All-Competitions')
 
@@ -168,43 +167,9 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
 
 
 
-Created segmentation model is just an instance of Keras Model, which can be build as easy as:
 
-.. code:: python
-    
-    model = sm.Unet()
-    
-Depending on the task, you can change the network architecture by choosing backbones with fewer or more parameters and use pretrainded weights to initialize it:
 
-.. code:: python
 
-    model = sm.Unet('resnet34', encoder_weights='imagenet')
-
-Change number of output classes in the model (choose your case):
-
-.. code:: python
-    
-    # binary segmentation (this parameters are default when you call Unet('resnet34')
-    model = sm.Unet('resnet34', classes=1, activation='sigmoid')
-    
-.. code:: python
-    
-    # multiclass segmentation with non overlapping class masks (your classes + background)
-    model = sm.Unet('resnet34', classes=3, activation='softmax')
-    
-.. code:: python
-    
-    # multiclass segmentation with independent overlapping/non-overlapping class masks
-    model = sm.Unet('resnet34', classes=3, activation='sigmoid')
-    
-    
-Change input shape of the model:
-
-.. code:: python
-    
-    # if you set input channels not equal to 3, you have to set encoder_weights=None
-    # how to handle such case with encoder_weights='imagenet' described in docs
-    model = Unet('resnet34', input_shape=(None, None, 6), encoder_weights=None)
    
 Simple training pipeline
 ~~~~~~~~~~~~~~~~~~~~~~~~
