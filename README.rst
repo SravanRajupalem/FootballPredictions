@@ -50,7 +50,7 @@ Overview
 Quick Start
 ~~~~~~~~~~~
 
-1. FBREF Extract.ipynb
+**1. FBREF Extract.ipynb**
 
 In this notebook, we create an extensive list of all match logs for all players and all the seasons they played in. This also includes match logs of other 
 competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as their national team matches. 
@@ -156,7 +156,7 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
         sys.stdout.flush()
 
-1.5 Append match_url_files.ipynb
+**1.5 Append match_url_files.ipynb**
 
 In this notebook, we concatenate the match logs lists that were created above to build the final match_log_urls list that contains 
 all players' URLs match logs for every single season. This list has 148,478 URLs
@@ -184,7 +184,7 @@ the Google Drive.
     # Export as CSV
     pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
 
-2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283 
+**2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283** 
 
 It is time to perform the real data scrapping. Here, we are pulling data from the above list, which contains a total of 118,283 URLs. 
 By running this function, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
