@@ -76,10 +76,13 @@ Quick Start
 
     big_5_leagues = big_5_leagues[:-1]
 
-
-
-
-
+    
+    
+    ['/en/comps/9/history/Premier-League-Seasons',
+    '/en/comps/12/history/La-Liga-Seasons',
+    '/en/comps/13/history/Ligue-1-Seasons',
+    '/en/comps/20/history/Bundesliga-Seasons',
+    '/en/comps/11/history/Serie-A-Seasons']
 
 
 
