@@ -105,8 +105,8 @@ Use BeautifulSoup to first obtain the league URLs
         league_seasons = get_all_seasons(i)
         all_seasons_big_5 += league_seasons
 
-Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more steps during the data scrapping, 
-but only the most important ones are shown; refer to the notebooks for the complete code.
+Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more 
+steps during the data scrapping, but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
 
@@ -156,12 +156,33 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
         sys.stdout.flush()
 
+1.5 Append match_url_files.ipynb
 
+In this notebook, we concatenate the match logs lists that were created above to build the final match_log_urls list that contains 
+all players' URLs match logs for every single season. This list has 148,478 URLs
 
+.. code:: python
 
+    # Uniting all match logs into a single list:  match_logs_list_urls
 
+    match_logs_list_urls = []
+    match_logs_list_urls.extend(list(match_logs_list_urls_1['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_2['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_3['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_4['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
 
+However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
+The final list reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it the easiest and fastest methods to save file to 
+the Google Drive.
 
+.. code:: python
+
+    # Eliminated Repeated match logs
+    match_logs_list_urls = list(set(match_logs_list_urls))
+
+    # Export as CSV
+    pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
 
 
 
