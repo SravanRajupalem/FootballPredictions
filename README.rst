@@ -58,6 +58,7 @@ competitions such as their previous clubs(even if they played outside of the top
 Import the following Libraries:
 
 .. code:: python
+
     import datetime
     from datetime import date
     import requests
@@ -71,6 +72,7 @@ Import the following Libraries:
 Use BeautifulSoup to first obtain the league URLs
 
 .. code:: python
+
     # Big 5 European Leagues (Spain, England, Germany, France, Italy)
 
     big_5_leagues = []
@@ -107,6 +109,7 @@ Pull all players' stats for all competitions to end up with a list of all player
 but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
+
     # function to obtain matchlogs
     
     def get_players_all_competitions(player_list):
@@ -125,6 +128,7 @@ The following function had to be applied in multiple batches since this operatio
 all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs were created to generate the match_logs_urls list.
 
 .. code:: python
+
     # Generate the match log urls for all players across all leagues and seasons
 
     def get_player_match_logs(player_list_summary, line):
