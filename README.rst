@@ -518,10 +518,6 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
-** import note **
-    
-    This notebook 
-
 
 .. only:: html
 
