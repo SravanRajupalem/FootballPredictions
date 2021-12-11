@@ -10,7 +10,7 @@ st.write("Sravan Rajupalem")
 st.write("Renzo Maldonado")
 st.write("Victor Ruiz is in Orlando")
 
-section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation", "Feature Engineering", 
+section = st.sidebar.("Sections", ("Scraping the Web for Data", "Data Manipulation", "Feature Engineering", 
     "Visual Exploration of Data", "Model Building"))
 
 st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the world of Data Science. Magically using complex 
