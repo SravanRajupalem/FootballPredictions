@@ -21,9 +21,13 @@ This capstone project consists of developing an injury predictor that can assist
 
     The Beautiful Soup Python library was used for pulling data from the web. This requires basic knowledge of how to read and interpret HTML and XML files.
 
-    The library needs to be installed:
+    The following libraries need to be installed:
 
-    $ pip install beautifulsoup4
+.. code:: python
+    
+    !pip install beautifulsoup4
+    !pip install pyjsparser
+    !pip install js2xml
 
 Table of Contents
 ~~~~~~~~~~~~~~~~~
@@ -52,25 +56,59 @@ when building applications that come at a high cost; our local machines experien
 Quick Start
 ~~~~~~~~~~~
 
+First of all, import the following Libraries:
+
+.. code:: python
+
+    # Base
+    import pandas as pd
+    import numpy as np
+    import pickle
+    import re 
+
+    # Visualization
+    import plotly.express as ex
+
+    # Web Scraping
+    import pprint
+    import requests
+    from bs4 import BeautifulSoup
+    from pyjsparser import parse
+    import pyjsparser
+    from urllib.request import urlopen
+
+    # Time 
+    import sys
+    import time
+    from datetime import date
+    from datetime import datetime
+    from termcolor import colored
+
+    # GC
+    import gc
+
+    # Itertools
+    import itertools
+
+    # Grafikten Data Çekmek için
+    import re
+    import js2xml
+    from itertools import repeat    
+    from pprint import pprint as pp
+
+    # Configurations
+    import warnings
+    warnings.filterwarnings("ignore")
+    warnings.simplefilter(action='ignore', category=FutureWarning)
+    pd.set_option('display.max_columns', None)
+
+
 **1. FBREF Extract.ipynb**
 
 In this notebook, we create an extensive list of all match logs for all players and all the seasons they played from the FBRef website. 
 This also includes match logs of other competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as 
 their national team matches. 
 
-Import the following Libraries:
-
-.. code:: python
-
-    import datetime
-    from datetime import date
-    import requests
-    import pprint
-    from bs4 import BeautifulSoup
-    import pandas as pd
-    import re
-    import pickle
-    from urllib.request import urlopen
 
 Use BeautifulSoup to first obtain the league URLs
 
@@ -166,10 +204,6 @@ all players' URLs match logs for every single season. This list has 148,478 URLs
 
 .. code:: python
 
-    import pandas as pd
-
-.. code:: python
-
     # Uniting all match logs into a single list:  match_logs_list_urls
 
     match_logs_list_urls = []
@@ -203,22 +237,6 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
     This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
     A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
     this is an example of the first batch. At the end, all dataframes will be concatenated together to produce a single dataframe.
-
-
-Import the following Libraries:
-
-.. code:: python
-
-    import datetime
-    from datetime import date
-    import requests
-    import pprint
-    from bs4 import BeautifulSoup
-    import pandas as pd
-    import re
-    import pickle
-    from urllib.request import urlopen
-    import sys
 
 .. code:: python
 
@@ -282,10 +300,6 @@ This notebook is used to combine all dataframes produced from the batches above.
 
 .. code:: python
 
-    import pandas as pd
-
-.. code:: python
-
     # Concatenating df_final data frames
 
     df_final_list = [df_final_1, df_final_2, df_final_3, df_final_4, df_final_5, df_final_6, 
@@ -310,7 +324,6 @@ First, we create a function that generates a list of all seasons starting at 201
 Then we apply this function to a one league. In this example, the list will be generated for the English league .
 
 .. code:: python
-
 
     def fbref_league_history(league_id = [9,11,12,13,20], first_season = 2010):
         history = []
@@ -350,45 +363,62 @@ from all of those clubs.
 
 .. code:: python
 
-def fbref_team_url_history(league_history):
-    team_season_url = []
-    for league_season_url in league_history:
-        r=requests.get(league_season_url)
-        soup=BeautifulSoup(r.content, "html.parser")
-        teams = soup.find("table").find_all("a")
-        teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
-        teams = Filter(teams, ["/en/squads/"])
-        team_season_url.append(teams)
+    def fbref_team_url_history(league_history):
+        team_season_url = []
+        for league_season_url in league_history:
+            r=requests.get(league_season_url)
+            soup=BeautifulSoup(r.content, "html.parser")
+            teams = soup.find("table").find_all("a")
+            teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
+            teams = Filter(teams, ["/en/squads/"])
+            team_season_url.append(teams)
 
-    # All histories in one array
-    team_season_url  = list(itertools.chain(*team_season_url))
-    return team_season_url
+        # All histories in one array
+        team_season_url  = list(itertools.chain(*team_season_url))
+        return team_season_url
 
-def fbref_team_url_history(league_history):
-    team_season_url = []
-    for league_season_url in league_history:
-        r=requests.get(league_season_url)
-        soup=BeautifulSoup(r.content, "html.parser")
-        teams = soup.find("table").find_all("a")
-        teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
-        teams = Filter(teams, ["/en/squads/"])
-        team_season_url.append(teams)
+    def fbref_team_url_history(league_history):
+        team_season_url = []
+        for league_season_url in league_history:
+            r=requests.get(league_season_url)
+            soup=BeautifulSoup(r.content, "html.parser")
+            teams = soup.find("table").find_all("a")
+            teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
+            teams = Filter(teams, ["/en/squads/"])
+            team_season_url.append(teams)
 
-    # All histories in one array
-    team_season_url  = list(itertools.chain(*team_season_url))
-    return team_season_url
+        # All histories in one array
+        team_season_url  = list(itertools.chain(*team_season_url))
+        return team_season_url
 
-    # Premier League (England) Seasons (England: 9 | Italy: 11 | Spain: 12 | France: 13 | Germany: 20)
-    team_season_url_england = fbref_team_url_history(history_england)
+        # Premier League (England) Seasons (England: 9 | Italy: 11 | Spain: 12 | France: 13 | Germany: 20)
+        team_season_url_england = fbref_team_url_history(history_england)
 
 An extensive function is created to scrape all players profile information as well as the FBRef ID. Finally, all of the data is exported 
 to dataframe called player_data_df_england.csv.
 
 **Important note**
 
-    Refer to the Profile Data Dataframe Englad.ipynb to review the last function. It is not included here since it is very extensive.
+    Refer to the **15a.Profile Data Dataframe England.ipynb** to review the last function. It is not included here since it is very extensive.
+    Additionaly, the concatenating of the 5 dataframes is performed in book **17. Consolidate Profile Data Dataframe.ipynb**
 
 .. code:: python
 
     player_info_england = fbref_player_info(player_url_england)
 
+
+
+
+
+**17. Consolidate Profile Data Dataframe.ipynb**
+
+
+
+
+
+
+player_info_england 
+player_info_italy
+player_info_spain 
+player_info_france 
+player_info_germany
