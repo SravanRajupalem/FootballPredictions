@@ -586,113 +586,129 @@ Here are all the CSV files that are called:
     # Merge with TM Profile information
     player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
 
+This is just the beginning.
+
+.. image:: images/referee.gif
+
+There is a great number of steps taken on this notebook, we will only highlights the ones we believe are the most relevant ones. Steps like
+removing duplicates, dropping NaNs, updating the column types, and any other basic operations are excluded. We also do some testing in order
+to understand what data cleaning is required and more. Please refer to the **17. Consolidate Profile Data Dataframe.ipynb** for the 
+complete notebook.
+
+Here we create some important features that are considered for our time series models
+
+.. code:: python
 
+    # Creating new columns of the week and year a player gets injured as well as the week the player is released
+
+    player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
+    player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['until'] != '-']
+    player_injuries_profile_final['injury_year'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').year)
+    player_injuries_profile_final['injury_week'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+    player_injuries_profile_final['release_week'] = player_injuries_profile_final['until'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+    player_injuries_profile_final['from'] = pd.to_datetime(player_injuries_profile_final['from'])
+    player_injuries_profile_final['until'] = pd.to_datetime(player_injuries_profile_final['until'])
 
+    # Creating new columns - player's team wins, loses or draws a game, also add a column to highlight when player starts playing
+    # since the beginning of the match
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'W', 'Won'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'W', 'Won'] = 0
 
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'L', 'Loss'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'L', 'Loss'] = 0
 
-This player_injuries_info_df DataFrame was then merged with the Transfermarkt profile information in the tm_profile_df DataFrame on 'TMId' and 'TMId' respectively at their intersection.  The merge yielded the player_injuries_profile_final DataFrame with a shape of 32,584 rows and 75 columns.  This DataFrame looked like this:
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'D', 'Draw'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'D', 'Draw'] = 0
 
+    total_match_logs_df.loc[total_match_logs_df['Start'] == 'Y', 'Games_Start'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Start'] != 'Y', 'Games_Start'] = 0
 
+This is a critical step. Here we aggregate all columns at the week level. Our final dataset will contain all players' profile data,
+matchlogs and injuries at the week level. For example, a football player plays 2 entire games within a week; then the player is playing 
+a total of 180 minutes. The same applies when a player scores in multiple games. This step aggregates all column values with the groupby 
+function and the sum() operator. Also, we can now merge the player_injuries_profile_final. 
 
+.. code:: python
 
+    # Grouping total_match_logs_df_2 by name, FBRefID, week and year    
+    total_match_logs_df_3 = total_match_logs_df_2.groupby(by=['name', 'FBRefID','week', 'year', 'Date']).sum().reset_index()
 
+    # Merging total_match_logs_df with player_injuries_profile_final
+    complete_final_df = pd.merge(left=total_match_logs_df_3, right=player_injuries_profile_final, left_on=['week', 'year', 'Date', 'FBRefID'], right_on=['current_week', 'current_year', 'current_date', 'FBRefID'], how='outer')
 
+Now that this dataframe is at the week level, we proceed to develop more columns
 
-Now there are some operations that are performed in multiple cells. Some of those include the removal of duplicates, dropping NaNs as well.
-We also do some testing in order to understand what data cleaning is required and more.
+.. code:: python
 
+    # Creating variable 'was_match' to know which rows are matches (real games) and which rows are not
+    complete_final_df.loc[complete_final_df['Min'].isnull(), 'was_match'] = 0
+    complete_final_df.loc[complete_final_df['Min'].isnull() == False, 'was_match'] = 1
 
+This is another critical step for our time series models. Here we add the weeks when players did not play and fill those with 0s. 
+In other words, if a player didn't play a certain week, we add a row. and populate all the date columns accordingly and the remaining 
+columns are filled with 0s. In addition, we perform another merge so we can only filter on the pla
 
+.. code:: python
 
+    def get_player_dates(fb_ref_id_list, df):
+        new_player_df = pd.DataFrame([])
+        
+        count = 0
+        
+        for fbref in fb_ref_id_list:
+            player_df = df[df['FBRefID'] == fbref].copy()
+            range = pd.date_range(start=player_df['date'].min(), end=player_df['date'].max(), freq='W')
+            range_df = pd.DataFrame(range).reset_index()
+            range_df['date'] = range_df[0]
+            range_df.drop(columns={0, 'index'}, inplace=True)
+            range_df['date'] = pd.to_datetime(range_df['date']) #.apply(lambda x: x.strftime("%Y-%m-%d"))
+            player_df['date'] = pd.to_datetime(player_df['date'])
+            player_merge = player_df.merge(range_df, left_on='date', right_on='date', how='outer').sort_values('date')
+            player_merge['FBRefID'] = player_merge['FBRefID'].ffill()
+            
+            if new_player_df.shape == (0, 0):
+                new_player_df = player_merge.sort_values(['FBRefID', 'date'])        
+            else:
+                new_player_df = new_player_df.append(player_merge.sort_values(['FBRefID', 'date']), ignore_index=True)
+            
+            count += 1
+            sys.stdout.write("\r{0} percent FBRefID's have been processed!".format(count / len(fb_ref_id_list)*100))
+            sys.stdout.flush()
 
+        new_player_df['agg_week'] = new_player_df['agg_week'].fillna(new_player_df['date'].dt.isocalendar().week)
+        new_player_df['agg_year'] = new_player_df['agg_year'].fillna(new_player_df['date'].dt.year)
+        
+        return new_player_df
 
+    new_player_df = get_player_dates(unique_FBRefIDs, complete_final_df_4)
 
+The following columns are added as dummy variables. Once we were able to complete the final merge, these columns were considering that 
+these features could be of great importance to improve our models.
 
+.. code:: python
 
+    # Assigning Dummy Variables for player position from 'Position:'
+    new_player_df.loc[new_player_df['Position:'].isnull(), 'Position:'] = ''
 
-This operation yielded the DataFrame player_injuries_df_2 which after dropping duplicates had a shape of 32,660 rows and 14 columns which looked like this:
+    new_player_df['defender'] = np.where(new_player_df['Position:'].str.contains('Defender'), 1, 0)
+    new_player_df['attacker'] = np.where(new_player_df['Position:'].str.contains('attack'), 1, 0)
+    new_player_df['midfielder'] = np.where(new_player_df['Position:'].str.contains('midfield'), 1, 0)
+    new_player_df['goalkeeper'] = np.where(new_player_df['Position:'].str.contains('Goalkeeper'), 1, 0)
 
+    new_player_df['right_foot'] = np.where(new_player_df['Foot'].str.contains('RIGHT'), 1, 0)
+    new_player_df['left_foot'] = np.where(new_player_df['Foot'].str.contains('LEFT'), 1, 0)
 
-Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+    new_player_df['Injury'] = new_player_df['Injury'].astype(str)
+    new_player_df.loc[new_player_df['Injury'] == '0', 'injury_count'] = 0
+    new_player_df.loc[new_player_df['Injury'] != '0', 'injury_count'] = 1 
 
-The player_injuries_df_2 DataFrame was merged with the player_info_df DataFrame on 'FBRefID and '’FBRefId' respectively at their intersection.
+    new_player_df['cum_injury'] = new_player_df.groupby(['FBRefID'])['injury_count'].cumsum()
 
+    new_player_df['age'] = round((pd.to_datetime(new_player_df['date']) - pd.to_datetime(new_player_df['Birth'])) / timedelta(days=365), 0)
 
-Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+Are we done?
 
-The resulting player_injuries_info_df had a shape of 32,584 rows and 29 columns which looked like this:
+.. image:: images/cristiano.gif
 
-
-Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
-
-This player_injuries_info_df DataFrame was then merged with the Transfermarkt profile information in the tm_profile_df DataFrame on 'TMId' and 'TMId' respectively at their intersection.  The merge yielded the player_injuries_profile_final DataFrame with a shape of 32,584 rows and 75 columns.  This DataFrame looked like this:
-
-
-
-New columns were created in this DataFrame like: 'injury_year', 'injury_week', and 'release_week'. Additionally an explode function was used to get all the weeks that were not present.  Additional NaN cleaning, column renaming, and datetime formatting was executed.  These steps yield a new shape in the player_injuries_profile_final DataFrame of 159,362 rows and 75 columns.
-
-The consolidated_df was renamed to total_match_logs_df.  Columns for new variables and dummy variables were created in this DataFrame like:  'week', 'year', Won' 'Loss', 'Draw', and  'Games_Start'. Type conversions, lowercasing and column drops were also executed yielding a new DataFrame named total_match_logs_df_2 with a shape of 2,654,677 rows and 42 columns.
-
-The total_match_logs_df_2 DataFrame was grouped by 'name', 'FBRefID', 'week', 'year', and 'Date' to create the total_match_logs_df_3 DataFrame with a shape of 2,517,243 rows and 42 columns.
-
-
-Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
-
-The complete_final_df DataFrame was obtained by merging as a union the total_match_logs_df_3 DataFrame and the player_injuries_profile_final DataFrame, left on: 'week', 'year', 'Date', 'FBRefID'; and right on: 'current_week', 'current_year', 'current_date', 'FBRefId’.  This new complete_final_df had a shape of 2,674,724 rows and 116 columns. Additional NaN cleaning and column dropping was executed. The 'was_match' column was added to indicate on which week there was a soccer match. Then a multivariate groupby was done with fillna():
-
-
-
-This operation resulted in the creation of the complete_final_df_2 DataFrame with a shape of 2,268,131 rows and 56 columns. The player_profile_weight DataFrame was loaded as player_weight_foot_df.  After further cleaning and dropping done to the complete_final_df_2, an inner merge between the complete_final_df_2 and the player_weight_foot_df DataFrames was executed on the 'FBRefID' column and the 'FBRefId' column respectively. This resulted in the complete_final_df_3 DataFrame with shape 931,073 rows and 59 columns.
-
-
-
-Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns.
-
-The features of the new_player_df:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Creating new columns with features
-
-player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
-player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['until'] != '-']
-player_injuries_profile_final['injury_year'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').year)
-player_injuries_profile_final['injury_week'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
-player_injuries_profile_final['release_week'] = player_injuries_profile_final['until'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
-player_injuries_profile_final['from'] = pd.to_datetime(player_injuries_profile_final['from'])
-player_injuries_profile_final['until'] = pd.to_datetime(player_injuries_profile_final['until'])
-
-# Exploding Dataframe to weekly basis
-
-def ran_week(row):
-        return list(pd.date_range(row['from'], row['until'], freq='w'))
-
-# def ran_year(row):
-    # return list(pd.date_range(row['from'], row['until'], freq='y'))
-
-player_injuries_profile_final['injury_week'] = player_injuries_profile_final['injury_week'].astype(int)
-player_injuries_profile_final['release_week'] = player_injuries_profile_final['release_week'].astype(int)
-player_injuries_profile_final['current_week'] = player_injuries_profile_final.apply(ran_week, axis = 1)
-# player_injuries_profile_final['current_year'] = player_injuries_profile_final.apply(ran_year, axis = 1)
-
-
-
-
-
-
-
+..... for now .....
 
