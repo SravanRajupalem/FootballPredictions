@@ -519,7 +519,7 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 
-.. image:: https://giphy.com/embed/KQxSPft9zl4aRQ10bE
+.. image:: https://media.giphy.com/media/3oEduKOlpkEizFm9bO/giphy.gif
 
 
 player_data_df_england
@@ -531,7 +531,7 @@ df_3 = pd.read_csv('player_profile_df_3.csv')
 
 player_data_df_italy
 
-
+<iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
 
 
 
