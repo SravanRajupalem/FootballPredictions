@@ -521,6 +521,11 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 .. image:: http://i.imgur.com/O6DxDxo.gif
 
 
+asdasd
+
+.. image:: https://media.giphy.com/media/3oEduKOlpkEizFm9bO/giphy.gif
+
+
 player_data_df_england
 
 df_1 = pd.read_csv('player_profile_df_1.csv')
