@@ -519,18 +519,8 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 
-.. only:: html
 
-   .. figure:: riker_deal_with_it.gif
-
-      "Deal With It" featuring Commander Riker
-
-   .. figure:: ron_paul_happening.gif
-
-      "It's happening!" featuring American politician Ron Paul
-
-
-
+<iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
 
 
 player_data_df_england
