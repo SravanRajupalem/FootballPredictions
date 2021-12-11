@@ -316,9 +316,9 @@ This notebook is used to combine all dataframes produced from the batches above.
 
 **15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
 
-In these notebooks, we will go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are 
-unique IDs assigned by FBRef to each player. Some relevant profile information such as the birth, height, position and more are considered 
-for the ML models. All notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
+In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
+by FBRef to each player. Some relevant profile information such as the birth, height, position and more are considered for the ML models. All 
+notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
 
 First, we create a function that generates a list of all seasons starting at 2010 from the top 5 leagues. 
 Then we apply this function to a one league. In this example, the list will be generated for the English league.
@@ -406,33 +406,115 @@ to dataframe called player_data_df_england.csv.
 
     player_info_england = fbref_player_info(player_url_england)
 
+**16. Extract_Injuries.ipynb**
+
+This notebook is used to scrape players injuries from the years of 2010 to 2021 across the 5 European Leagues. Since we are performing a time series, 
+it was decided to only include years from 2010 to 2021. 
+
+Here is where the URLs for every seasons of all leagues are scraped and stored into a list.
+
+.. code:: python
+
+    # Leagues & Seasons
+    leagues = [
+        "https://www.transfermarkt.com/premier-league/startseite/wettbewerb/GB1/saison_id/",
+        "https://www.transfermarkt.com/bundesliga/startseite/wettbewerb/L1/saison_id/",
+        "https://www.transfermarkt.com/laliga/startseite/wettbewerb/ES1/saison_id/",
+        "https://www.transfermarkt.com/serie-a/startseite/wettbewerb/IT1/saison_id/",
+        "https://www.transfermarkt.com/ligue-1/startseite/wettbewerb/FR1/saison_id/"
+    ]
+
+    def all_league_urls(url, season_range = [2010,2021]):
+        league_url = []
+        for i in url:
+            league_url.append(list(map(lambda x : i + str(x), np.arange(season_range[0], season_range[1]+1, 1))))
+        league_url  = list(itertools.chain(*league_url))
+        return league_url
+        
+    league_url = all_league_urls(leagues)
+
+Teams URLs are now generated from the list above and stored into a single list 
 
 
+.. code:: python
 
+    def find_team_urls(league_urls):
+        # Teams
+        headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
+        team_url = []
 
+        for i in league_urls:
+            soup = BeautifulSoup(requests.get(i, headers=headers).content, "html.parser") 
+            team_urls = soup.find("table", class_ = "items").find_all("a")
+            team_url.append(pd.Series(list(map(lambda x: "https://www.transfermarkt.com" + x["href"], team_urls))).unique().tolist())
+        
+            # team_urls = soup.find("table", class_ = "items").find_all("a", {"class":"vereinprofil_tooltip"})
+            
+        team_url  = list(itertools.chain(*team_url))
+        links = list(filter(lambda k: 'kader' in k, team_url))
+        return links
 
-# Leagues & Seasons
-leagues = [
-    "https://www.transfermarkt.com/premier-league/startseite/wettbewerb/GB1/saison_id/",
-    "https://www.transfermarkt.com/bundesliga/startseite/wettbewerb/L1/saison_id/",
-    "https://www.transfermarkt.com/laliga/startseite/wettbewerb/ES1/saison_id/",
-    "https://www.transfermarkt.com/serie-a/startseite/wettbewerb/IT1/saison_id/",
-    "https://www.transfermarkt.com/ligue-1/startseite/wettbewerb/FR1/saison_id/"
-]
+    team_url = find_team_urls(league_url)
 
-def all_league_urls(url, season_range = [2010,2021]):
-    league_url = []
-    for i in url:
-        league_url.append(list(map(lambda x : i + str(x), np.arange(season_range[0], season_range[1]+1, 1))))
-    league_url  = list(itertools.chain(*league_url))
-    return league_url
-    
+After generating a few more options to obtain the final list of URLs for all desired players, the following function can now pull
+the players' injuries
 
-league_url = all_league_urls(leagues)
-league_url
+.. code:: python
 
+    def injury_table(url):
+        # URL & PLAYER ID
+        url = url.replace("profil", "verletzungen")
+        pid = url.split("spieler/")[1]
 
+        # Request
+        headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
+        r=requests.get(url, headers = headers)
+        soup=BeautifulSoup(r.content, "html.parser")
+        
+        if soup.find("h1") != None:
+            name = soup.find("h1").get_text()
+            nationality = soup.find("span", {"itemprop":"nationality"}).get_text()
+            dateofbirth = soup.find("span", {"itemprop":"birthDate"}).get_text()
+            height = soup.find("span", {"itemprop":"height"}).get_text()
 
+        try:
+            
+            temp = pd.read_html(str(soup.find("table", class_ = "items")))[0]
+            
+            try:
+                # Find page number
+                page_numbers = []
+
+                for i in soup.find("div", {'class' : "pager"}).find_all('li'):
+                    page_numbers.append(i.find('a')['title'])
+
+                page =len(list(filter(lambda k: 'Page' in k, page_numbers)))
+            
+                if page > 1:
+                    for page_num in np.arange(2, page+1, 1):
+                        url2 = url + "/ajax/yw1/page/"+str(page_num)
+                        soup2 = BeautifulSoup(requests.get(url2, headers=headers).content, "html.parser")  
+                        temp_table2 = pd.read_html(str(soup2.find("table", class_ = "items")))[0]
+                        temp = temp.append(temp_table2)
+                
+            except:
+                pass
+            
+            temp["TMId"]=pid
+            temp['name']=name 
+            temp['dateofbirth']=dateofbirth
+            temp['nationality']=nationality
+            temp['height']=height
+            
+            temp = temp.replace('\n', '', regex=True)
+            
+            return temp.reset_index(drop=True)
+        
+        except:
+            pass
+        
+Additionaly, there are other functions that are created to obtain additional attributes that were believed they may contribute to our ML models such 
+as 'Retired since:', 'Without Club since:', and more. Last, the final list was run in 3 batches since this step came at high computational cost.
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
