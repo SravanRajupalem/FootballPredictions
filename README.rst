@@ -42,18 +42,21 @@ Overview
 ~~~~~~~~
 - The main programming language used in this project is Python. 
 - VSCode is the code-editor employed since it allows the connection of the GitHub repository as well as working cooperatively in real-time.
-- Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations, and creation of all Machine Learning models. 
-- Google Drive has been mirrored into our local machines in order to read and write large files through VSCode since our GitHub repository had a limited capacity. 
-- An Amazon Web Services(AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive when building applications 
-  that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
+- Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations, and creation of 
+all Machine Learning models. 
+- Google Drive has been mirrored into our local machines in order to read and write large files through VSCode since our GitHub repository had a 
+limited capacity. 
+- An Amazon Web Services(AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
+when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
 Quick Start
 ~~~~~~~~~~~
 
-1. FBRED Extrack.ipynb
+**1. FBREF Extract.ipynb**
 
-In this notebook, we create an extensive list of all match logs for all players and all the seasons they played in. This also includes match logs of other 
-competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as their national team matches. 
+In this notebook, we create an extensive list of all match logs for all players and all the seasons they played from the FBRef website. 
+This also includes match logs of other competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as 
+their national team matches. 
 
 Import the following Libraries:
 
@@ -105,8 +108,8 @@ Use BeautifulSoup to first obtain the league URLs
         league_seasons = get_all_seasons(i)
         all_seasons_big_5 += league_seasons
 
-Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more steps during the data scrapping, 
-but only the most important ones are shown; refer to the notebooks for the complete code.
+Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more 
+steps during the data scrapping, but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
 
@@ -156,28 +159,236 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
         sys.stdout.flush()
 
+**1.5 Append match_url_files.ipynb**
+
+In this notebook, we concatenate the match logs lists that were created above to build the final match_log_urls list that contains 
+all players' URLs match logs for every single season. This list has 148,478 URLs
+
+.. code:: python
+
+    import pandas as pd
+
+.. code:: python
+
+    # Uniting all match logs into a single list:  match_logs_list_urls
+
+    match_logs_list_urls = []
+    match_logs_list_urls.extend(list(match_logs_list_urls_1['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_2['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_3['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_4['0']))
+    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
+
+However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
+The final list reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it the easiest and fastest methods to save file to 
+the Google Drive.
+
+.. code:: python
+
+    # Eliminated Repeated match logs
+    match_logs_list_urls = list(set(match_logs_list_urls))
+
+    # Export as CSV
+    pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
+
+**2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283** 
+
+It is time to perform the real data scrapping. Here, we are pulling data from the above list, which contains a total of 118,283 URLs. 
+By running this function, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
+have match logs that contain 30 attributes or columns while other players have match logs with 39 attributes. Thus, players' match logs are 
+appended to two dataframes of 30 columns and 39 columns, respectively. 
+
+**Important note**
+
+    This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
+    A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
+    this is an example of the first batch. At the end, all dataframes will be concatenated together to produce a single dataframe.
 
 
+Import the following Libraries:
+
+.. code:: python
+
+    import datetime
+    from datetime import date
+    import requests
+    import pprint
+    from bs4 import BeautifulSoup
+    import pandas as pd
+    import re
+    import pickle
+    from urllib.request import urlopen
+    import sys
+
+.. code:: python
+
+    # Pull all match_log_lists. We will convert each list individually
+
+    def create_match_logs_tables(match_logs_list_urls_x):
+
+        df_30_columns = pd.DataFrame([])
+        df_39_columns = pd.DataFrame([])
+
+        count = 0
+
+        for player in match_logs_list_urls_x:
+            try: # this may fix "HTTP Error 404: Not Found"
+                # urlopen(player)
+
+                new_table = pd.read_html(player)[0]
+                new_table.columns = new_table.columns.droplevel()
+                new_table['name'] = player.split('/')[-1].replace("-Match-Logs", "")
+                
+                if new_table.shape[1] == 30:
+                    new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                    df_30_columns = df_30_columns.append(new_table, ignore_index=True)
+                    count += 1
+                    
+                    
+                if new_table.shape[1] == 39:
+                    new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                    df_39_columns = df_39_columns.append(new_table, ignore_index=True)
+                    count += 1
+
+                sys.stdout.write("\r{0} percent player urls have just scraped!".format(count / len(match_logs_list_urls_x)*100))
+                sys.stdout.flush()
+
+            except:
+                pass
+        
+        return df_30_columns, df_39_columns
+
+    # Creating different length data frames for the first 5000 URLs
+
+    df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])
+
+Here the two dataframes generated by the function above are merged into a single dataframe. Only the most relevant columns are stored.
+
+.. code:: python
+
+    #Combining Df_30_columns_1 and df_39_columns_1 to dataframe_1
+
+    cols = ['Date', 'Day', 'Comp', 'Round', 'Venue', 'Result', 'Squad', 'Opponent', 'Start', 'Pos', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY',
+        'CrdR', 'Match Report', 'Int', 'name', 'FBRefID']
+
+    df1 = df_39_columns_1
+    df2 = df_30_columns_1
+
+    df_final_1 = df1.merge(df2,how='outer', left_on=cols, right_on=cols)
+
+**14. Player Data Dataframe Consolidation.ipynb**
+
+This notebook is used to combine all dataframes produced from the batches above. Here, we also discard unnecesary columns and clean some NaNs
+
+.. code:: python
+
+    import pandas as pd
+
+.. code:: python
+
+    # Concatenating df_final data frames
+
+    df_final_list = [df_final_1, df_final_2, df_final_3, df_final_4, df_final_5, df_final_6, 
+                    df_final_7, df_final_8, df_final_9, df_final_10, df_final_11, df_final_12, df_final_13, df_final_14, df_final_15]
+    df_final = pd.concat(df_final_list, axis=0, ignore_index=True)
+
+    # Cleaning NaN's from df_final
+
+    df_final.dropna(axis = 0, subset=['Date'], inplace = True)
+
+    # Dropping unwanted columns from df_final
+
+    df_final.drop(columns = ['Match Report'], inplace = True)
+
+**15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
+
+In this notebooks, we will go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are 
+unique IDs assigned by FBRef to each player. Some relavant profile information such as the birth, height, position and more are considered 
+for the ML models. All notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
+
+First, we create a function that generates a list of all seasons starting at 2010 from the top 5 leagues. 
+Then we apply this function to a one league. In this example, the list will be generated for the English league .
+
+.. code:: python
 
 
+    def fbref_league_history(league_id = [9,11,12,13,20], first_season = 2010):
+        history = []
+        for i in league_id:
+            comp_history_url = "https://fbref.com/en/comps/" + str(i) + "/history" 
+            #print(comp_history_url)
+
+            r=requests.get(comp_history_url)
+            soup=BeautifulSoup(r.content, "html.parser")
+
+            find_seasons = soup.find_all(class_ = "left")
+
+            all_seasons_url = []
+            for k in range(0, len(find_seasons)):
+                if find_seasons[k].get('data-stat') == "season":
+                    temp = "https://fbref.com" + find_seasons[k].find_all("a")[0].attrs["href"]
+                    all_seasons_url.append(temp)
+
+            history.append(all_seasons_url)
+            time.sleep(0.1)
+
+        # All histories in one array
+        history  = list(itertools.chain(*history))
+
+        seasons = list(map(lambda x: str(x)+"-"+str(x+1), np.arange(1950, first_season, 1)))
+        for i in seasons:
+            history = NOTFilter(history, [i])
+        del seasons
+
+        return history
+
+    history_england = fbref_league_history(league_id = [9])
 
 
+This first function generates the list of all teams for all seasons since 2010, and the second function produces the list of all players 
+from all of those clubs.
 
+.. code:: python
 
+def fbref_team_url_history(league_history):
+    team_season_url = []
+    for league_season_url in league_history:
+        r=requests.get(league_season_url)
+        soup=BeautifulSoup(r.content, "html.parser")
+        teams = soup.find("table").find_all("a")
+        teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
+        teams = Filter(teams, ["/en/squads/"])
+        team_season_url.append(teams)
 
+    # All histories in one array
+    team_season_url  = list(itertools.chain(*team_season_url))
+    return team_season_url
 
+def fbref_team_url_history(league_history):
+    team_season_url = []
+    for league_season_url in league_history:
+        r=requests.get(league_season_url)
+        soup=BeautifulSoup(r.content, "html.parser")
+        teams = soup.find("table").find_all("a")
+        teams = list(map(lambda x: "https://fbref.com" + x["href"], teams))
+        teams = Filter(teams, ["/en/squads/"])
+        team_season_url.append(teams)
 
+    # All histories in one array
+    team_season_url  = list(itertools.chain(*team_season_url))
+    return team_season_url
 
+    # Premier League (England) Seasons (England: 9 | Italy: 11 | Spain: 12 | France: 13 | Germany: 20)
+    team_season_url_england = fbref_team_url_history(history_england)
 
+An extensive function is created to scrape all players profile information as well as the FBRef ID. Finally, all of the data is exported 
+to dataframe called player_data_df_england.csv.
 
+**Important note**
 
+    Refer to the Profile Data Dataframe Englad.ipynb to review the last function. It is not included here since it is very extensive.
 
+.. code:: python
 
-
-
-
-
-
-
-
+    player_info_england = fbref_player_info(player_url_england)
 
