@@ -520,8 +520,7 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 
 
-<iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
-
+![hippo](https://media3.giphy.com/media/aUovxH8Vf9qDu/giphy.gif)
 
 player_data_df_england
 
