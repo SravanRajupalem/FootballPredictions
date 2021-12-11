@@ -1,8 +1,11 @@
 Football Predictions Capstone Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This capstone project consists of developing an injury predictor that can assist football managers or clubs to make a decision when it comes to investing in football players.
 
-**The main features** of this library are:
+.. image:: images/stadium.jpg
+
+This capstone project consists of developing an injury predictor that can assist football managers or clubs to make decisions when it comes to investing in football players.
+
+The main features of this project are:
 
 - A high-level API allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani, and England).
 - A high-level API allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players' injury data.
@@ -14,10 +17,6 @@ This capstone project consists of developing an injury predictor that can assist
 
     Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an 
     approximate number of 30+ players. The entire data set takes accounts of every single available season.
-    
-    Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an approximate number of 30+ players.
-    The entire data pulling accounts for every single season available.
-    
 
     The Beautiful Soup Python library was used for pulling data from the web. This requires basic knowledge of how to read and interpret HTML and XML files.
 
@@ -32,29 +31,24 @@ This capstone project consists of developing an injury predictor that can assist
 Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
- - `Quick Start`_
- - `Simple training pipeline`_
- - `Examples`_
- - `Models and Backbones`_
- - `Installation`_
- - `Documentation`_
- - `Change log`_
+ - `Data Scraping and Manipulation`_
+ - `Visual Exploration of Data`_
+ - `Model Building`_
  - `Citing`_
- - `License`_
- 
+
 Overview
 ~~~~~~~~
 - The main programming language used in this project is Python. 
 - VSCode is the code-editor employed since it allows the connection of the GitHub repository as well as working cooperatively in real-time.
 - Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations, and creation of 
   all Machine Learning models. 
-- Google Drive has been mirrored into our local machines in order to read and write large files through VSCode since our GitHub repository had a 
+- Google Drive has been mirrored into our local machines to read and write large files through VSCode since our GitHub repository had a 
   limited capacity. 
 - An Amazon Web Services (AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
   when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
-Quick Start
-~~~~~~~~~~~
+Data Scraping and Manipulation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First of all, import the following Libraries:
 
@@ -146,7 +140,7 @@ Use BeautifulSoup to first obtain the league URLs
         league_seasons = get_all_seasons(i)
         all_seasons_big_5 += league_seasons
 
-Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more 
+Here we pull all players' stats for all competitions to conclude with a list of all players' URLs for every season they played. Please note that there are more 
 steps during the data scrapping, but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
@@ -214,8 +208,8 @@ all players' URLs match logs for every single season. This list has 148,478 URLs
     match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
 
 However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
-The final list reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it the easiest and fastest methods to save file to 
-the Google Drive.
+The final list was reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it is the most comfortable and fastest method
+to save this file to the Google Drive.
 
 .. code:: python
 
@@ -236,7 +230,7 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
 
     This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
     A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
-    this is an example of the first batch. At the end, all dataframes will be concatenated together to produce a single dataframe.
+    this is an example of the first batch. In the end, all dataframes are concatenated together to produce a single dataframe.
 
 .. code:: python
 
@@ -317,11 +311,11 @@ This notebook is used to combine all dataframes produced from the batches above.
 **15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
 
 In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
-by FBRef to each player. Some relevant profile information such as the birth, height, position and more are considered for the ML models. All 
+by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
 notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
 
-First, we create a function that generates a list of all seasons starting at 2010 from the top 5 leagues. 
-Then we apply this function to a one league. In this example, the list will be generated for the English league.
+First, we create a function that generates a list of all seasons starting in 2010 from the top 5 leagues. 
+Then we apply this function to one league. In this example, the list will be generated for the English league.
 
 .. code:: python
 
@@ -394,13 +388,13 @@ from all of those clubs.
         # Premier League (England) Seasons (England: 9 | Italy: 11 | Spain: 12 | France: 13 | Germany: 20)
         team_season_url_england = fbref_team_url_history(history_england)
 
-An extensive function is created to scrape all players profile information as well as the FBRef ID. Finally, all of the data is exported 
-to dataframe called player_data_df_england.csv.
+An extensive function is created to scrape all players' profile information as well as the FBRef ID. Finally, all of the data is exported 
+to dataframe called **player_data_df_england.csv**.
 
 **Important note**
 
     Refer to the **15a.Profile Data Dataframe England.ipynb** to review the last function. It is not included here since it is very extensive.
-    Additionaly, the concatenating of the 5 dataframes is performed in book **17. Consolidate Profile Data Dataframe.ipynb**
+    Additionally, the concatenating of the 5 dataframes is performed in book **17. Consolidate Profile Data Dataframe.ipynb**
 
 .. code:: python
 
@@ -408,10 +402,10 @@ to dataframe called player_data_df_england.csv.
 
 **16. Extract_Injuries.ipynb**
 
-This notebook is used to scrape players injuries from the years of 2010 to 2021 across the 5 European Leagues, and obtain additional players'
+This notebook is used to scrape players injuries from the years 2010 to 2021 across the 5 European Leagues, and obtain additional players'
 profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
 
-Here is where the URLs for every seasons of all leagues are scraped and stored into a list.
+Here is where the URLs for every season of all leagues are scraped and stored into a list.
 
 .. code:: python
 
@@ -456,7 +450,7 @@ Teams URLs are now generated from the list above and stored into a single list
     team_url = find_team_urls(league_url)
 
 After generating a few more steps to obtain the final list of URLs for all desired players, the next 2 following functions can now pull
-the players' injuries. Then, this is exported into a dataframe called 'player_injuries_df.csv' 
+the players' injuries. Then, this is exported into a dataframe called **'player_injuries_df.csv'**.
 
 .. code:: python
 
@@ -526,15 +520,15 @@ the players' injuries. Then, this is exported into a dataframe called 'player_in
 
     player_injuries_df.to_csv('player_injuries_df.csv', index=False)  
         
-Additionally, there are other functions that are created to obtain a new dataframe that captures profile data with additional attributes that 
+Further, tother functions are created to obtain a new dataframe that captures profile data with additional attributes that 
 contribute to our ML models such as 'Retired since:', 'Without Club since:', and more. Last, this final dataframe is generated in 3 batches 
 since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
-This is the most extensive notebook in our entire repository. Here is where we complete the final merge and build the main dataframe. Thus, be prepared
- to spend some time reading this notebook. 
+This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
+to spend some time reading this notebook. 
 
 .. image:: images/guardiola.gif
 
@@ -576,138 +570,148 @@ Here are all the CSV files that are called:
     fbref_to_tm_df['FBRefID'] = fbref_to_tm_df['UrlFBref'].str.split('/').str[5]
     fbref_to_tm_df['TMID'] = fbref_to_tm_df['UrlTmarkt'].str.split('/').str[6]
 
-Now there are some operations that are performed in multiple cells. Some of those include the removal of duplicates, dropping NaNs as well.
-We also do some testing in order to understand what data cleaning is required and more.
+    # Merging on intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively - shape is (32660, 14)
+    player_injuries_df_2 = pd.merge(left=player_injuries_df, right=fbref_to_tm_df, left_on='TMId', right_on='TMID', how='inner')
+
+    # Merging Player Injuries with FBRef Profiles
+    player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
+
+    # Merge with TM Profile information
+    player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
 
+This is just the beginning...
 
-This operation yielded the DataFrame player_injuries_df_2 which after dropping duplicates had a shape of 32,660 rows and 14 columns which looked like this:
+.. image:: images/referee.gif
 
+There is a great number of steps taken on this notebook, we only highlight the ones we believe are the most relevant. Steps like
+removing duplicates, dropping NaNs, updating the column types, and any other basic operations are excluded. We also do some testing in order
+to understand what data cleaning is required and more. Please refer to the **17. Consolidate Profile Data Dataframe.ipynb** for the 
+complete notebook.
+
+Here we create some important features that are considered for our time series models.
 
-Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+.. code:: python
 
-The player_injuries_df_2 DataFrame was merged with the player_info_df DataFrame on 'FBRefID and '’FBRefId' respectively at their intersection.
+    # Creating new columns of the week and year a player gets injured as well as the week the player is released
 
+    player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
+    player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['until'] != '-']
+    player_injuries_profile_final['injury_year'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').year)
+    player_injuries_profile_final['injury_week'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+    player_injuries_profile_final['release_week'] = player_injuries_profile_final['until'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+    player_injuries_profile_final['from'] = pd.to_datetime(player_injuries_profile_final['from'])
+    player_injuries_profile_final['until'] = pd.to_datetime(player_injuries_profile_final['until'])
 
-Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+    # Creating new columns - player's team wins, loses or draws a game, also add a column to highlight when player starts playing
+    # since the beginning of the match
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'W', 'Won'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'W', 'Won'] = 0
 
-The resulting player_injuries_info_df had a shape of 32,584 rows and 29 columns which looked like this:
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'L', 'Loss'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'L', 'Loss'] = 0
 
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'D', 'Draw'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'D', 'Draw'] = 0
 
-Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
+    total_match_logs_df.loc[total_match_logs_df['Start'] == 'Y', 'Games_Start'] = 1
+    total_match_logs_df.loc[total_match_logs_df['Start'] != 'Y', 'Games_Start'] = 0
 
-This player_injuries_info_df DataFrame was then merged with the Transfermarkt profile information in the tm_profile_df DataFrame on 'TMId' and 'TMId' respectively at their intersection.  The merge yielded the player_injuries_profile_final DataFrame with a shape of 32,584 rows and 75 columns.  This DataFrame looked like this:
+This is a critical step. Here we aggregate all columns at the week level. Our final dataset will contain all players' profile data,
+match logs, and injuries at the week level. For example, a football player plays 2 entire games within a week; then the player is playing 
+a total of 180 minutes. The same applies when a player scores in multiple games. This step aggregates all column values with the groupby 
+function and the sum() operator. Also, we can now merge the player_injuries_profile_final. 
 
+.. code:: python
 
+    # Grouping total_match_logs_df_2 by name, FBRefID, week and year    
+    total_match_logs_df_3 = total_match_logs_df_2.groupby(by=['name', 'FBRefID','week', 'year', 'Date']).sum().reset_index()
 
-New columns were created in this DataFrame like: 'injury_year', 'injury_week', and 'release_week'. Additionally an explode function was used to get all the weeks that were not present.  Additional NaN cleaning, column renaming, and datetime formatting was executed.  These steps yield a new shape in the player_injuries_profile_final DataFrame of 159,362 rows and 75 columns.
+    # Merging total_match_logs_df with player_injuries_profile_final
+    complete_final_df = pd.merge(left=total_match_logs_df_3, right=player_injuries_profile_final, left_on=['week', 'year', 'Date', 'FBRefID'], right_on=['current_week', 'current_year', 'current_date', 'FBRefID'], how='outer')
 
-The consolidated_df was renamed to total_match_logs_df.  Columns for new variables and dummy variables were created in this DataFrame like:  'week', 'year', Won' 'Loss', 'Draw', and  'Games_Start'. Type conversions, lowercasing and column drops were also executed yielding a new DataFrame named total_match_logs_df_2 with a shape of 2,654,677 rows and 42 columns.
+Now that this dataframe is at the week level, we proceed to develop more columns
 
-The total_match_logs_df_2 DataFrame was grouped by 'name', 'FBRefID', 'week', 'year', and 'Date' to create the total_match_logs_df_3 DataFrame with a shape of 2,517,243 rows and 42 columns.
+.. code:: python
 
+    # Creating variable 'was_match' to know which rows are matches (real games) and which rows are not
+    complete_final_df.loc[complete_final_df['Min'].isnull(), 'was_match'] = 0
+    complete_final_df.loc[complete_final_df['Min'].isnull() == False, 'was_match'] = 1
 
-Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
+This is another critical step for our time series models. Here we add the weeks when players did not play and fill those with 0s. 
+In other words, if a player didn't play a certain week, we add a row and populate all the date columns accordingly and the remaining 
+columns are filled with 0s. In addition, we perform another merge so we can only filter on players from FBRef.
 
-The complete_final_df DataFrame was obtained by merging as a union the total_match_logs_df_3 DataFrame and the player_injuries_profile_final DataFrame, left on: 'week', 'year', 'Date', 'FBRefID'; and right on: 'current_week', 'current_year', 'current_date', 'FBRefId’.  This new complete_final_df had a shape of 2,674,724 rows and 116 columns. Additional NaN cleaning and column dropping was executed. The 'was_match' column was added to indicate on which week there was a soccer match. Then a multivariate groupby was done with fillna():
+.. code:: python
 
+    def get_player_dates(fb_ref_id_list, df):
+        new_player_df = pd.DataFrame([])
+        
+        count = 0
+        
+        for fbref in fb_ref_id_list:
+            player_df = df[df['FBRefID'] == fbref].copy()
+            range = pd.date_range(start=player_df['date'].min(), end=player_df['date'].max(), freq='W')
+            range_df = pd.DataFrame(range).reset_index()
+            range_df['date'] = range_df[0]
+            range_df.drop(columns={0, 'index'}, inplace=True)
+            range_df['date'] = pd.to_datetime(range_df['date']) #.apply(lambda x: x.strftime("%Y-%m-%d"))
+            player_df['date'] = pd.to_datetime(player_df['date'])
+            player_merge = player_df.merge(range_df, left_on='date', right_on='date', how='outer').sort_values('date')
+            player_merge['FBRefID'] = player_merge['FBRefID'].ffill()
+            
+            if new_player_df.shape == (0, 0):
+                new_player_df = player_merge.sort_values(['FBRefID', 'date'])        
+            else:
+                new_player_df = new_player_df.append(player_merge.sort_values(['FBRefID', 'date']), ignore_index=True)
+            
+            count += 1
+            sys.stdout.write("\r{0} percent FBRefID's have been processed!".format(count / len(fb_ref_id_list)*100))
+            sys.stdout.flush()
 
+        new_player_df['agg_week'] = new_player_df['agg_week'].fillna(new_player_df['date'].dt.isocalendar().week)
+        new_player_df['agg_year'] = new_player_df['agg_year'].fillna(new_player_df['date'].dt.year)
+        
+        return new_player_df
 
-This operation resulted in the creation of the complete_final_df_2 DataFrame with a shape of 2,268,131 rows and 56 columns. The player_profile_weight DataFrame was loaded as player_weight_foot_df.  After further cleaning and dropping done to the complete_final_df_2, an inner merge between the complete_final_df_2 and the player_weight_foot_df DataFrames was executed on the 'FBRefID' column and the 'FBRefId' column respectively. This resulted in the complete_final_df_3 DataFrame with shape 931,073 rows and 59 columns.
+    new_player_df = get_player_dates(unique_FBRefIDs, complete_final_df_4)
 
+The following columns are added as dummy variables. Once we were able to complete the final merge, these columns were considering that 
+these features could be of great importance to improve our models.
 
+.. code:: python
 
-Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns.
+    # Assigning Dummy Variables for player position from 'Position:'
+    new_player_df.loc[new_player_df['Position:'].isnull(), 'Position:'] = ''
 
-The features of the new_player_df:
+    new_player_df['defender'] = np.where(new_player_df['Position:'].str.contains('Defender'), 1, 0)
+    new_player_df['attacker'] = np.where(new_player_df['Position:'].str.contains('attack'), 1, 0)
+    new_player_df['midfielder'] = np.where(new_player_df['Position:'].str.contains('midfield'), 1, 0)
+    new_player_df['goalkeeper'] = np.where(new_player_df['Position:'].str.contains('Goalkeeper'), 1, 0)
 
+    new_player_df['right_foot'] = np.where(new_player_df['Foot'].str.contains('RIGHT'), 1, 0)
+    new_player_df['left_foot'] = np.where(new_player_df['Foot'].str.contains('LEFT'), 1, 0)
 
+    new_player_df['Injury'] = new_player_df['Injury'].astype(str)
+    new_player_df.loc[new_player_df['Injury'] == '0', 'injury_count'] = 0
+    new_player_df.loc[new_player_df['Injury'] != '0', 'injury_count'] = 1 
 
+    new_player_df['cum_injury'] = new_player_df.groupby(['FBRefID'])['injury_count'].cumsum()
 
+    new_player_df['age'] = round((pd.to_datetime(new_player_df['date']) - pd.to_datetime(new_player_df['Birth'])) / timedelta(days=365), 0)
 
+Are we done?
 
+.. image:: images/cristiano.gif
 
+..... for now .....
 
 
 
+Visual Exploration of Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Model Building
+~~~~~~~~~~~~~~~
 
-
-
-
-
-
-
-
-# removing duplicates from player_info_df - 32,584 rows and 29
-player_info_df = player_info_df.drop_duplicates()
-
-# Merging Player Injuries with FBRef Profiles
-player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
-
-# Merge with TM Profile information
-
-tm_profile_df['TMId'] = tm_profile_df['TMId'].astype(str)
-player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
-
-
-# Creating new columns with features
-
-player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
-player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['until'] != '-']
-player_injuries_profile_final['injury_year'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').year)
-player_injuries_profile_final['injury_week'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
-player_injuries_profile_final['release_week'] = player_injuries_profile_final['until'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
-player_injuries_profile_final['from'] = pd.to_datetime(player_injuries_profile_final['from'])
-player_injuries_profile_final['until'] = pd.to_datetime(player_injuries_profile_final['until'])
-
-# Exploding Dataframe to weekly basis
-
-def ran_week(row):
-        return list(pd.date_range(row['from'], row['until'], freq='w'))
-
-# def ran_year(row):
-    # return list(pd.date_range(row['from'], row['until'], freq='y'))
-
-player_injuries_profile_final['injury_week'] = player_injuries_profile_final['injury_week'].astype(int)
-player_injuries_profile_final['release_week'] = player_injuries_profile_final['release_week'].astype(int)
-player_injuries_profile_final['current_week'] = player_injuries_profile_final.apply(ran_week, axis = 1)
-# player_injuries_profile_final['current_year'] = player_injuries_profile_final.apply(ran_year, axis = 1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-player_data_df_italy
-
-<iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
-
-
-
-  Source: www.fbref.com
-
-From FBRef.com we first scraped information from the big 5 European leagues. With that base, we again scraped the website for all the seasons. 
-Then we scraped the player information from each of those seasons.  This operation yielded 81,256 player records. Finally we again scraped all 
-players' urls to get all the matches that each player had participated in. After going through these 5 iterations of scraping from FBRef.com, we 
-obtained a list of 118,283 match logs. With this list we again scraped the website by batches to obtain a final match logs data set, that after 
-some NaN cleaning, data type conversion  and dropping unwanted columns, ended up with a DataFrame named consolidated_df that had 3,048,121 rows 
-with 47 columns.
-
-
-
-
-
-
-player_info_england 
-player_info_italy
-player_info_spain 
-player_info_france 
-player_info_germany
+Citing 
+~~~~~~
