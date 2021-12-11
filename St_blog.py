@@ -11,7 +11,7 @@ st.write("Sravan Rajupalem")
 st.write("Renzo Maldonado")
 st.write("Victor Ruiz is in Orlando")
 
-section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation", "Feature Engineering", 
+section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building", "Injury Prediction Tool"))
 
 st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the world of Data Science. Magically using complex 
@@ -68,7 +68,7 @@ if section == "Scraping the Web for Data":
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
     
-elif section == "Data Manipulation":
+elif section == "Data Manipulation & Feature Engineering":
     st.header("Merging, Cleaning and Manipulating the Data")
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
@@ -109,14 +109,44 @@ elif section == "Data Manipulation":
         'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
     df_final
 
-elif section == "Feature Engineering":
-    st.header('Feature Engineering')
+    st.write("After all the data manipulation and feature engineering the head of our data frame looks like so:")
+    dataset_for_model_final_head = pd.read_csv('dataframes_blog/dataset_for_model_final_head.csv')
+    st.code(dataset_for_model_final_head.head())
 
 elif section == "Visual Exploration of Data":
     st.header('Visual Exploration of Data')
+    st.write("The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
+        variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
+        injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
+        the next quarter, the next semester or the next year. These classes had the following proportions:")
+    img7 = Image.open("images/image7.png")
+    st.image(img7)
+    st.write("We can see that the dominant class is 0: when players are not injured, which makes sense because we don't expect players \
+        to be injured more time than they are not injured. So our data is unbalanced which will have to be taken into account when we \
+        modelling.")
+    st.write("We did some additional explorations to see if the data made 'sense'.  We wanted to see the relationship between minutes \
+        played and the age of players.")
+    img8 = Image.open("images/image8.png")
+    st.image(img8)
+    st.write("In this case it's interesting to see that there seems to be an 'optimal' age where players tend to play more minutes. \
+        It looks like players between 20 and 34 years old play more minutes. This is unexpected, as we would have thougt that younger \
+        players would play more minutes, but on second thought, it makes sense due to their career development.")
+    st.write("We also plotted minutes played (Min) vs the accumulated number of injuries per player (cum_injury_total).")
+    img9 = Image.open("images/image9.png")
+    st.image(img9)
+    st.write("In this case we find a logical pattern, that player with less accumulated injuries tend to play more minutes.")
+    st.write("Additionally, we plotted player's weight (Weight) vs the accumulated number of injuries per player (cum_injury_total).")
+    img10 = Image.open("images/image10.png")
+    st.image(img10)
+    st.write("In this case there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
+        is probably due to the fact that most players weigh in that range.")
+    img11 = Image.open("images/image11.png")
+    st.image(img11)
 
-elif section == "Visual Exploration of Data":
-    st.header('Visual Exploration of Data')
+    
+
+elif section == "Model Building":
+    st.header("Model Building")
 
 else:
     st.header('Injury Prediction Tool')
