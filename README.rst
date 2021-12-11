@@ -518,8 +518,20 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 
 
+**17. Consolidate Profile Data Dataframe.ipynb**
+
+This is the most extensive notebook in our entire repository. Here is where we complete the final merge and build the main dataframe. Thus, be prepared
+ to spend some time reading this notebook. 
+
 .. image:: images/guardiola.gif
 
+First, we begin by importing all CSV files that have been previously generated.
+
+Here are all the CSV files that are called:
+
+.. code:: python
+
+    
 
 
 
