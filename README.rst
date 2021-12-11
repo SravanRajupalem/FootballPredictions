@@ -518,7 +518,7 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 
 
-.. image:: http://i.imgur.com/2CXwDXR.gif
+.. image:: guardiola.gif
 
 
 .. image:: <div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
