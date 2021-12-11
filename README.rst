@@ -519,7 +519,7 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 
-.. image:: https://media.giphy.com/media/3oEduKOlpkEizFm9bO/giphy.gif
+.. image:: http://i.imgur.com/O6DxDxo.gif
 
 
 player_data_df_england
