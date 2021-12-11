@@ -14,10 +14,6 @@ This capstone project consists of developing an injury predictor that can assist
 
     Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an 
     approximate number of 30+ players. The entire data set takes accounts of every single available season.
-    
-    Data scrapping from the FBRef website comes at a high computational cost since each of the top 5 European leagues has about 20 teams, and those teams have an approximate number of 30+ players.
-    The entire data pulling accounts for every single season available.
-    
 
     The Beautiful Soup Python library was used for pulling data from the web. This requires basic knowledge of how to read and interpret HTML and XML files.
 
@@ -32,15 +28,11 @@ This capstone project consists of developing an injury predictor that can assist
 Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
- - `Quick Start`_
- - `Simple training pipeline`_
- - `Examples`_
- - `Models and Backbones`_
- - `Installation`_
- - `Documentation`_
- - `Change log`_
+ - `Data Scraping and Manipulation`_
+ - `Feature Engineering`_
+ - `Visual Exploration of Data`_
+ - `Model Building`_
  - `Citing`_
- - `License`_
  
 Overview
 ~~~~~~~~
@@ -53,8 +45,8 @@ Overview
 - An Amazon Web Services (AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
   when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
-Quick Start
-~~~~~~~~~~~
+Data Scraping and Manipulation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First of all, import the following Libraries:
 
@@ -712,3 +704,15 @@ Are we done?
 
 ..... for now .....
 
+
+Data Scraping and Manipulation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Visual Exploration of Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Model Building
+~~~~~~~~~~~~~~~
+
+Citing 
+~~~~~~
