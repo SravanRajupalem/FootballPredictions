@@ -520,8 +520,8 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 .. image:: http://i.imgur.com/2CXwDXR.gif
 
-
-asdasd
+.. image:: https://giphy.com/embed/3oKIPyqTWsP720AOXe
+.. image:: https://giphy.com/gifs/youblewit-you-blew-it-3oKIPyqTWsP720AOXe
 
 .. image:: https://media.giphy.com/media/3oEduKOlpkEizFm9bO/giphy.gif
 
