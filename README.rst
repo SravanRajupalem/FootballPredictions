@@ -516,7 +516,6 @@ the players' injuries
 Additionaly, there are other functions that are created to obtain additional attributes that were believed they may contribute to our ML models such 
 as 'Retired since:', 'Without Club since:', and more. Last, the final list was run in 3 batches since this step came at high computational cost.
 
-**17. Consolidate Profile Data Dataframe.ipynb**
 
 
 .. image:: http://i.imgur.com/O6DxDxo.gif
