@@ -1,6 +1,6 @@
 Football Predictions Capstone Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This capstone project consists of developing an injury predictor that can assist football managers or clubs to make a decision when it comes to investing in football players.
+This capstone project consists of developing an injury predictor that can assist football managers or clubs to make decisions when it comes to investing in football players.
 
 **The main features** of this library are:
 
@@ -29,7 +29,6 @@ Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
  - `Data Scraping and Manipulation`_
- - `Feature Engineering`_
  - `Visual Exploration of Data`_
  - `Model Building`_
  - `Citing`_
@@ -42,7 +41,7 @@ Overview
 - VSCode is the code-editor employed since it allows the connection of the GitHub repository as well as working cooperatively in real-time.
 - Jupyter notebooks is the interface used to write, read and produce all scripts for data scrapping, manipulation, visualizations, and creation of 
   all Machine Learning models. 
-- Google Drive has been mirrored into our local machines in order to read and write large files through VSCode since our GitHub repository had a 
+- Google Drive has been mirrored into our local machines to read and write large files through VSCode since our GitHub repository had a 
   limited capacity. 
 - An Amazon Web Services (AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
   when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
@@ -140,7 +139,7 @@ Use BeautifulSoup to first obtain the league URLs
         league_seasons = get_all_seasons(i)
         all_seasons_big_5 += league_seasons
 
-Pull all players' stats for all competitions to end up with a list of all players' URLs for every season they played. Please note that there are more 
+Here we pull all players' stats for all competitions to conclude with a list of all players' URLs for every season they played. Please note that there are more 
 steps during the data scrapping, but only the most important ones are shown; refer to the notebooks for the complete code.
 
 .. code:: python
@@ -208,8 +207,8 @@ all players' URLs match logs for every single season. This list has 148,478 URLs
     match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
 
 However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
-The final list reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it the easiest and fastest methods to save file to 
-the Google Drive.
+The final list was reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it is the most comfortable and fastest method
+to save this file to the Google Drive.
 
 .. code:: python
 
@@ -230,7 +229,7 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
 
     This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
     A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
-    this is an example of the first batch. At the end, all dataframes will be concatenated together to produce a single dataframe.
+    this is an example of the first batch. In the end, all dataframes are concatenated together to produce a single dataframe.
 
 .. code:: python
 
@@ -311,11 +310,11 @@ This notebook is used to combine all dataframes produced from the batches above.
 **15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
 
 In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
-by FBRef to each player. Some relevant profile information such as the birth, height, position and more are considered for the ML models. All 
+by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
 notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
 
-First, we create a function that generates a list of all seasons starting at 2010 from the top 5 leagues. 
-Then we apply this function to a one league. In this example, the list will be generated for the English league.
+First, we create a function that generates a list of all seasons starting in 2010 from the top 5 leagues. 
+Then we apply this function to one league. In this example, the list will be generated for the English league.
 
 .. code:: python
 
@@ -388,13 +387,13 @@ from all of those clubs.
         # Premier League (England) Seasons (England: 9 | Italy: 11 | Spain: 12 | France: 13 | Germany: 20)
         team_season_url_england = fbref_team_url_history(history_england)
 
-An extensive function is created to scrape all players profile information as well as the FBRef ID. Finally, all of the data is exported 
-to dataframe called player_data_df_england.csv.
+An extensive function is created to scrape all players' profile information as well as the FBRef ID. Finally, all of the data is exported 
+to dataframe called **player_data_df_england.csv**.
 
 **Important note**
 
     Refer to the **15a.Profile Data Dataframe England.ipynb** to review the last function. It is not included here since it is very extensive.
-    Additionaly, the concatenating of the 5 dataframes is performed in book **17. Consolidate Profile Data Dataframe.ipynb**
+    Additionally, the concatenating of the 5 dataframes is performed in book **17. Consolidate Profile Data Dataframe.ipynb**
 
 .. code:: python
 
@@ -402,10 +401,10 @@ to dataframe called player_data_df_england.csv.
 
 **16. Extract_Injuries.ipynb**
 
-This notebook is used to scrape players injuries from the years of 2010 to 2021 across the 5 European Leagues, and obtain additional players'
+This notebook is used to scrape players injuries from the years 2010 to 2021 across the 5 European Leagues, and obtain additional players'
 profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
 
-Here is where the URLs for every seasons of all leagues are scraped and stored into a list.
+Here is where the URLs for every season of all leagues are scraped and stored into a list.
 
 .. code:: python
 
@@ -450,7 +449,7 @@ Teams URLs are now generated from the list above and stored into a single list
     team_url = find_team_urls(league_url)
 
 After generating a few more steps to obtain the final list of URLs for all desired players, the next 2 following functions can now pull
-the players' injuries. Then, this is exported into a dataframe called 'player_injuries_df.csv' 
+the players' injuries. Then, this is exported into a dataframe called **'player_injuries_df.csv'**.
 
 .. code:: python
 
@@ -520,14 +519,14 @@ the players' injuries. Then, this is exported into a dataframe called 'player_in
 
     player_injuries_df.to_csv('player_injuries_df.csv', index=False)  
         
-Additionally, there are other functions that are created to obtain a new dataframe that captures profile data with additional attributes that 
+Further, tother functions are created to obtain a new dataframe that captures profile data with additional attributes that 
 contribute to our ML models such as 'Retired since:', 'Without Club since:', and more. Last, this final dataframe is generated in 3 batches 
 since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
-This is the most extensive notebook in our entire repository. Here is where we complete the final merge and build the main dataframe. Thus, be prepared
+This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
 to spend some time reading this notebook. 
 
 .. image:: images/guardiola.gif
@@ -576,20 +575,19 @@ Here are all the CSV files that are called:
     # Merging Player Injuries with FBRef Profiles
     player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
 
-
     # Merge with TM Profile information
     player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
 
-This is just the beginning.
+This is just the beginning...
 
 .. image:: images/referee.gif
 
-There is a great number of steps taken on this notebook, we will only highlights the ones we believe are the most relevant ones. Steps like
+There is a great number of steps taken on this notebook, we only highlight the ones we believe are the most relevant. Steps like
 removing duplicates, dropping NaNs, updating the column types, and any other basic operations are excluded. We also do some testing in order
 to understand what data cleaning is required and more. Please refer to the **17. Consolidate Profile Data Dataframe.ipynb** for the 
 complete notebook.
 
-Here we create some important features that are considered for our time series models
+Here we create some important features that are considered for our time series models.
 
 .. code:: python
 
@@ -618,7 +616,7 @@ Here we create some important features that are considered for our time series m
     total_match_logs_df.loc[total_match_logs_df['Start'] != 'Y', 'Games_Start'] = 0
 
 This is a critical step. Here we aggregate all columns at the week level. Our final dataset will contain all players' profile data,
-matchlogs and injuries at the week level. For example, a football player plays 2 entire games within a week; then the player is playing 
+match logs, and injuries at the week level. For example, a football player plays 2 entire games within a week; then the player is playing 
 a total of 180 minutes. The same applies when a player scores in multiple games. This step aggregates all column values with the groupby 
 function and the sum() operator. Also, we can now merge the player_injuries_profile_final. 
 
@@ -639,8 +637,8 @@ Now that this dataframe is at the week level, we proceed to develop more columns
     complete_final_df.loc[complete_final_df['Min'].isnull() == False, 'was_match'] = 1
 
 This is another critical step for our time series models. Here we add the weeks when players did not play and fill those with 0s. 
-In other words, if a player didn't play a certain week, we add a row. and populate all the date columns accordingly and the remaining 
-columns are filled with 0s. In addition, we perform another merge so we can only filter on the pla
+In other words, if a player didn't play a certain week, we add a row and populate all the date columns accordingly and the remaining 
+columns are filled with 0s. In addition, we perform another merge so we can only filter on players from FBRef.
 
 .. code:: python
 
