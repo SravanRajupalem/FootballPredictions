@@ -408,8 +408,8 @@ to dataframe called player_data_df_england.csv.
 
 **16. Extract_Injuries.ipynb**
 
-This notebook is used to scrape players injuries from the years of 2010 to 2021 across the 5 European Leagues. Since we are performing a time series, 
-it was decided to only include years from 2010 to 2021. 
+This notebook is used to scrape players injuries from the years of 2010 to 2021 across the 5 European Leagues, and obtain additional players'
+profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
 
 Here is where the URLs for every seasons of all leagues are scraped and stored into a list.
 
@@ -435,7 +435,6 @@ Here is where the URLs for every seasons of all leagues are scraped and stored i
 
 Teams URLs are now generated from the list above and stored into a single list 
 
-
 .. code:: python
 
     def find_team_urls(league_urls):
@@ -456,8 +455,8 @@ Teams URLs are now generated from the list above and stored into a single list
 
     team_url = find_team_urls(league_url)
 
-After generating a few more options to obtain the final list of URLs for all desired players, the following function can now pull
-the players' injuries
+After generating a few more steps to obtain the final list of URLs for all desired players, the next 2 following functions can now pull
+the players' injuries. Then, this is exported into a dataframe called 'player_injuries_df.csv' 
 
 .. code:: python
 
@@ -512,11 +511,25 @@ the players' injuries
         
         except:
             pass
+    
+    player_urls = list(tm_player_url_df['TMURL'])
+
+    player_urls =list(filter(lambda k: 'profil' in k, player_urls))
+
+    player_injuries_df = pd.DataFrame(columns=['Season', 'Injury', 'from', 'until', 'Days', 'Games missed', 'TMId', 'name'])
+
+    for i in player_urls:
+        df = injury_table(i)
+        player_injuries_df = player_injuries_df.append(df)
+        sys.stdout.write("\r{0} player injuries have just scraped from TM!".format(len(player_injuries_df)))
+        sys.stdout.flush()
+
+    player_injuries_df.to_csv('player_injuries_df.csv', index=False)  
         
-Additionaly, there are other functions that are created to obtain additional attributes that were believed they may contribute to our ML models such 
-as 'Retired since:', 'Without Club since:', and more. Last, the final list was run in 3 batches since this step came at high computational cost.
-
-
+Additionally, there are other functions that are created to obtain a new dataframe that captures profile data with additional attributes that 
+contribute to our ML models such as 'Retired since:', 'Without Club since:', and more. Last, this final dataframe is generated in 3 batches 
+since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
+player_profile_df_2.csv, and player_profile_df_3.csv.
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
@@ -525,21 +538,93 @@ This is the most extensive notebook in our entire repository. Here is where we c
 
 .. image:: images/guardiola.gif
 
-First, we begin by importing all CSV files that have been previously generated.
+First, we begin by importing all CSV files that have been previously generated, including some that were generated in batches. Then we merged those 
+together.
 
 Here are all the CSV files that are called:
 
 .. code:: python
 
-    
+    # Player profile from FBRef site - 5 dataframes are concatenated into a single dataframe - shape is (35827, 15)
+    player_info_england = pd.read_csv('.../Dataframes/player_data_df_england.csv')
+    player_info_italy = pd.read_csv('.../Dataframes/player_data_df_italy.csv')
+    player_info_spain = pd.read_csv('.../Dataframes/player_data_df_spain.csv')
+    player_info_france = pd.read_csv('.../Dataframes/player_data_df_france.csv')
+    player_info_germany = pd.read_csv('.../Dataframes/player_data_df_germany.csv')
+
+    player_inf_lst = [player_info_england, player_info_italy, player_info_spain, player_info_france, player_info_germany]
+    player_info_df = pd.concat(player_inf_lst)
+
+    # Cleaning repeated players - shape is (10720, 15)
+    player_info_df_nodups = player_info_df.drop_duplicates()
+
+    # Player profiles from TransferMarkt - 3 dataframes are concatenated into a single dataframe - shape is (12902, 41)
+    df_1 = pd.read_csv('.../player_profile_df_1.csv')
+    df_2 = pd.read_csv('.../player_profile_df_2.csv')
+    df_3 = pd.read_csv('.../player_profile_df_3.csv')
+
+    tm_profile_df = pd.concat([df_1, df_2])
+    tm_profile_df = pd.concat([tm_profile_df, df_3])
+
+    # Player injuries from TransferMarkt - length is 55216
+    player_injuries_df = pd.read_csv('.../Dataframes/player_injuries_df.csv')
+
+    # Reference table - this is used to map FBRef IDs (FBRefID) to TransferMarkt IDs (TMID)
+    fbref_to_tm_df = pd.read_csv('.../CSV files/fbref_to_tm_mapping.csv')
+
+    fbref_to_tm_df['FBRefID'] = fbref_to_tm_df['UrlFBref'].str.split('/').str[5]
+    fbref_to_tm_df['TMID'] = fbref_to_tm_df['UrlTmarkt'].str.split('/').str[6]
+
+
+# Merging on intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively
+player_injuries_df_2 = pd.merge(left=player_injuries_df, right=fbref_to_tm_df, left_on='TMId', right_on='TMID', how='inner')
+
+# removing duplicates from player_info_df
+player_info_df = player_info_df.drop_duplicates()
+
+# Merging Player Injuries with FBRef Profiles
+player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
+
+# Merge with TM Profile information
+
+tm_profile_df['TMId'] = tm_profile_df['TMId'].astype(str)
+player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
+
+
+# Creating new columns with features
+
+player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
+player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['until'] != '-']
+player_injuries_profile_final['injury_year'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').year)
+player_injuries_profile_final['injury_week'] = player_injuries_profile_final['from'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+player_injuries_profile_final['release_week'] = player_injuries_profile_final['until'].apply(lambda x: datetime.strptime(x, '%b %d, %Y').strftime('%V'))
+player_injuries_profile_final['from'] = pd.to_datetime(player_injuries_profile_final['from'])
+player_injuries_profile_final['until'] = pd.to_datetime(player_injuries_profile_final['until'])
+
+# Exploding Dataframe to weekly basis
+
+def ran_week(row):
+        return list(pd.date_range(row['from'], row['until'], freq='w'))
+
+# def ran_year(row):
+    # return list(pd.date_range(row['from'], row['until'], freq='y'))
+
+player_injuries_profile_final['injury_week'] = player_injuries_profile_final['injury_week'].astype(int)
+player_injuries_profile_final['release_week'] = player_injuries_profile_final['release_week'].astype(int)
+player_injuries_profile_final['current_week'] = player_injuries_profile_final.apply(ran_week, axis = 1)
+# player_injuries_profile_final['current_year'] = player_injuries_profile_final.apply(ran_year, axis = 1)
 
 
 
-player_data_df_england
 
-df_1 = pd.read_csv('player_profile_df_1.csv')
-df_2 = pd.read_csv('player_profile_df_2.csv')
-df_3 = pd.read_csv('player_profile_df_3.csv')
+
+
+
+
+
+
+
+
 
 
 player_data_df_italy
