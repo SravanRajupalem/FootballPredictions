@@ -1,5 +1,8 @@
 Football Predictions Capstone Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: images/stadium.jpg
+
 This capstone project consists of developing an injury predictor that can assist football managers or clubs to make decisions when it comes to investing in football players.
 
 **The main features** of this library are:
