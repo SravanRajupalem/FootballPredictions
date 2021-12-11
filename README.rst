@@ -519,15 +519,14 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 
+.. image:: https://giphy.com/embed/KQxSPft9zl4aRQ10bE
 
-![hippo](https://media3.giphy.com/media/aUovxH8Vf9qDu/giphy.gif)
 
 player_data_df_england
 
 df_1 = pd.read_csv('player_profile_df_1.csv')
 df_2 = pd.read_csv('player_profile_df_2.csv')
 df_3 = pd.read_csv('player_profile_df_3.csv')
-
 
 
 player_data_df_italy
