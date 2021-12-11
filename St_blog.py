@@ -12,7 +12,7 @@ st.write("Renzo Maldonado")
 st.write("Victor Ruiz is in Orlando")
 
 section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation", "Feature Engineering", 
-    "Visual Exploration of Data", "Model Building"))
+    "Visual Exploration of Data", "Model Building", "Injury Prediction Tool"))
 
 st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the world of Data Science. Magically using complex 
     algorithms, machine learning models and neural networks to predict sports results and players' performance attract the interest 
@@ -83,22 +83,41 @@ elif section == "Data Manipulation":
     st.write("We then merged on the intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively.")
     st.write("Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
         new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns. The features of the new_player_df:")
-#     df_final = pd.DataFrame(columns=['Variable', 'Description'])
-#     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
-#         'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
-#         'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'Pkcon',
-#         'Won', 'Loss', 'Draw', 'release_week', 'was_match', 'Height'
-# Weight
-# Birth
-# cum_week
-# defender
-# attacker
-# midfielder
-# goalkeeper
-# age
-# right_foot
-# left_foot
-# injury_count
-# cum_injury
+    df_final = pd.DataFrame(columns=['Variable', 'Description'])
+    df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
+        'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
+        'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'Pkcon',
+        'Won', 'Loss', 'Draw', 'release_week', 'was_match', 'Height', 'Weight', 'Birth', 'cum_week', 'defender', 'attacker', \
+        'midfielder', 'goalkeeper', 'age', 'right_foot', 'left_foot', 'injury_count', 'cum_injury']
+    df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
+        'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
+        'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
+        'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
+        'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
+        'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
+        'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
+        'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
+        'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
+        'Passess that move the ball at least 10 yards toward opponent goal', \
+        'Number of times player controlled the ball with his feet', \
+        "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
+        'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
+        'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
+        'Game lost', 'Game draw', 'Week when player was released from injury', \
+        'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
+        'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
+        'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
+    df_final
 
-# ']
+elif section == "Feature Engineering":
+    st.header('Feature Engineering')
+
+elif section == "Visual Exploration of Data":
+    st.header('Visual Exploration of Data')
+
+elif section == "Visual Exploration of Data":
+    st.header('Visual Exploration of Data')
+
+else:
+    st.header('Injury Prediction Tool')
+
