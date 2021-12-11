@@ -8,7 +8,7 @@ st.title("Sooner or later?  Walkthrough to predict when an elite soccer player w
 
 st.write("Sravan Rajupalem") 
 st.write("Renzo Maldonado")
-st.write("Victor Ruiz")
+st.write("Victor Ruiz is in Orlando")
 
 section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation", "Feature Engineering", 
     "Visual Exploration of Data", "Model Building"))
