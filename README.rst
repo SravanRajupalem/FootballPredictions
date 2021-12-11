@@ -707,8 +707,6 @@ Are we done?
 ..... for now .....
 
 
-Data Scraping and Manipulation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
