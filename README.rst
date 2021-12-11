@@ -518,7 +518,7 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 
 
-.. image:: http://i.imgur.com/O6DxDxo.gif
+.. image:: http://i.imgur.com/2CXwDXR.gif
 
 
 asdasd
