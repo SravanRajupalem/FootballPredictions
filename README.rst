@@ -518,6 +518,48 @@ as 'Retired since:', 'Without Club since:', and more. Last, the final list was r
 
 **17. Consolidate Profile Data Dataframe.ipynb**
 
+** import note **
+    
+    This notebook 
+
+
+.. only:: html
+
+   .. figure:: riker_deal_with_it.gif
+
+      "Deal With It" featuring Commander Riker
+
+   .. figure:: ron_paul_happening.gif
+
+      "It's happening!" featuring American politician Ron Paul
+
+
+
+
+
+player_data_df_england
+
+df_1 = pd.read_csv('player_profile_df_1.csv')
+df_2 = pd.read_csv('player_profile_df_2.csv')
+df_3 = pd.read_csv('player_profile_df_3.csv')
+
+
+
+player_data_df_italy
+
+
+
+
+
+  Source: www.fbref.com
+
+From FBRef.com we first scraped information from the big 5 European leagues. With that base, we again scraped the website for all the seasons. 
+Then we scraped the player information from each of those seasons.  This operation yielded 81,256 player records. Finally we again scraped all 
+players' urls to get all the matches that each player had participated in. After going through these 5 iterations of scraping from FBRef.com, we 
+obtained a list of 118,283 match logs. With this list we again scraped the website by batches to obtain a final match logs data set, that after 
+some NaN cleaning, data type conversion  and dropping unwanted columns, ended up with a DataFrame named consolidated_df that had 3,048,121 rows 
+with 47 columns.
+
 
 
 
