@@ -410,6 +410,30 @@ to dataframe called player_data_df_england.csv.
 
 
 
+
+# Leagues & Seasons
+leagues = [
+    "https://www.transfermarkt.com/premier-league/startseite/wettbewerb/GB1/saison_id/",
+    "https://www.transfermarkt.com/bundesliga/startseite/wettbewerb/L1/saison_id/",
+    "https://www.transfermarkt.com/laliga/startseite/wettbewerb/ES1/saison_id/",
+    "https://www.transfermarkt.com/serie-a/startseite/wettbewerb/IT1/saison_id/",
+    "https://www.transfermarkt.com/ligue-1/startseite/wettbewerb/FR1/saison_id/"
+]
+
+def all_league_urls(url, season_range = [2010,2021]):
+    league_url = []
+    for i in url:
+        league_url.append(list(map(lambda x : i + str(x), np.arange(season_range[0], season_range[1]+1, 1))))
+    league_url  = list(itertools.chain(*league_url))
+    return league_url
+    
+
+league_url = all_league_urls(leagues)
+league_url
+
+
+
+
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 
