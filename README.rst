@@ -5,7 +5,7 @@ Football Predictions Capstone Project
 
 This capstone project consists of developing an injury predictor that can assist football managers or clubs to make decisions when it comes to investing in football players.
 
-**The main features** of this library are:
+The main features of this project are:
 
 - A high-level API allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani, and England).
 - A high-level API allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players' injury data.
@@ -35,8 +35,6 @@ Table of Contents
  - `Visual Exploration of Data`_
  - `Model Building`_
  - `Citing`_
- 
-test
 
 Overview
 ~~~~~~~~
