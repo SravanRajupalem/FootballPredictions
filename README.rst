@@ -534,7 +534,7 @@ player_profile_df_2.csv, and player_profile_df_3.csv.
 **17. Consolidate Profile Data Dataframe.ipynb**
 
 This is the most extensive notebook in our entire repository. Here is where we complete the final merge and build the main dataframe. Thus, be prepared
- to spend some time reading this notebook. 
+to spend some time reading this notebook. 
 
 .. image:: images/guardiola.gif
 
@@ -576,8 +576,38 @@ Here are all the CSV files that are called:
     fbref_to_tm_df['FBRefID'] = fbref_to_tm_df['UrlFBref'].str.split('/').str[5]
     fbref_to_tm_df['TMID'] = fbref_to_tm_df['UrlTmarkt'].str.split('/').str[6]
 
+    # Merging on intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively - shape is (32660, 14)
+    player_injuries_df_2 = pd.merge(left=player_injuries_df, right=fbref_to_tm_df, left_on='TMId', right_on='TMID', how='inner')
+
+    # Merging Player Injuries with FBRef Profiles
+    player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
+
+
+    # Merge with TM Profile information
+    player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
+
+
+
+
+
+This player_injuries_info_df DataFrame was then merged with the Transfermarkt profile information in the tm_profile_df DataFrame on 'TMId' and 'TMId' respectively at their intersection.  The merge yielded the player_injuries_profile_final DataFrame with a shape of 32,584 rows and 75 columns.  This DataFrame looked like this:
+
+
+
+
+
+
+
 Now there are some operations that are performed in multiple cells. Some of those include the removal of duplicates, dropping NaNs as well.
 We also do some testing in order to understand what data cleaning is required and more.
+
+
+
+
+
+
+
+
 
 
 This operation yielded the DataFrame player_injuries_df_2 which after dropping duplicates had a shape of 32,660 rows and 14 columns which looked like this:
@@ -636,20 +666,6 @@ The features of the new_player_df:
 
 
 
-
-
-# removing duplicates from player_info_df - 32,584 rows and 29
-player_info_df = player_info_df.drop_duplicates()
-
-# Merging Player Injuries with FBRef Profiles
-player_injuries_info_df = pd.merge(left=player_injuries_df_2, right=player_info_df, left_on='FBRefID', right_on='FBRefId', how='inner')
-
-# Merge with TM Profile information
-
-tm_profile_df['TMId'] = tm_profile_df['TMId'].astype(str)
-player_injuries_profile_final = pd.merge(left=player_injuries_info_df, right=tm_profile_df, left_on='TMId', right_on='TMId', how='inner')
-
-
 # Creating new columns with features
 
 player_injuries_profile_final = player_injuries_profile_final[player_injuries_profile_final['from'] != '-']
@@ -680,34 +696,3 @@ player_injuries_profile_final['current_week'] = player_injuries_profile_final.ap
 
 
 
-
-
-
-
-
-
-player_data_df_italy
-
-<iframe src="https://giphy.com/embed/KQxSPft9zl4aRQ10bE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/emiratesfacup-fa-cup-pep-guardiola-KQxSPft9zl4aRQ10bE">via GIPHY</a></p>
-
-
-
-  Source: www.fbref.com
-
-From FBRef.com we first scraped information from the big 5 European leagues. With that base, we again scraped the website for all the seasons. 
-Then we scraped the player information from each of those seasons.  This operation yielded 81,256 player records. Finally we again scraped all 
-players' urls to get all the matches that each player had participated in. After going through these 5 iterations of scraping from FBRef.com, we 
-obtained a list of 118,283 match logs. With this list we again scraped the website by batches to obtain a final match logs data set, that after 
-some NaN cleaning, data type conversion  and dropping unwanted columns, ended up with a DataFrame named consolidated_df that had 3,048,121 rows 
-with 47 columns.
-
-
-
-
-
-
-player_info_england 
-player_info_italy
-player_info_spain 
-player_info_france 
-player_info_germany
