@@ -572,14 +572,73 @@ Here are all the CSV files that are called:
     # Reference table - this is used to map FBRef IDs (FBRefID) to TransferMarkt IDs (TMID)
     fbref_to_tm_df = pd.read_csv('.../CSV files/fbref_to_tm_mapping.csv')
 
+    # Pull the IDs from the URLs
     fbref_to_tm_df['FBRefID'] = fbref_to_tm_df['UrlFBref'].str.split('/').str[5]
     fbref_to_tm_df['TMID'] = fbref_to_tm_df['UrlTmarkt'].str.split('/').str[6]
 
+Now there are some operations that are performed in multiple cells. Some of those include the removal of duplicates, dropping NaNs as well.
+We also do some testing in order to understand what data cleaning is required and more.
 
-# Merging on intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively
-player_injuries_df_2 = pd.merge(left=player_injuries_df, right=fbref_to_tm_df, left_on='TMId', right_on='TMID', how='inner')
 
-# removing duplicates from player_info_df
+This operation yielded the DataFrame player_injuries_df_2 which after dropping duplicates had a shape of 32,660 rows and 14 columns which looked like this:
+
+
+Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+
+The player_injuries_df_2 DataFrame was merged with the player_info_df DataFrame on 'FBRefID and '’FBRefId' respectively at their intersection.
+
+
+Source: Our Github Repository - Notebook 17. Consolidate Profile Data DataFrame.ipynb
+
+The resulting player_injuries_info_df had a shape of 32,584 rows and 29 columns which looked like this:
+
+
+Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
+
+This player_injuries_info_df DataFrame was then merged with the Transfermarkt profile information in the tm_profile_df DataFrame on 'TMId' and 'TMId' respectively at their intersection.  The merge yielded the player_injuries_profile_final DataFrame with a shape of 32,584 rows and 75 columns.  This DataFrame looked like this:
+
+
+
+New columns were created in this DataFrame like: 'injury_year', 'injury_week', and 'release_week'. Additionally an explode function was used to get all the weeks that were not present.  Additional NaN cleaning, column renaming, and datetime formatting was executed.  These steps yield a new shape in the player_injuries_profile_final DataFrame of 159,362 rows and 75 columns.
+
+The consolidated_df was renamed to total_match_logs_df.  Columns for new variables and dummy variables were created in this DataFrame like:  'week', 'year', Won' 'Loss', 'Draw', and  'Games_Start'. Type conversions, lowercasing and column drops were also executed yielding a new DataFrame named total_match_logs_df_2 with a shape of 2,654,677 rows and 42 columns.
+
+The total_match_logs_df_2 DataFrame was grouped by 'name', 'FBRefID', 'week', 'year', and 'Date' to create the total_match_logs_df_3 DataFrame with a shape of 2,517,243 rows and 42 columns.
+
+
+Source: Our Github Repository - Notebook: 17. Consolidate Profile Data Dataframe.ipynb
+
+The complete_final_df DataFrame was obtained by merging as a union the total_match_logs_df_3 DataFrame and the player_injuries_profile_final DataFrame, left on: 'week', 'year', 'Date', 'FBRefID'; and right on: 'current_week', 'current_year', 'current_date', 'FBRefId’.  This new complete_final_df had a shape of 2,674,724 rows and 116 columns. Additional NaN cleaning and column dropping was executed. The 'was_match' column was added to indicate on which week there was a soccer match. Then a multivariate groupby was done with fillna():
+
+
+
+This operation resulted in the creation of the complete_final_df_2 DataFrame with a shape of 2,268,131 rows and 56 columns. The player_profile_weight DataFrame was loaded as player_weight_foot_df.  After further cleaning and dropping done to the complete_final_df_2, an inner merge between the complete_final_df_2 and the player_weight_foot_df DataFrames was executed on the 'FBRefID' column and the 'FBRefId' column respectively. This resulted in the complete_final_df_3 DataFrame with shape 931,073 rows and 59 columns.
+
+
+
+Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns.
+
+The features of the new_player_df:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# removing duplicates from player_info_df - 32,584 rows and 29
 player_info_df = player_info_df.drop_duplicates()
 
 # Merging Player Injuries with FBRef Profiles
