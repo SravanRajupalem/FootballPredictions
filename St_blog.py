@@ -144,6 +144,8 @@ elif section == "Visual Exploration of Data":
     st.write("We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.")
     img11 = Image.open("images/image11.png")
     st.image(img11)
+    st.write("As we can see, com_injury_total seems to have a higher positive correlation with variables like: Weight and Age.")
+    
 
 
     
