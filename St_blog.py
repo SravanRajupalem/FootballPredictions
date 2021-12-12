@@ -24,11 +24,8 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
 def get_df(a):
     return pd.read_csv(a)
 
-garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
-
 # path = Path(__file__).parents[1] / 'dataframes_blog/dataset_for_model_final.csv'
 path = 'dataframes_blog/dataset_for_model_final.csv'
-
 dataset = get_df(path)
 
 if section == "Scraping the Web for Data":
