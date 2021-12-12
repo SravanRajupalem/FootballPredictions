@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import pandas as pd
+import altair as alt
 
 st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
@@ -17,6 +18,13 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
     of people for different reasons. Soccer is probably one of the most unpredictable sports out there. In the hope of aiding soccer 
     managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
     certain time frame.""")
+
+@st.cache  # 👈 Added this
+def get_df(a):
+    df = pd.read_csv(a)
+    return df
+
+dataset = get_df('dataframes_blog/dataset_for_model_final.csv')
 
 if section == "Scraping the Web for Data":
     st.header('Scraping the Web for Data')
@@ -161,5 +169,24 @@ elif section == "Model Building":
 
 else:
     st.header('Injury Prediction Tool')
-    df = pd.read_csv('dataframes_blog/dataset_for_model_final_head.csv')
-    df.head()
+
+    st.write("Who is the player you want to make a prediction for?")
+
+    # P = df['make'].drop_duplicates()
+    # years = df['year']
+    # models = df['model']
+    # engines = df['engine']
+    # components = df['components']
+    # make_choice = st.sidebar.selectbox('Select your vehicle:', makes)
+    # year_choice = st.sidebar.selectbox('', years)
+    # model_choice = st.sidebar.selectbox('', models)
+    # engine_choice = st.sidebar.selectbox('', engines)
+    player = st.selectbox('Player Name (type or choose):',dataset['name'].sort_values().unique())
+    button_clicked = st.button("OK")
+     
+    df = dataset[dataset['name'] == player] #['date', 'cum_injury_total'].set_index('date')
+    data = df[['date', 'cum_injury']]
+    chart1 = alt.Chart(data).mark_line().encode(x=alt.X('date', axis=alt.Axis(labelAngle=90, values=[min(data['date']), \
+        max(data['date'])], tickMinStep=5)), y='cum_injury')
+    st.altair_chart(chart1, use_container_width=True)
+    
