@@ -115,6 +115,7 @@ elif section == "Data Manipulation & Feature Engineering":
 
 elif section == "Visual Exploration of Data":
     st.header('Visual Exploration of Data')
+    st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2014/10/14/20/24/football-488714_1280.jpg)")
     st.write("The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
@@ -142,6 +143,10 @@ elif section == "Visual Exploration of Data":
         is probably due to the fact that most players weigh in that range.")
     img11 = Image.open("images/image11.png")
     st.image(img11)
+    st.write("We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.")
+    img12 = Image.open("images/image12.png")
+    st.image(img12)
+
 
     
 
