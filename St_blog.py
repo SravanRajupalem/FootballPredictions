@@ -26,7 +26,7 @@ def get_df(a):
 
 # path = Path(__file__).parents[1] / 'dataframes_blog/dataset_for_model_final.csv'
 # path = 'dataframes_blog/dataset_for_model_final.csv'
-path = 'http://raw.githubusercontent.com/SravanRajupalem/FootballPredictions/master/dataframes_blog/dataset_for_model_final.csv'
+path = 'http://raw.githubusercontent.com/SravanRajupalem/FootballPredictions/dataframes_blog/dataset_for_model_final.csv'
 dataset = get_df(path)
 
 if section == "Scraping the Web for Data":
