@@ -3,6 +3,7 @@ from PIL import Image
 import pandas as pd
 import altair as alt
 from pathlib import Path
+import os
 
 st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
@@ -24,9 +25,7 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
 def get_df(a):
     return pd.read_csv(a)
 
-# path = Path(__file__).parents[1] / 'dataframes_blog/dataset_for_model_final.csv'
 path = 'dataframes_blog/dataset_for_model_final.csv'
-# path = 'http://raw.githubusercontent.com/SravanRajupalem/FootballPredictions/dataframes_blog/dataset_for_model_final.csv'
 dataset = get_df(path)
 
 if section == "Scraping the Web for Data":
