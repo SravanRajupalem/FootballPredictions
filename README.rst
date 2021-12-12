@@ -405,7 +405,7 @@ to dataframe called **player_data_df_england.csv**.
 
 **16. Extract_Injuries.ipynb**
 
-.. image:: images/zidane.png
+.. image:: images/zidane.gif
 
 This notebook is used to scrape players injuries from the years 2010 to 2021 across the 5 European Leagues, and obtain additional players'
 profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
