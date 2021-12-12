@@ -173,22 +173,26 @@ elif section == "Model Building":
 else:
     st.header('Injury Prediction Tool')
 
-    st.write("Who is the player you want to make a prediction for?")
+    st.write("Select the players you want to compare")
 
-    # P = df['make'].drop_duplicates()
-    # years = df['year']
-    # models = df['model']
-    # engines = df['engine']
-    # components = df['components']
-    # make_choice = st.sidebar.selectbox('Select your vehicle:', makes)
-    # year_choice = st.sidebar.selectbox('', years)
-    # model_choice = st.sidebar.selectbox('', models)
-    # engine_choice = st.sidebar.selectbox('', engines)
-    player = st.selectbox('Player Name (type or choose):',dataset['name'].sort_values().unique())
+    sorted_unique_player = dataset['name'].sort_values().unique()
+    player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+    player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+    player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)    
     button_clicked = st.button("OK")
      
-    df = dataset[dataset['name'] == player] #['date', 'cum_injury_total'].set_index('date')
-    data = df[['cum_week', 'cum_injury']]
-    chart1 = alt.Chart(data).mark_line().encode(x=alt.X('cum_week', axis=alt.Axis(labelAngle=0)), y='cum_injury')
-    st.altair_chart(chart1, use_container_width=True)
+    df1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+    df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+    df3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+
+    # df = pd.merge(df1, df2, left_on='cum_week', right_on='cum_week', how='inner')
+    # df = pd.merge(df, df3, left_on='cum_week', right_on='cum_week', how='outer')
+    df = pd.concat([df1, df2, df3])
+
+    # df = df.rename(columns={'cum_injury_total_x':df.loc[0,'name_x'], 'cum_injury_total_y':df.loc[0,'name_y'], 'cum_injury_total':df.loc[0,'name']})
+    # df = df.drop(columns=['name_x', 'name_y', 'name'])
     
+    chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    st.altair_chart(chart1, use_container_width=False)
+
