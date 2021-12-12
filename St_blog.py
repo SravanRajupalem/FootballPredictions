@@ -185,8 +185,7 @@ else:
     button_clicked = st.button("OK")
      
     df = dataset[dataset['name'] == player] #['date', 'cum_injury_total'].set_index('date')
-    data = df[['date', 'cum_injury']]
-    chart1 = alt.Chart(data).mark_line().encode(x=alt.X('date', axis=alt.Axis(labelAngle=90, values=[min(data['date']), \
-        max(data['date'])], tickMinStep=5)), y='cum_injury')
+    data = df[['cum_week', 'cum_injury']]
+    chart1 = alt.Chart(data).mark_line().encode(x=alt.X('cum_week', axis=alt.Axis(labelAngle=0)), y='cum_injury')
     st.altair_chart(chart1, use_container_width=True)
     
