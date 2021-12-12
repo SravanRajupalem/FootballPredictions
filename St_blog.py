@@ -147,6 +147,10 @@ elif section == "Visual Exploration of Data":
         'cum_injury_total', 'weeks_since_injury', and 'Min_cum'.")
     img12 = Image.open("images/image12.png")
     st.image(img12)
+    st.write("Here we can analyze if there are any correlations between variables.  Logically, height is positively correlated with \
+        weight. Being that we are analyzing active athletes, there doesn't seem to be any correlation between weight and age. We also \
+        see a positive correlation between age and the cum_injury_total.")
+    
 
 
 
