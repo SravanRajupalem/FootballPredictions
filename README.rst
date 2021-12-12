@@ -100,7 +100,9 @@ First of all, import the following Libraries:
 
 **1. FBREF Extract.ipynb**
 
-In this notebook, we create an extensive list of all match logs for all players and all the seasons they played from the FBRef website. 
+.. image:: images/top5.png
+
+In this notebook, we create an extensive list of all Big 5 European leagues match logs for all players and all the seasons they played from the FBRef website. 
 This also includes match logs of other competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as 
 their national team matches. 
 
@@ -192,8 +194,6 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
         sys.stdout.flush()
 
 **1.5 Append match_url_files.ipynb**
-
-.. image:: images/top5.png
 
 In this notebook, we concatenate the match logs lists that were created above to build the final **match_log_urls** list that contains 
 all players' URLs match logs for every single season. This list has 148,478 URLs
@@ -405,10 +405,10 @@ to dataframe called **player_data_df_england.csv**.
 
 **16. Extract_Injuries.ipynb**
 
+.. image:: images/zidane.png
+
 This notebook is used to scrape players injuries from the years 2010 to 2021 across the 5 European Leagues, and obtain additional players'
 profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
-
-.. image:: images/zidane.png
 
 Here is where the URLs for every season of all leagues are scraped and stored into a list.
 
