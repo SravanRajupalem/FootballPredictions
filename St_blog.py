@@ -143,6 +143,10 @@ elif section == "Visual Exploration of Data":
     img11 = Image.open("images/image11.png")
     st.image(img11)
     st.write("As we can see, com_injury_total seems to have a higher positive correlation with variables like: Weight and Age.")
+    st.write("To get idea of how variables are correlated we 'zoomed-in' to just 5 variables like: 'Height', 'Weight', 'age', \
+        'cum_injury_total', 'weeks_since_injury', and 'Min_cum'.")
+    img12 = Image.open("images/image12.png")
+    st.image(img12)
 
 
 
