@@ -161,8 +161,5 @@ elif section == "Model Building":
 
 else:
     st.header('Injury Prediction Tool')
-    # https://drive.google.com/file/d/1XdvGSz-klT3kih3vmvylIRfV61wb1ANC/view?usp=sharing
-    url = ' google drive sharing link'
-    path = 'https://drive.google.com/file/d/1XdvGSz-klT3kih3vmvylIRfV61wb1ANC/view?usp=sharing'+url.split('/')[-2]
-    df = pd.read_csv(path)
-    df
+    df = pd.read_csv('dataframes_blog/dataset_for_model_final_head.csv')
+    df.head()
