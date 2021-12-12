@@ -32,6 +32,7 @@ Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
  - `Data Scraping and Manipulation`_
+ - `Feature Engineering`_
  - `Visual Exploration of Data`_
  - `Model Building`_
  - `Citing`_
@@ -99,10 +100,11 @@ First of all, import the following Libraries:
 
 **1. FBREF Extract.ipynb**
 
-In this notebook, we create an extensive list of all match logs for all players and all the seasons they played from the FBRef website. 
+.. image:: images/top5.png
+
+In this notebook, we create an extensive list of all Big 5 European leagues match logs for all players and all the seasons they played from the FBRef website. 
 This also includes match logs of other competitions such as their previous clubs(even if they played outside of the top 5 leagues) as well as 
 their national team matches. 
-
 
 Use BeautifulSoup to first obtain the league URLs
 
@@ -314,6 +316,7 @@ In these notebooks, we go back to the FBRef website to obtain players' profile i
 by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
 notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
 
+
 First, we create a function that generates a list of all seasons starting in 2010 from the top 5 leagues. 
 Then we apply this function to one league. In this example, the list will be generated for the English league.
 
@@ -401,6 +404,8 @@ to dataframe called **player_data_df_england.csv**.
     player_info_england = fbref_player_info(player_url_england)
 
 **16. Extract_Injuries.ipynb**
+
+.. image:: images/zidane.gif
 
 This notebook is used to scrape players injuries from the years 2010 to 2021 across the 5 European Leagues, and obtain additional players'
 profile data from the TransferMarkt site. Since we are performing a time series, it was decided to only include years from 2010 to 2021. 
@@ -699,11 +704,24 @@ these features could be of great importance to improve our models.
 
     new_player_df['age'] = round((pd.to_datetime(new_player_df['date']) - pd.to_datetime(new_player_df['Birth'])) / timedelta(days=365), 0)
 
+
+Our final dataset has a shape of (1680385, 68)
+
 Are we done?
 
 .. image:: images/cristiano.gif
 
 ..... for now .....
+
+Feature Engineering
+~~~~~~~~~~~~~~~~~~~~
+
+Although some features have already been created for our models as we have been consolidating our final dataset, there are still some
+features that we are being reeingineered as we now build our models. 
+
+19. Preparing Features for Models.ipynb
+
+
 
 
 
