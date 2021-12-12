@@ -141,11 +141,9 @@ elif section == "Visual Exploration of Data":
     st.image(img10)
     st.write("In this case there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
         is probably due to the fact that most players weigh in that range.")
+    st.write("We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.")
     img11 = Image.open("images/image11.png")
     st.image(img11)
-    st.write("We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.")
-    img12 = Image.open("images/image12.png")
-    st.image(img12)
 
 
     
