@@ -2,9 +2,7 @@ import streamlit as st
 from PIL import Image
 import pandas as pd
 
-img = Image.open("images/crowd-gc46d97eb2_1920.jpg")
-
-st.image(img)
+st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
 
 st.write("Sravan Rajupalem") 
@@ -145,7 +143,7 @@ elif section == "Visual Exploration of Data":
     img11 = Image.open("images/image11.png")
     st.image(img11)
     st.write("As we can see, com_injury_total seems to have a higher positive correlation with variables like: Weight and Age.")
-    
+
 
 
     
