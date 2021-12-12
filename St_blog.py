@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import pandas as pd
 import altair as alt
+from pathlib import Path
 
 st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
@@ -21,10 +22,14 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
 
 @st.cache  # 👈 Added this
 def get_df(a):
-    df = pd.read_csv(a)
-    return df
+    return pd.read_csv(a)
 
-dataset = get_df('dataframes_blog/dataset_for_model_final.csv')
+garret_burhenn_pitches_csv = Path(__file__).parents[1] / 'GarretBurhennData/Garret_Burhenn_Pitches.csv'
+
+# path = Path(__file__).parents[1] / 'dataframes_blog/dataset_for_model_final.csv'
+path = 'dataframes_blog/dataset_for_model_final.csv'
+
+dataset = get_df(path)
 
 if section == "Scraping the Web for Data":
     st.header('Scraping the Web for Data')
