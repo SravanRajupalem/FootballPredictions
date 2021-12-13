@@ -193,7 +193,7 @@ else:
         properties(width=800, height=300)
     st.altair_chart(chart1, use_container_width=False)
 
-    st.subheader("Compare Injury History According to Position")
+    st.subheader("Compare Cummulative Injury History According to Position")
     
     # df['position'] = 0
     dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
@@ -207,7 +207,22 @@ else:
     df_pos = pd.DataFrame([])
     for p in pos:
         df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
-    chart2 = alt.Chart(df_pos).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='position') #. \
-        # properties(width=800, height=300)
+    
+    df_pos['attacker'] = 0
+    df_pos['defender'] = 0
+    df_pos['goalkeeper'] = 0
+    df_pos['midfielder'] = 0
+    df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
+    df_pos = df_pos.groupby('cum_week').sum().reset_index()
+    base = alt.Chart(df_pos).encode(x='cum_week:Q')
+    chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), base.mark_line(color='green'). \
+        encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))).properties(width=800, height=300)
     st.altair_chart(chart2, use_container_width=False)
+
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    
+
  
