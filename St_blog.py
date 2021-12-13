@@ -11,7 +11,7 @@ st.title("Sooner or later?  Walkthrough to predict when an elite soccer player w
 
 st.write("Sravan Rajupalem") 
 st.write("Renzo Maldonado")
-st.write("Victor Ruiz is in Orlando")
+st.write("Victor Ruiz")
 
 section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building", "Injury Prediction Tool"))
@@ -181,7 +181,7 @@ else:
     player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
     player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
     player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)    
-    button_clicked = st.button("OK")
+    # button_clicked = st.button("OK")
      
     df1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
     df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
@@ -204,8 +204,10 @@ else:
     df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
     sorted_unique_position = dataset['position'].dropna().sort_values().unique()
     pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
-    st.write(pos)
-    # chart2 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='position'). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart2, use_container_width=False)
+    df_pos = pd.DataFrame([])
+    for p in pos:
+        df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
+    chart2 = alt.Chart(df_pos).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='position') #. \
+        # properties(width=800, height=300)
+    st.altair_chart(chart2, use_container_width=False)
  
