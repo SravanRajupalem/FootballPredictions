@@ -53,11 +53,18 @@ if section == "Scraping the Web for Data":
         website, we decided to only pull data for the players whose information was available on both sites. ")    
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
         FBRefID and TMID (TransferMarkt ID), which we downloaded from Jason Zickovic (kudos!). Via string conversions and splitting \
-        we extracted the FBRefID's from the generated list and decided to only scrape the match logs for those players from the FBRef site. \
-        This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
-        players had attainable data from both sites.")
+        we extracted the FBRefID's from the generated list and decided to only scrape the match logs for those players from the FBRef site.")
     img5 = Image.open("images/image5.png")
     st.image(img5)
+    st.write("This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
+        players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of the complete match logs \
+        URLs of all the consolidated players, which we utilized for our final data scraping.")
+    img5a = Image.open("images/image5a.png")
+    st.image(img5a)
+    
+    
+    
+    
     st.write("Then we again scraped fbref.com on a per country basis to obtain each player's statistical information. This yielded \
         the following DataFrames:")
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
