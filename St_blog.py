@@ -22,10 +22,6 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
     managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
     certain time frame.""")
 
-
-# https://www.dropbox.com/s/00azaer6hgppop3/dataset_for_model_final.csv?dl=0
-
-
 @st.cache  # 👈 Added this
 def get_df(a):
     df = pd.read_csv(a)
