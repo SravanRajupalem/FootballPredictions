@@ -4,6 +4,7 @@ import pandas as pd
 import altair as alt
 from pathlib import Path
 import os
+import requests
 
 st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
@@ -21,12 +22,18 @@ st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the 
     managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
     certain time frame.""")
 
+
+# https://www.dropbox.com/s/00azaer6hgppop3/dataset_for_model_final.csv?dl=0
+
+
 @st.cache  # 👈 Added this
 def get_df(a):
-    return pd.read_csv(a)
+    df = pd.read_csv(a)
+    return df
 
 path = 'dataframes_blog/dataset_for_model_final.csv'
 dataset = get_df(path)
+
 
 if section == "Scraping the Web for Data":
     st.header('Scraping the Web for Data')
@@ -172,7 +179,7 @@ elif section == "Model Building":
 else:
     st.header('Injury Prediction Tool')
 
-    st.write("Select the players you want to compare")
+    st.subheader("Compare Players' Injury History")
 
     sorted_unique_player = dataset['name'].sort_values().unique()
     player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
@@ -184,14 +191,25 @@ else:
     df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
     df3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
 
-    # df = pd.merge(df1, df2, left_on='cum_week', right_on='cum_week', how='inner')
-    # df = pd.merge(df, df3, left_on='cum_week', right_on='cum_week', how='outer')
     df = pd.concat([df1, df2, df3])
-
-    # df = df.rename(columns={'cum_injury_total_x':df.loc[0,'name_x'], 'cum_injury_total_y':df.loc[0,'name_y'], 'cum_injury_total':df.loc[0,'name']})
-    # df = df.drop(columns=['name_x', 'name_y', 'name'])
     
     chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
         properties(width=800, height=300)
     st.altair_chart(chart1, use_container_width=False)
 
+    st.subheader("Compare Injury History According to Position")
+    
+    # df['position'] = 0
+    dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
+    dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
+    dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
+    dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+
+    df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
+    sorted_unique_position = dataset['position'].dropna().sort_values().unique()
+    pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
+    st.write(pos)
+    # chart2 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='position'). \
+    #     properties(width=800, height=300)
+    # st.altair_chart(chart2, use_container_width=False)
+ 
