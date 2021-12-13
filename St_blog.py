@@ -178,78 +178,77 @@ else:
     
     @st.cache  # 👈 Added this
     def get_df(a):
-        df = pd.read_csv(a)
-        return df
+        return pd.read_csv(a)
 
     path = 'dataframes_blog/dataset_for_model_final.csv'
-    dataset = get_df(path)
+    retrieve_dataset = get_df(path)
     
+    dataset = retrieve_dataset
+
     st.subheader("Compare Players' Injury History")
-    dataset.head()
-    # sorted_unique_player = dataset['name'].sort_values().unique()
-    # player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
-    # player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
-    # player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)    
-    # # button_clicked = st.button("OK")
+    
+    sorted_unique_player = dataset['name'].sort_values().unique()
+    player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+    player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+    player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
      
-    # df1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
-    # df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
-    # df3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+    df1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+    df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+    df3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
 
-    # df = pd.concat([df1, df2, df3])
+    df = pd.concat([df1, df2, df3])
     
-    # chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart1, use_container_width=False)
+    chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    st.altair_chart(chart1, use_container_width=False)
 
-    # st.subheader("Compare Cummulative Injury History According to Position")
+    st.subheader("Compare Cummulative Injury History According to Position")
     
-    # # df['position'] = 0
-    # dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
-    # dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
-    # dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
-    # dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+    dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
+    dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
+    dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
+    dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
 
-    # df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
-    # sorted_unique_position = dataset['position'].dropna().sort_values().unique()
-    # pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
-    # df_pos = pd.DataFrame([])
-    # for p in pos:
-    #     df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
+    df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
+    sorted_unique_position = dataset['position'].dropna().sort_values().unique()
+    pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
+    df_pos = pd.DataFrame([])
+    for p in pos:
+        df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
     
-    # df_pos['attacker'] = 0
-    # df_pos['defender'] = 0
-    # df_pos['goalkeeper'] = 0
-    # df_pos['midfielder'] = 0
-    # df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
-    # df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
-    # df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
-    # df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
-    # df_pos = df_pos.groupby('cum_week').sum().reset_index()
-    # base = alt.Chart(df_pos).encode(x='cum_week:Q')
-    # chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-    #     base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart2, use_container_width=False)
+    df_pos['attacker'] = 0
+    df_pos['defender'] = 0
+    df_pos['goalkeeper'] = 0
+    df_pos['midfielder'] = 0
+    df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
+    df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
+    df_pos = df_pos.groupby('cum_week').sum().reset_index()
+    base = alt.Chart(df_pos).encode(x='cum_week:Q')
+    chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+        base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+        properties(width=800, height=300)
+    st.altair_chart(chart2, use_container_width=False)
 
-    # st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
 
-    # sorted_unique_player = dataset['name'].sort_values().unique()
-    # player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
+    sorted_unique_player = dataset['name'].sort_values().unique()
+    player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
     
-    # pick_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
-    # st.write(player + " plays as an " + pick_player_pos + "!!!")
+    picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
+    st.write(player + " plays as " + picked_player_pos + "!!!")
 
-    # df_position = dataset[dataset['position'] ==   pick_player_pos]
-    # df_position = df_position.groupby('position').mean()
-    # df_position.head() 
-    # df1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
-    # df2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
-    # df3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+    df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
 
-    # df = pd.concat([df1, df2, df3])
+    df_avg_position = dataset[dataset['position'] == picked_player_pos]
+    df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
+    df_avg_position['name'] = picked_player_pos+'s avg cum_injury_total'
+
+    df_player_vs_avg = pd.concat([df_player, df_avg_position])
+
+    chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    chart3
     
-    # chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart1, use_container_width=False)
  
