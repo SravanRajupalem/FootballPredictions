@@ -46,13 +46,16 @@ if section == "Scraping the Web for Data":
         The reason for this decision was that we thought that these leagues would have better player documentation.")
     img4 = Image.open("images/image4.png")
     st.image(img4)
-    st.write("From FBRef.com we first scraped information from the big 5 European leagues. With that base, we again scraped the \
-        website for all the seasons. Then we scraped the player information from each of those seasons.  This operation yielded \
-        81,256 player records. Finally we again scraped all players' urls to get all the matches that each player had participated \
-        in. After going through these 5 iterations of scraping from FBRef.com, we obtained a list of 118,283 match logs. With this \
-        list we again scraped the website by batches to obtain a final match logs data set, that after some NaN cleaning, data type \
-        conversion  and dropping unwanted columns, ended up with a DataFrame named consolidated_df that had 3,048,121 rows with 47 \
-        columns.")
+    st.write("From FBRef.com we first scraped URLs from the big 5 European leagues. With that base, we again scraped the website \
+        for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
+        This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
+        19,572 players from this FBRef.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
+        website, we decided to only pull data for the players whose information was available on both sites. ")    
+    st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
+        FBRefID and TMID (TransferMarkt ID), which we downloaded from Jason Zickovic (kudos!). Via string conversions and splitting \
+        we extracted the FBRefID's from the generated list and decided to only scrape the match logs for those players from the FBRef site. \
+        This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
+        players had attainable data from both sites.")
     img5 = Image.open("images/image5.png")
     st.image(img5)
     st.write("Then we again scraped fbref.com on a per country basis to obtain each player's statistical information. This yielded \
