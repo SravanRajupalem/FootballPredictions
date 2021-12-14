@@ -63,7 +63,6 @@ if section == "Scraping the Web for Data":
         the age of a player must be relevant to our predictions.")
     img5c = Image.open("images/image5c.gif")
     st.image(img5c)
-    st.markdown("![Alt Text](https://giphy.com/embed/l0MYCZBYDo9Upszv2)")
     st.write("The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
         the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
         obtain each player's profile information. This yielded the following DataFrames:")
@@ -113,7 +112,7 @@ elif section == "Data Manipulation & Feature Engineering":
         At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
         from our data. Thus, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
         to our model? We will see!")
-    img7 = Image.open("images/image7.jpg")
+    img7 = Image.open("images/image7\.jpg")
     st.image(img7) 
  
     st.write("Then we created the player_info_df by concatenating the previously created DataFrames player_info_england, \
