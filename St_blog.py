@@ -37,27 +37,35 @@ if section == "Scraping the Web for Data":
         The reason for this decision was that we thought that these leagues would have better player documentation.")
     img4 = Image.open("images/image4.png")
     st.image(img4)
-    st.write("From FBRef.com we first scraped URLs from the big 5 European leagues. With that base, we again scraped the website \
-        for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
-        This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
-        19,572 players from this FBRef.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
+    st.write("From FBRef.com we first scraped urls from the big 5 European leagues. With that base, we again scraped the website \
+        for all the seasons for each league. Then we scraped the players' urls from each of all available seasons of the top 5. \
+        This operation yielded a list of 78,959 unique records. Those embedded urls contained an identifier (FBRefID) for each of the \
+        19,572 players from this fbref.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
         website, we decided to only pull data for the players whose information was available on both sites. ")    
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
-        FBRefID and TMID (TransferMarkt ID), which we downloaded from Jason Zickovic (kudos!). Via string conversions and splitting \
-        we extracted the FBRefID's from the generated list and decided to only scrape the match logs for those players from the FBRef site.")
+        FBRefID and TMID (TransferMarkt ID), which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) \
+        (kudos!). Via string conversions and splitting we extracted the FBRefID's from the generated list and decided to only scrape \
+        the match logs for those players from the FBRef site.")
     img5 = Image.open("images/image5.png")
     st.image(img5)
     st.write("This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
-        players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of the complete match logs \
-        URLs of all the consolidated players, which we utilized for our final data scraping.")
+        players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of 51,196 the complete \
+        match logs urls of all the consolidated players")
     img5a = Image.open("images/image5a.png")
     st.image(img5a)
-    
-    
-    
-    
-    st.write("Then we again scraped fbref.com on a per country basis to obtain each player's statistical information. This yielded \
-        the following DataFrames:")
+    st.write("This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
+        computation; thus, our team divided the data extraction in multiple batches, where we extracted the match logs from each batch individually. \
+        In the end, all these datasets were concatenated into a final dataframe we named consolidated_df_final.")
+    img5b = Image.open("images/image5b.png")
+    st.image(img5b)
+    st.write("As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
+        our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
+        the age of a player must be relevant to our predictions.")
+    img5c = Image.open("images/image5c.gif")
+    st.image(img5c)
+    st.write("The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
+        the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
+        obtain each player's profile information. This yielded the following DataFrames:")
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
     table['Country'] = ['England', 'Italy', 'Spain', 'France', 'Germany']
     table['DataFrame Name'] = ['player_data_df_england', 'player_data_df_italy', 'player_data_df_spain', 'player_data_df_france', \
@@ -65,8 +73,13 @@ if section == "Scraping the Web for Data":
     table['Rows'] = [6626,8255,7274,7354,6318]
     table['Columns'] = [15,15,15,15,15]
     table
+    st.write("Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
+        of 10,720 players. However, we only used 5,192 players since those had data available from both sources.")    
+    img5d = Image.open("images/image5d.png")
+    st.image(img5d)
+    st.write("")
     st.write("The transfermarkt.com website was our source for detailed data about each player's injury history. A similar \
-        scraping process to the one used with the fbref.com website was applied here.  First scraping the league urls, then using \
+        scraping process to the one used with the fbref.com website was applied here. First scraping the league urls, then using \
         these league urls to scrape the team urls and then these team urls to find the player urls. Finally we used the player urls \
         to scrape the injury information for each player. This yielded a DataFrame with shape (55,216, 8) named player_injuries_df.")
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
@@ -77,6 +90,10 @@ if section == "Scraping the Web for Data":
     table2['DataFrame Name'] = ['player_profile_df', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
+    st.write("This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
+        a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+        actually used in our models? Please stay tuned...")
+    st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
     
@@ -89,10 +106,7 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("Then we created the player_info_df by concatenating the previously created DataFrames player_info_england, \
         player_info_italy, player_info_spain, player_info_france, and player_info_germany.  The resulting player_info_df had a \
         shape of 35,827 rows by 15 columns.")
-    st.write("Next we had to use a handy mapping DataFrame called fbref_to_tm_mapping to link the websites' different ID's \
-        (FBRefID and TMID) which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) (kudos!). Via string conversions and splitting we extracted the \
-        FBRefID's and TMID's and included them as columns.")
-    st.write("We then merged on the intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively.")
+
     st.write("Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
         new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns. The features of the new_player_df:")
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
