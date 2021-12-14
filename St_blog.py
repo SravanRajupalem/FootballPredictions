@@ -63,6 +63,7 @@ if section == "Scraping the Web for Data":
         the age of a player must be relevant to our predictions.")
     img5c = Image.open("images/image5c.gif")
     st.image(img5c)
+    st.markdown("![Alt Text](https://giphy.com/embed/l0MYCZBYDo9Upszv2)")
     st.write("The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
         the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
         obtain each player's profile information. This yielded the following DataFrames:")
@@ -101,8 +102,20 @@ elif section == "Data Manipulation & Feature Engineering":
     st.header("Merging, Cleaning and Manipulating the Data")
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
-    st.write("The first step was to merge our player_profile_df_1, player_profile_df_2, and player_profile_df_3 tables using simple \
-        concatenation and dropping duplicates which resulted in a DataFrame named tm_profile_df of 12,902 rows and 41 columns.")
+    st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of selecting a subset of \
+        input features from the final dataset in order to construct our machine learning tool. This phase of the project required critical thinking, \
+        and trial and error. We needed to avoid adding redundant variables as this could have reduced the generalization capability \
+        of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
+        plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
+        believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
+        stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
+        features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or a defender? \
+        At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
+        from our data. Thus, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
+        to our model? We will see!")
+    img7 = Image.open("images/image7.jpg")
+    st.image(img7) 
+ 
     st.write("Then we created the player_info_df by concatenating the previously created DataFrames player_info_england, \
         player_info_italy, player_info_spain, player_info_france, and player_info_germany.  The resulting player_info_df had a \
         shape of 35,827 rows by 15 columns.")
