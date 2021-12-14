@@ -118,10 +118,19 @@ elif section == "Data Manipulation & Feature Engineering":
     img5e = Image.open("images/image5e.jpg")
     st.image(img5e) 
     st.write("")
+    st.write("Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
+        (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this dataframe as player_injuries_profile_final, \
+        which yielded a shape of (159362, 75). However, this dataset changed too many times since several steps were taken as we were clean and defining \
+        all features. Removing duplicates, dropping NaNs, updating the column types, and any other basic operations were applied. Most importantly, we \
+        aggregated all columns at the week level. In other words, our final dataset contained all players' profile data, match logs, and injuries at the \
+        week level. For example, a football player played 2 entire games within a week; then the soccer player played a total of 180 minutes. The same \
+        concept arises when a player scores in multiple games within a week; if a player scored a hattrick on Tuesday and then a brace on Sunday, then a \
+        single instance(row) of the data shows that this player had 5 goals. This step aggregated all column values with the groupby function and the sum() \
+        operator. This was a critical step for our time series models. Likewise, we added the weeks when players did not play and filled those with 0s. \
+        In other words, if a player didn't play a certain week, we would add a row and populate all the date columns accordingly and the remaining columns \
+        were filled with 0s.  The features of the new_player_df:")
     
     
-    st.write("Several NaNs cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
-        new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns. The features of the new_player_df:")
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
         'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
