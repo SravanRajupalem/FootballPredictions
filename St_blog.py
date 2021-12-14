@@ -93,8 +93,10 @@ if section == "Scraping the Web for Data":
     st.write("This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
         a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...")
-    
     st.write("Here is the new tm_profile_df dataset after the concatenation.")
+    img5f = Image.open("images/image5f.png")
+    st.image(img5f)
+    st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
     
@@ -116,7 +118,6 @@ elif section == "Data Manipulation & Feature Engineering":
     img5e = Image.open("images/image5e.jpg")
     st.image(img5e) 
     st.write("")
-    
     
     
     st.write("Several NaNs cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
