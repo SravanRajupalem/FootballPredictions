@@ -87,13 +87,14 @@ if section == "Scraping the Web for Data":
     st.write("Additional information about the players' profile was scraped from transfermarkt.com by using the player urls.  This \
         process was done in batches of 4,000 records and it yielded the following DataFrames:")
     table2 = pd.DataFrame(columns=['DataFrame Name', 'Shape'])
-    table2['DataFrame Name'] = ['player_profile_df', 'player_profile_df_2', 'player_profile_df_3']
+    table2['DataFrame Name'] = ['player_profile_df_1', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
     st.write("This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
         a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...")
-    st.write("")
+    
+    st.write("Here is the new tm_profile_df dataset after the concatenation.")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
     
