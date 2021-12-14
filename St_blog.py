@@ -74,7 +74,7 @@ if section == "Scraping the Web for Data":
     table['Columns'] = [15,15,15,15,15]
     table
     st.write("Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
-        of 10,720 players. However, we only used 5,192 players since those had data available from both sources.")    
+        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:")    
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
@@ -87,12 +87,15 @@ if section == "Scraping the Web for Data":
     st.write("Additional information about the players' profile was scraped from transfermarkt.com by using the player urls.  This \
         process was done in batches of 4,000 records and it yielded the following DataFrames:")
     table2 = pd.DataFrame(columns=['DataFrame Name', 'Shape'])
-    table2['DataFrame Name'] = ['player_profile_df', 'player_profile_df_2', 'player_profile_df_3']
+    table2['DataFrame Name'] = ['player_profile_df_1', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
     st.write("This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
         a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...")
+    st.write("Here is the new tm_profile_df dataset after the concatenation.")
+    img5f = Image.open("images/image5f.png")
+    st.image(img5f)
     st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
@@ -101,13 +104,23 @@ elif section == "Data Manipulation & Feature Engineering":
     st.header("Merging, Cleaning and Manipulating the Data")
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
-    st.write("The first step was to merge our player_profile_df_1, player_profile_df_2, and player_profile_df_3 tables using simple \
-        concatenation and dropping duplicates which resulted in a DataFrame named tm_profile_df of 12,902 rows and 41 columns.")
-    st.write("Then we created the player_info_df by concatenating the previously created DataFrames player_info_england, \
-        player_info_italy, player_info_spain, player_info_france, and player_info_germany.  The resulting player_info_df had a \
-        shape of 35,827 rows by 15 columns.")
-
-    st.write("Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
+    st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of selecting a subset of \
+        input features from the final dataset in order to construct our machine learning tool. This phase of the project required critical thinking, \
+        and trial and error. We needed to avoid adding redundant variables as this could have reduced the generalization capability \
+        of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
+        plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
+        believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
+        stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
+        features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or a defender? \
+        At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
+        from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
+        to our model? We will see!")
+    img5e = Image.open("images/image5e.jpg")
+    st.image(img5e) 
+    st.write("")
+    
+    
+    st.write("Several NaNs cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
         new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns. The features of the new_player_df:")
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
