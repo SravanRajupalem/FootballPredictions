@@ -110,16 +110,14 @@ elif section == "Data Manipulation & Feature Engineering":
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
         features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or a defender? \
         At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
-        from our data. Thus, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
+        from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
         to our model? We will see!")
-    img7 = Image.open("images/image7\.jpg")
-    st.image(img7) 
- 
-    st.write("Then we created the player_info_df by concatenating the previously created DataFrames player_info_england, \
-        player_info_italy, player_info_spain, player_info_france, and player_info_germany.  The resulting player_info_df had a \
-        shape of 35,827 rows by 15 columns.")
-
-    st.write("Several NaN cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
+    img5e = Image.open("images/image5e.jpg")
+    st.image(img5e) 
+    st.write("")
+    
+    
+    st.write("Several NaNs cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
         new_player_df, our final DataFrame, which had a shape of 1,680,385 rows and 62 columns. The features of the new_player_df:")
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
