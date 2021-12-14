@@ -74,7 +74,7 @@ if section == "Scraping the Web for Data":
     table['Columns'] = [15,15,15,15,15]
     table
     st.write("Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
-        of 10,720 players. However, we only used 5,192 players since those had data available from both sources.")    
+        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:")    
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
@@ -115,6 +115,7 @@ elif section == "Data Manipulation & Feature Engineering":
     img5e = Image.open("images/image5e.jpg")
     st.image(img5e) 
     st.write("")
+    
     
     
     st.write("Several NaNs cleaning, filling, dummy variable creation and replacement operations had to be done in order to get \
