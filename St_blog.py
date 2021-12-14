@@ -37,9 +37,9 @@ if section == "Scraping the Web for Data":
         The reason for this decision was that we thought that these leagues would have better player documentation.")
     img4 = Image.open("images/image4.png")
     st.image(img4)
-    st.write("From FBRef.com we first scraped URLs from the big 5 European leagues. With that base, we again scraped the website \
-        for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
-        This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
+    st.write("From FBRef.com we first scraped urls from the big 5 European leagues. With that base, we again scraped the website \
+        for all the seasons for each league. Then we scraped the players' urls from each of all available seasons of the top 5. \
+        This operation yielded a list of 78,959 unique records. Those embedded urls contained an identifier (FBRefID) for each of the \
         19,572 players from this fbref.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
         website, we decided to only pull data for the players whose information was available on both sites. ")    
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
@@ -50,7 +50,7 @@ if section == "Scraping the Web for Data":
     st.image(img5)
     st.write("This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
         players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of 51,196 the complete \
-        match logs URLs of all the consolidated players")
+        match logs urls of all the consolidated players")
     img5a = Image.open("images/image5a.png")
     st.image(img5a)
     st.write("This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
@@ -60,9 +60,12 @@ if section == "Scraping the Web for Data":
     st.image(img5b)
     st.write("As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
         our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
-        the age of a player must be relevant to our predictions. The older you get, the most likely to get injured... Before we spun the wheels, \
-        we had to push down the brakes and headed back to the fbref.com website to harvest more data. This process was similar, but in this case we \
-        scraped on a per country basis to obtain each player's profile information. This yielded the following DataFrames:")
+        the age of a player must be relevant to our predictions.")
+    img5c = Image.open("images/image5c.gif")
+    st.image(img5c)
+    st.write("The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
+        the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
+        obtain each player's profile information. This yielded the following DataFrames:")
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
     table['Country'] = ['England', 'Italy', 'Spain', 'France', 'Germany']
     table['DataFrame Name'] = ['player_data_df_england', 'player_data_df_italy', 'player_data_df_spain', 'player_data_df_france', \
@@ -70,19 +73,13 @@ if section == "Scraping the Web for Data":
     table['Rows'] = [6626,8255,7274,7354,6318]
     table['Columns'] = [15,15,15,15,15]
     table
-    
-    
-    
-                    
-    st.write("Then we again scraped fbref.com on a per country basis to obtain each player's statistical information. This yielded \
-        the following DataFrames:")
-            
-            
-    st.write("We then merged on the intersection of player_injuries_df and fbref_to_tm_df on columns TMId and TMID respectively.")
-        
-    
+    st.write("Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
+        of 10,720 players. However, we only used 5,192 players since those had data available from both sources.")    
+    img5d = Image.open("images/image5d.png")
+    st.image(img5d)
+    st.write("")
     st.write("The transfermarkt.com website was our source for detailed data about each player's injury history. A similar \
-        scraping process to the one used with the fbref.com website was applied here.  First scraping the league urls, then using \
+        scraping process to the one used with the fbref.com website was applied here. First scraping the league urls, then using \
         these league urls to scrape the team urls and then these team urls to find the player urls. Finally we used the player urls \
         to scrape the injury information for each player. This yielded a DataFrame with shape (55,216, 8) named player_injuries_df.")
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
@@ -93,6 +90,10 @@ if section == "Scraping the Web for Data":
     table2['DataFrame Name'] = ['player_profile_df', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
+    st.write("This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
+        a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+        actually used in our models? Please stay tuned...")
+    st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.")
     
