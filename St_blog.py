@@ -298,7 +298,7 @@ else:
     
     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
     
-    st.write(player2 + " started his career at the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+    st.write(player2 + " he has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
         str(int(picked_player_age_now)) + " years old!!!")
 
     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
@@ -312,7 +312,22 @@ else:
     chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
         properties(width=800, height=300)
     st.altair_chart(chart4, use_container_width=False)
-    #####
-# chart5 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
-#     properties(width=800, height=300)
-# chart5
+
+# Plotting Chart 5
+    st.subheader("Compare Player Injury History vs. the Average Number of Minutes Played")
+    st.write('* Player ages are updated with the latest data we have *')
+ 
+    sorted_unique_player = dataset['name'].sort_values().unique()
+    player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
+    
+    df_picked_player = dataset[dataset['name'] == player5][['name', 'cum_Min', 'cum_injury_total']]
+    
+    df_avg_min = dataset[['name', 'Min', 'cum_injury_total']]
+    df_avg_min = df_avg_min.groupby('Min').mean().reset_index()[['Min', 'cum_injury_total']]
+    df_avg_min['name'] = 'avg played minutes'
+
+    df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+
+    chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('Min:Q'), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    st.altair_chart(chart5, use_container_width=False)
