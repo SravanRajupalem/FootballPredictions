@@ -214,12 +214,16 @@ else:
     
     @st.cache  # 👈 Added this
     def get_df(a):
-        return pd.read_csv(a)
-
-    path = 'dataframes_blog/dataset_for_model_final.csv'
+        # return pd.read_csv(a)
+        return pd.read_parquet(a)
+    
+    # path = 'dataframes_blog/dataset_for_model_final.csv'
+    path = 'dataframes_blog/dataset_for_model_final.parquet'
     retrieve_dataset = get_df(path)
     
     dataset = retrieve_dataset
+
+# Plotting Chart 1: Compare Players' Injury History
 
     st.subheader("Compare Players' Injury History")
     
@@ -238,6 +242,7 @@ else:
         properties(width=800, height=300)
     st.altair_chart(chart1, use_container_width=False)
 
+# Plotting Chart 2: Compare Cummulative Injury History According to Position
     st.subheader("Compare Cummulative Injury History According to Position")
     
     dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
@@ -330,7 +335,6 @@ else:
     df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
     df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
 
-    st.write(df_picked_player)
     cum_Min_max = df_picked_player['cum_Min'].max()
 
     df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
