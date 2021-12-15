@@ -293,36 +293,35 @@ else:
 
 # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
-    # st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-    # st.write('* Player ages are updated with the latest data we have *')
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    st.write('* Player ages are updated with the latest data we have *')
  
-    # sorted_unique_player = dataset['name'].sort_values().unique()
-    # player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
+    player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
-    # picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
-    # picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
+    picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
+    picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
     
-    # picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
     
-    # st.write(player2 + " he has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
-    #     str(int(picked_player_age_now)) + " years old!!!")
+    st.write(player2 + " he has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+        str(int(picked_player_age_now)) + " years old!!!")
 
-    # df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
 
-    # picked_player_max_cum_week = df_player2['cum_week'].max()
+    picked_player_max_age = df_player2['age'].max()
 
-    # df_avg_age = dataset[['name', 'age', 'cum_injury_total']]
-    # df_avg_age = df_avg_age[df_avg_age['cum_week'] <= picked_player_max_cum_week]
-    # df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
-    # df_avg_age['name'] = 'avg cum_injury_total'
+    df_avg_age = dataset[['cum_week', 'name', 'age', 'cum_injury_total']]
+    df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
+    df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
+    df_avg_age['name'] = 'avg cum_injury_total'
 
-    # df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
+    df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
 
-    # chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart4, use_container_width=False)
+    chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    st.altair_chart(chart4, use_container_width=False)
 
-# Plotting Chart 5
+# Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
     st.write('* Player ages are updated with the latest data we have *')
  
@@ -331,22 +330,22 @@ else:
     df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
     df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
 
-    st.write(df_picked_player.head())
-    # cum_Min_max = df_picked_player['cum_Min'].max()
+    st.write(df_picked_player)
+    cum_Min_max = df_picked_player['cum_Min'].max()
 
-    # df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
-    # df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
-    # df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
-    # df_avg_min['name'] = 'avg of all players'
+    df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
+    df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
+    df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
+    df_avg_min['name'] = 'avg of all players'
 
-    # df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+    df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
 
-    # df_picked_player.drop_duplicates(inplace=True)
-    # df_avg_min.drop_duplicates(inplace=True)
+    df_picked_player.drop_duplicates(inplace=True)
+    df_avg_min.drop_duplicates(inplace=True)
 
-    # df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+    df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
 
-    # chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
-    #     properties(width=800, height=300)
-    # st.altair_chart(chart5, use_container_width=False)
+    chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
+        properties(width=800, height=300)
+    st.altair_chart(chart5, use_container_width=False)
 
