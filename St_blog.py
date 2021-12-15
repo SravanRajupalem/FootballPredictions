@@ -57,7 +57,7 @@ if section == "Scraping the Web for Data":
     st.write("This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
         computation; thus, our team divided the data extraction in multiple batches, where we extracted the match logs from each batch individually. \
         In the end, all these datasets were concatenated into a final dataframe we named consolidated_df_final.")
-    img5b = Image.open("images/image5b.png")
+    img5b = Image.open("images/image5b.PNG")
     st.image(img5b)
     st.write("As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
         our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
