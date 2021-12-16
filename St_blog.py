@@ -52,12 +52,12 @@ if section == "Scraping the Web for Data":
     st.write("This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
         players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of 51,196 the complete \
         match logs urls of all the consolidated players")
-    img5a = Image.open("images/image5a.png")
+    img5a = Image.open("images/image5a.PNG")
     st.image(img5a)
     st.write("This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
         computation; thus, our team divided the data extraction in multiple batches, where we extracted the match logs from each batch individually. \
         In the end, all these datasets were concatenated into a final dataframe we named consolidated_df_final.")
-    img5b = Image.open("images/image5b.png")
+    img5b = Image.open("images/image5b.PNG")
     st.image(img5b)
     st.write("As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
         our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
@@ -95,7 +95,7 @@ if section == "Scraping the Web for Data":
         a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...")
     st.write("Here is the new tm_profile_df dataset after the concatenation.")
-    img5f = Image.open("images/image5f.png")
+    img5f = Image.open("images/image5f.PNG")
     st.image(img5f)
     st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
