@@ -133,7 +133,7 @@ elif section == "Data Manipulation & Feature Engineering":
         That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
         were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.")
     st.write("")
-    st.write("This is how the dataset looks before we aggregated the dates:") 
+    st.write("This is how the dataset looked before we aggregated the dates:") 
     img14 = Image.open("images/image14.png")
     st.image(img14) 
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
@@ -151,9 +151,12 @@ elif section == "Data Manipulation & Feature Engineering":
     img15 = Image.open("images/image15.PNG")
     st.image(img15)
     img16 = Image.open("images/image16.PNG")
-    st.image(img16)
-    pd.options.display.max_columns = 1000
-    cr7_df = pd.DataFrame(pd.read_parquet('dataframes_blog/cr7_df.parquet'))
+    st.image(img16)    
+    st.write("After all the data manipulation and feature engineering, we produced a new dataset called complete_final_df_all with a 1,910,255 rows and 169 \
+        columns for a total of 4,588 players. We are now ready to start building our data models, but first let's take a look at the dataset. Here we \
+        want to show a subset of one of Cristiano Ronaldo's best season during the time he lead Real Madrid to win ""La Decima"" where he broke an all time \
+        record and scored 17 goals in a single season for the Champions League.") 
+    cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
@@ -181,10 +184,6 @@ elif section == "Data Manipulation & Feature Engineering":
         'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
         'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
     df_final
-
-    st.write("After all the data manipulation and feature engineering the head of our data frame looks like so:")
-    dataset_for_model_final_head = pd.read_csv('dataframes_blog/dataset_for_model_final_head.csv')
-    st.code(dataset_for_model_final_head.head())
 
 elif section == "Visual Exploration of Data":
     st.header('Visual Exploration of Data')
