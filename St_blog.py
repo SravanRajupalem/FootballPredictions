@@ -144,7 +144,11 @@ elif section == "Data Manipulation & Feature Engineering":
         at their respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
         of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
-        with new features for all competitions available and the venue") 
+        with new features for all competitions available and the venue.")
+    img15 = Image.open("images/image15.png")
+    st.image(img15)
+    img16 = Image.open("images/image16.png")
+    st.image(img16)
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
