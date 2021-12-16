@@ -105,14 +105,15 @@ elif section == "Data Manipulation & Feature Engineering":
     st.header("Merging, Cleaning and Manipulating the Data")
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
-    st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of selecting a subset of \
-        input features from the final dataset in order to construct our machine learning tool. This phase of the project required critical thinking, \
-        and trial and error. We needed to avoid adding redundant variables as this could have reduced the generalization capability \
+    st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
+        and select a subset of input features from the final dataset in order to construct our machine learning tool. This phase of the project required \
+        unbiased analysis or evaluation of how each attribute could contribute to our models as well as trial and error to experiment with various methods \
+        until finding the most successful features. We needed to also avoid adding redundant variables as this could have reduced the generalization capability \
         of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
         plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
         believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
-        features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or a defender? \
+        features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or an attacker? \
         At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
         from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
         to our model? We will see!")
@@ -120,16 +121,16 @@ elif section == "Data Manipulation & Feature Engineering":
     st.image(img5e) 
     st.write("")
     st.write("Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
-        (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this dataframe as player_injuries_profile_final, \
+        (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this new dataframe as player_injuries_profile_final, \
         which yielded a shape of (159362, 75). However, this dataset changed too many times since several steps were taken as we were clean and defining \
         all features. Removing duplicates, dropping NaNs, updating the column types, and any other basic operations were applied. Most importantly, we \
         aggregated all columns at the week level. In other words, our final dataset contained all players' profile data, match logs, and injuries at the \
         week level. For example, a football player played 2 entire games within a week; then the soccer player played a total of 180 minutes. The same \
-        concept arises when a player scores in multiple games within a week; if a player scored a hattrick on Tuesday and then a brace on Sunday, then a \
-        single instance(row) of the data shows that this player had 5 goals. This step aggregated all column values with the groupby function and the sum() \
+        concept arised when a player scored in multiple games within a week; if a player scored a hattrick on Tuesday and then a brace on Sunday, then a \
+        single instance(row) of the data showed that this player had 5 goals. This step aggregated all column values with the groupby function and the sum() \
         operator. This was a critical step for our time series models. Likewise, we added the weeks when players did not play and filled those with 0s. \
-        In other words, if a player didn't play a certain week, we would add a row and populate all the date columns accordingly and the remaining columns \
-        were filled with 0s.  The features of the new_player_df:")
+        That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
+        were filled with 0s.  The features of the new_player_df dataset are:")
     
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
