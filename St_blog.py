@@ -153,8 +153,8 @@ elif section == "Data Manipulation & Feature Engineering":
     img16 = Image.open("images/image16.PNG")
     st.image(img16)
     pd.options.display.max_columns = 1000
-    cr7_df = pd.read_parquet('dataframes_blog/cr7_df.parquet')
-    st.code(cr7_df[:25])
+    cr7_df = pd.DataFrame(pd.read_parquet('dataframes_blog/cr7_df.parquet'))
+    cr7_df
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
