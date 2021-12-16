@@ -133,6 +133,12 @@ elif section == "Data Manipulation & Feature Engineering":
         That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
         were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.")
     st.write("")
+    st.write("This is how the dataset looks before we aggregated the dates:") 
+    img14 = Image.open("images/image14.png")
+    st.image(img14) 
+    
+    
+    
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
