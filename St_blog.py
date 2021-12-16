@@ -131,23 +131,23 @@ elif section == "Data Manipulation & Feature Engineering":
         single instance(row) of the data showed that this player had 5 goals. This step aggregated all column values with the groupby function and the sum() \
         operator. This was a critical step for our time series models. Likewise, we added the weeks when players did not play and filled those with 0s. \
         That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
-        were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released. \
-        The features of the new_player_df dataset are:")
+        were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.")
+    st.write("")
+    st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
+        when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
+        the game from the beginning")
+    img13 = Image.open("images/image13.png")
+    st.image(img13) 
     
-# Creating new columns - player's team wins, loses or draws a game, also add a column to highlight when player starts playing
-# since the beginning of the match
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'W', 'Won'] = 1
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'W', 'Won'] = 0
-
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'L', 'Loss'] = 1
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'L', 'Loss'] = 0
-
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] == 'D', 'Draw'] = 1
-total_match_logs_df.loc[total_match_logs_df['Result'].str[0] != 'D', 'Draw'] = 0
-
-total_match_logs_df.loc[total_match_logs_df['Start'] == 'Y', 'Games_Start'] = 1
-total_match_logs_df.loc[total_match_logs_df['Start'] != 'Y', 'Games_Start'] = 0
-
+    
+    
+    st.write("We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
+        during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and the \ 
+        player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great at their \ 
+        respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
+        Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
+        of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
+        with new features for all competitions available and the venue") 
     
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
