@@ -151,15 +151,14 @@ elif section == "Data Manipulation & Feature Engineering":
     img15 = Image.open("images/image15.PNG")
     st.image(img15)
     img16 = Image.open("images/image16.PNG")
-    st.image(img16)    
+    img16.image(img16)
     st.write("After all the data manipulation and feature engineering, we produced a new dataset called complete_final_df_all with a 1,910,255 rows and 169 \
         columns for a total of 4,588 players. We are now ready to start building our data models, but first let's take a look at the dataset. Here we \
         want to show a subset of one of Cristiano Ronaldo's best season during the time he lead Real Madrid to win ""La Decima"" where he broke an all time \
         record and scored 17 goals in a single season for the Champions League.") 
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
-    img17 = Image.open("images/image17.PNG")
-    st.image(img17)   
+    
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
         'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
