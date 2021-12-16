@@ -136,9 +136,6 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("This is how the dataset looks before we aggregated the dates:") 
     img14 = Image.open("images/image14.png")
     st.image(img14) 
-    
-    
-    
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
@@ -155,6 +152,9 @@ elif section == "Data Manipulation & Feature Engineering":
     st.image(img15)
     img16 = Image.open("images/image16.png")
     st.image(img16)
+    pd.options.display.max_columns = 1000
+    cr7_df = pd.read_parquet('dataframes_blog/cr7_df.parquet')
+    st.code(cr7_df[:25])
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
