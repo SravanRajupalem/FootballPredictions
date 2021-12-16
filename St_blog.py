@@ -266,23 +266,23 @@ else:
     dataset = copy.deepcopy(get_df())
     
     st.subheader("Compare Players' Injury History")
-    img18 = Image.open("images/image18.png")
+    img18 = Image.open("images/image18.PNG")
     st.image(img18)
     
     st.subheader("Compare Cummulative Injury History According to Position")
-    img19 = Image.open("images/image19.png")
+    img19 = Image.open("images/image19.PNG")
     st.image(img19)
     
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-    img20 = Image.open("images/image20.png")
+    img20 = Image.open("images/image20.PNG")
     st.image(img20)
     
     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-    img21 = Image.open("images/image21.png")
+    img21 = Image.open("images/image21.PNG")
     st.image(img21)
     
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
-    img22 = Image.open("images/image22.png")
+    img22 = Image.open("images/image22.PNG")
     st.image(img22)
     
 
