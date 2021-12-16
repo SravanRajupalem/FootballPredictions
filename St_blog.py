@@ -264,6 +264,27 @@ else:
     # path = 'dataframes_blog/dataset_for_model_final.csv'
     
     dataset = copy.deepcopy(get_df())
+    
+    st.subheader("Compare Players' Injury History")
+    img18 = Image.open("images/image18.png")
+    st.image(img18)
+    
+    st.subheader("Compare Cummulative Injury History According to Position")
+    img19 = Image.open("images/image19.png")
+    st.image(img19)
+    
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    img20 = Image.open("images/image20.png")
+    st.image(img20)
+    
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    img21 = Image.open("images/image21.png")
+    st.image(img21)
+    
+    st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+    img22 = Image.open("images/image22.png")
+    st.image(img22)
+    
 
 # Plotting Chart 1: Compare Players' Injury History
 
@@ -356,7 +377,7 @@ else:
     
     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
     
-    st.write(player2 + " he has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+    st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
         str(int(picked_player_age_now)) + " years old!!!")
 
     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
