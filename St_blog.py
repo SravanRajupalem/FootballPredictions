@@ -139,7 +139,7 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
-    img13 = Image.open("images/image13.png")
+    img13 = Image.open("images/image13.PNG")
     st.image(img13) 
     st.write("We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
         during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
@@ -148,9 +148,9 @@ elif section == "Data Manipulation & Feature Engineering":
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
         of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
         with new features for all competitions available and the venue.")
-    img15 = Image.open("images/image15.png")
+    img15 = Image.open("images/image15.PNG")
     st.image(img15)
-    img16 = Image.open("images/image16.png")
+    img16 = Image.open("images/image16.PNG")
     st.image(img16)
     pd.options.display.max_columns = 1000
     cr7_df = pd.read_parquet('dataframes_blog/cr7_df.parquet')
