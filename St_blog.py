@@ -134,56 +134,75 @@ elif section == "Data Manipulation & Feature Engineering":
         were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.")
     st.write("")
     st.write("This is how the dataset looked before we aggregated the dates:") 
-    img14 = Image.open("images/image14.png")
+    img14 = Image.open("images/image14.PNG")
     st.image(img14) 
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
-    img13 = Image.open("images/image13.PNG")
+    img13 = Image.open("images/image13.png")
     st.image(img13) 
     st.write("We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
         during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
         the player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great \
         at their respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
-        of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
-        with new features for all competitions available and the venue.")
+        of a game could also have an influence on players' performance and may boost the likeliness to get injured.")
     img15 = Image.open("images/image15.PNG")
     st.image(img15)
+    
+    st.write("Consequently, we created dummy variables to come up with new features for all competitions available and the venue.")
     img16 = Image.open("images/image16.PNG")
-    img16.image(img16)
-    st.write("After all the data manipulation and feature engineering, we produced a new dataset called complete_final_df_all with a 1,910,255 rows and 169 \
+    st.image(img16)
+    
+    img17 = Image.open("images/image17.jpg")
+    st.image(img17)
+    st.write("After all the data manipulation and feature engineering, we produced a new dataset we named complete_final_df_all with a 1,910,255 rows and 169 \
         columns for a total of 4,588 players. We are now ready to start building our data models, but first let's take a look at the dataset. Here we \
-        want to show a subset of one of Cristiano Ronaldo's best season during the time he lead Real Madrid to win ""La Decima"" where he broke an all time \
+        want to show a subset of one of Cristiano Ronaldo's best seasons during the time he lead Real Madrid to win 'La Decima' where he broke an all time \
         record and scored 17 goals in a single season for the Champions League.") 
+    st.write("Feel free to scroll up, down, left, and right")
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
-    
-    df_final = pd.DataFrame(columns=['Variable', 'Description'])
-    df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
-        'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
-        'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'Pkcon',
-        'Won', 'Loss', 'Draw', 'release_week', 'was_match', 'Height', 'Weight', 'Birth', 'cum_week', 'defender', 'attacker', \
-        'midfielder', 'goalkeeper', 'age', 'right_foot', 'left_foot', 'injury_count', 'cum_injury']
-    df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
-        'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
-        'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
-        'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
-        'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
-        'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
-        'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
-        'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
-        'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
-        'Passess that move the ball at least 10 yards toward opponent goal', \
-        'Number of times player controlled the ball with his feet', \
-        "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
-        'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
-        'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
-        'Game lost', 'Game draw', 'Week when player was released from injury', \
-        'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
-        'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
-        'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
+    st.write("Here is the list of all columns from our final dataframe. All of those features were available for our time series models:")
+    df_final = pd.DataFrame(columns=['Features'])
+    df_final['Features'] = ['FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 
+        'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 
+        'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 'Loss', 'Draw', 'FootAbility', 'release_week', 'was_match',
+        'Serie A', 'Premier League', 'La Liga', 'Ligue 1', 'Bundesliga', 'Champions Lg', 'Europa Lg', 'FIFA World Cup', 'UEFA Nations League',
+        'UEFA Euro', 'Copa América', 'Away', 'Home', 'Neutral', 'week', 'year', 'PlayerFullName', 'name', 'Position:', 'Height', 'Weight', 'Foot',
+        'Birth', 'Nationality', 'Photo', 'InternationalReputation', 'Twitter', 'Instagram', 'Place of birth:', 'Citizenship:', 'cum_week', 'defender',
+        'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'left_foot', 'injury_count', 'cum_injury', 'age', 'unique_injury_count',
+        'cum_injury_total', 'previous_injury_week', 'weeks_since_last_injury', 'injured', 'injured_in_1_week', 'injured_in_4_week',
+        'injured_in_12_week', 'injured_in_26_week', 'injured_in_52_week', 'injury_count_in_1_week', 'injury_count_in_4_week',
+        'injury_count_in_12_week', 'injury_count_in_26_week',  'injury_count_in_52_week', 'cum_injury_in_1_week', 'cum_injury_in_4_week',
+        'cum_injury_in_12_week', 'cum_injury_in_26_week', 'cum_injury_in_52_week', 'cum_sum', 'Min_cum',  'Gls_cum', 'Ast_cum', 'PK_cum', 
+        'PKatt_cum', 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 
+        'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum', 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 
+        'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum', 'PKcon_cum', 'Won_cum', 'Loss_cum', 'Draw_cum', 'was_match_cum', 
+        'Serie A_cum', 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 
+        'UEFA Nations League_cum', 'UEFA Euro_cum', 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum', 'defender_cum', 'attacker_cum', 
+        'midfielder_cum', 'goalkeeper_cum', 'right_foot_cum', 'left_foot_cum', 'drop', 'last_week', 'train_split']
+    # df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
+    #     'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
+    #     'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
+    #     'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
+    #     'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
+    #     'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
+    #     'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
+    #     'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
+    #     'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
+    #     'Passess that move the ball at least 10 yards toward opponent goal', \
+    #     'Number of times player controlled the ball with his feet', \
+    #     "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
+    #     'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
+    #     'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
+    #     'Game lost', 'Game draw', 'Week when player was released from injury', \
+    #     'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
+    #     'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
+    #     'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
     df_final
+    
+    st.write("Did we use all features for our predictions? Of course not...")
 
 elif section == "Visual Exploration of Data":
     st.header('Visual Exploration of Data')
