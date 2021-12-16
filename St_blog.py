@@ -158,7 +158,8 @@ elif section == "Data Manipulation & Feature Engineering":
         record and scored 17 goals in a single season for the Champions League.") 
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
-    
+    img17 = Image.open("images/image17.PNG")
+    st.image(img17)   
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
         'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
