@@ -138,17 +138,13 @@ elif section == "Data Manipulation & Feature Engineering":
         the game from the beginning")
     img13 = Image.open("images/image13.png")
     st.image(img13) 
-    
-    
-    
     st.write("We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
-        during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and the \ 
-        player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great at their \ 
-        respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
+        during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
+        the player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great \
+        at their respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
         of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
         with new features for all competitions available and the venue") 
-    
     
     df_final = pd.DataFrame(columns=['Variable', 'Description'])
     df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
