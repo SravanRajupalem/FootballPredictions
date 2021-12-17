@@ -262,26 +262,52 @@ else:
         return pd.read_parquet(path)
     
     # path = 'dataframes_blog/dataset_for_model_final.csv'
-    
     dataset = copy.deepcopy(get_df())
     
+    st.write("The following set of tools has been developed to evaluate and understand how players' injuries evolve over time. It is reasonable to \
+        assume that as players age, they are more likely to become injured. Of course, there are some players that do not get injured as much as others \
+		while others get injured a lot more frequently. The following tools are intended to help us understand some of the differences \
+        between these players.") 
     st.subheader("Compare Players' Injury History")
+    st.write("First, we want to individually compare players' injury history. Here, you are able to select up to 3 players. This line chart exhibits a clear comparison of \
+        how players start accumulating injures throughout time, where time is displayed in cumulative weeks. For this example, we are showing a model comparison on \
+        3 players with similar attributes. Football fans love to compare Ronaldo and Messi. They both have had an amazing career, have scored many goals, and have broken \
+        all the records, and it seems that they will continue to do so for the next few years.  However, Leo has accumulated more injuries than CR7 even though Leo has \
+        played fewer games. We are including Leo and Cristiano for our comparison, and also incorporate Robert Lewandoski since he has become a scoring machine the past \
+        years. It seems that Lewandoski is projected to accumulate fewer injuries than Leo. Why did Lionel Messi accumulate more injuries than Cristiano? Lionel Messi plays \
+        the South American qualifiers and Copa America while Cristiano and Lewandoski play the European qualifiers and the Eurocup. Is it because of the competitions? \
+        One thing to mention is that Messi is a midfielder while Cristiano and Lewandoski are strikers. May the position of the player influence the likeliness of a player \
+        getting injured? We mentioned earlier that goalkeepers may not be as exposed as other positions. However, they do get injured. The following visualization will \
+        help us answer this.")
     img18 = Image.open("images/image18.PNG")
     st.image(img18)
-    
     st.subheader("Compare Cummulative Injury History According to Position")
+    st.write("This tool allows you to compare the variation of injuries based on the player's position. We have previously defined 4 different positions for each player, \
+        in this tool, you can compare all players' positions at the same time. When we only select the goalkeeper position, we can immediately notice that they \
+        are less likely to get injured compared to other positions. Now, we can strongly say that, in fact, goalkeepers have a much lower chance of getting injured. Furthermore, \
+        you may think that attackers are the ones with the higher risk of getting injured; however, this graph verifies that defenders are the ones that accumulate more injuries.")
     img19 = Image.open("images/image19.PNG")
     st.image(img19)
-    
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    st.write("The next visualization helps you compare a player's injuries through his entire career against the average injuries of players in the same position of \
+        the player you select. It is crucial to understand how this player is doing compared to other players in his position. Here you can visualize where a \
+        player stands with other similar players. In this case, Gareth Bale has been appointed since he is a phenomenal player who unfortunately has had had many injuries during his football career. As shown, he has \
+        accumulated more injuries than the cumulative average of all the attackers from our dataset. Thus, this is a player that may continue to get injured until the \
+        end of his football profession.")
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
     img20 = Image.open("images/image20.PNG")
     st.image(img20)
-    
-    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    st.write("Here, we wanted to take a very similar approach by comparing a player's injury history against the average injuries for players of the same age as the selected player. Again, \
+        we used Gareth Bale as an example, and the same trend occurs where he's above the average cumulative total injuries of players his age. Bale's \
+        injuries have continued to increase at a steady phase during the years. It seems that he has not been able to have a full season without injuries. He is \
+        just one of those players who keeps suffering from injuries setbacks.")
     img21 = Image.open("images/image21.PNG")
     st.image(img21)
-    
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+    st.write("Last, this is a comparison of a single player's injuries history against the average injuries of all players. The x-axis represents the cumulative minutes \
+        of all games played, and on the y-axis, the graph displays the cumulative injuries through time. Again, we chose Robert Lewandoski to be the player to be compared. As \
+		shown on this graph, as he started to accumulate minutes at the beginning of his career, he wouldn't get as many injuries as the average football player. Once he \
+		reaches over 40,000 minutes, he overtakes this average and starts to accumulate more injuries than the average player.")
     img22 = Image.open("images/image22.PNG")
     st.image(img22)
     
