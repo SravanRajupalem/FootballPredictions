@@ -182,47 +182,33 @@ The following function had to be applied in multiple batches since this operatio
                         
         return list(set(match_logs_list))
 
-Once this function is created, we imported the mapping table of FBRefIDs and TMIDs; this method allowed us to produce a single list of the players that are used for the scrapping of the matchlogs.
+Once this function is created, we imported the mapping table of FBRefIDs and TMIDs to only pull data from the intersection of FBRefIDs and TMIDs. This step allowed us to avoid an unnecessary effort to pull match logs for players that we will not use.
 
-    # 1st batch 0:5000 
+.. code:: python    
+
+    fbref_to_tm_mapping = pd.read_csv('.../CSV files/fbref_to_tm_mapping.csv', encoding='latin-1')
+    player_all_competitions_filtered = player_all_competitions_df.merge(fbref_to_tm_mapping, left_on='FBRefID', right_on='FBRefID', how='inner')
+    player_all_competitions_filtered_list = list(player_all_competitions_filtered[0])
+
+
+Here we were able to generate a list of 51,196 URLs for a total of 5,192 players. This list of URLs is used to 
+scrape all match logs URLs of all the consolidated players. The list called **match_logs_list**.
+
+.. code:: python    
+    # Total length of player_all_competitions is 5192
+    
+    match_logs_list = []
+
     count = 0
-    for i in range(len(player_all_competitions[0:5000])):
-        match_logs_list.extend(get_player_match_logs(player_all_competitions[0:5000], i))
+    for i in range(len(player_all_competitions_filtered_list)):
+        match_logs_list.extend(get_player_match_logs(player_all_competitions_filtered_list, i))
         count += 1
-        sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
+        sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions_filtered_list)*100)))
         sys.stdout.flush()
 
-**1.5 Append match_url_files.ipynb**
+**2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynB, ........., 2h. FBREF Player Batch 4000-5192** 
 
-In this notebook, we concatenate the match logs lists that were created above to build the final **match_log_urls** list that contains 
-all players' URLs match logs for every single season. This list has 148,478 URLs
-
-.. code:: python
-
-    # Uniting all match logs into a single list: match_logs_list_urls
-
-    match_logs_list_urls = []
-    match_logs_list_urls.extend(list(match_logs_list_urls_1['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_2['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_3['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_4['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
-
-However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
-The final list was reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it is the most comfortable and fastest method
-to save this file to the Google Drive.
-
-.. code:: python
-
-    # Eliminated Repeated match logs
-    match_logs_list_urls = list(set(match_logs_list_urls))
-
-    # Export as CSV
-    pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
-
-**2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283** 
-
-It is time to perform the real data scrapping. Here, we are pulling data from the above list, which contains a total of 118,283 URLs. 
+It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 118,283 URLs. 
 By running this function, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
 have match logs that contain 30 attributes or columns while other players have match logs with 39 attributes. Thus, players' match logs are 
 appended to two dataframes of 30 columns and 39 columns, respectively. 
@@ -233,47 +219,63 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
     A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
     this is an example of the first batch. In the end, all dataframes are concatenated together to produce a single dataframe.
 
+.. code:: python    
+
+# Pull all match_log_lists_x tables. We will convert each list individually WORK IN PROCESS
+
+def create_match_logs_tables(match_logs_list_urls_x):
+
+    df_30_columns = pd.DataFrame([])
+    df_39_columns = pd.DataFrame([])
+
+    count = 0
+
+    for player in match_logs_list_urls_x:
+        try: # this may fix "HTTP Error 404: Not Found"
+            # urlopen(player)
+
+            new_table = pd.read_html(player)[0]
+            new_table.columns = new_table.columns.droplevel()
+            new_table['name'] = player.split('/')[-1].replace("-Match-Logs", "")
+            
+            if new_table.shape[1] == 30:
+                new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                df_30_columns = df_30_columns.append(new_table, ignore_index=True)
+                count += 1
+                
+                
+            if new_table.shape[1] == 39:
+                new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
+                df_39_columns = df_39_columns.append(new_table, ignore_index=True)
+                count += 1
+
+            sys.stdout.write("\r{0} percent player urls have just scraped!".format(count / len(match_logs_list_urls_x)*100))
+            sys.stdout.flush()
+                
+        except:
+            pass
+    
+    return df_30_columns, df_39_columns
+    
+    
+
+In this notebook, 
+
+we concatenate the match logs lists that were created above to build the final **match_log_urls** list that contains 
+all players' URLs match logs for every single season. This list has 148,478 URLs
+
 .. code:: python
 
-    # Pull all match_log_lists. We will convert each list individually
+    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
 
-    def create_match_logs_tables(match_logs_list_urls_x):
+However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
+The final list was reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it is the most comfortable and fastest method
+to save this file to the Google Drive.
 
-        df_30_columns = pd.DataFrame([])
-        df_39_columns = pd.DataFrame([])
 
-        count = 0
 
-        for player in match_logs_list_urls_x:
-            try: # this may fix "HTTP Error 404: Not Found"
-                # urlopen(player)
 
-                new_table = pd.read_html(player)[0]
-                new_table.columns = new_table.columns.droplevel()
-                new_table['name'] = player.split('/')[-1].replace("-Match-Logs", "")
-                
-                if new_table.shape[1] == 30:
-                    new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
-                    df_30_columns = df_30_columns.append(new_table, ignore_index=True)
-                    count += 1
-                    
-                    
-                if new_table.shape[1] == 39:
-                    new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
-                    df_39_columns = df_39_columns.append(new_table, ignore_index=True)
-                    count += 1
-
-                sys.stdout.write("\r{0} percent player urls have just scraped!".format(count / len(match_logs_list_urls_x)*100))
-                sys.stdout.flush()
-
-            except:
-                pass
-        
-        return df_30_columns, df_39_columns
-
-    # Creating different length data frames for the first 5000 URLs
-
-    df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])
+2. 
 
 Here the two dataframes generated by the function above are merged into a single dataframe. Only the most relevant columns are stored.
 
