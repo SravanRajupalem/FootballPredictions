@@ -161,8 +161,7 @@ steps during the data scrapping, but only the most important ones are shown; ref
 
     player_all_competitions = get_players_all_competitions(player_table_big_5)
 
-The following function had to be applied in multiple batches since this operation required high computation; this method allowed us to produce a single list of 
-all players after concatenating all the lists. Thus, a total of 4 batches of 5000 URLs were created to generate the **match_logs_urls list**.
+The following function had to be applied in multiple batches since this operation required high computation.
 
 .. code:: python
 
@@ -183,7 +182,7 @@ all players after concatenating all the lists. Thus, a total of 4 batches of 500
                         
         return list(set(match_logs_list))
 
-    match_logs_list = []
+Once this function is created, we imported the mapping table of FBRefIDs and TMIDs; this method allowed us to produce a single list of the players that are used for the scrapping of the matchlogs.
 
     # 1st batch 0:5000 
     count = 0
