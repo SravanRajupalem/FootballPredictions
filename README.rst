@@ -524,7 +524,7 @@ contribute to our ML models such as 'Retired since:', 'Without Club since:', and
 since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
-**17. Consolidate Profile Data Dataframe.ipynb**
+**6. Consolidate Profile Data Dataframe.ipynb**
 
 This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
 to spend some time reading this notebook. 
@@ -584,7 +584,7 @@ This is just the beginning...
 
 There is a great number of steps taken on this notebook, we only highlight the ones we believe are the most relevant. Steps like
 removing duplicates, dropping NaNs, updating the column types, and any other basic operations are excluded. We also do some testing in order
-to understand what data cleaning is required and more. Please refer to the **17. Consolidate Profile Data Dataframe.ipynb** for the 
+to understand what data cleaning is required and more. Please refer to the **6. Consolidate Profile Data Dataframe.ipynb** for the 
 complete notebook.
 
 Here we create some important features that are considered for our time series models.
@@ -698,6 +698,44 @@ these features could be of great importance to improve our models.
 
     new_player_df['age'] = round((pd.to_datetime(new_player_df['date']) - pd.to_datetime(new_player_df['Birth'])) / timedelta(days=365), 0)
 
+Also, we believed competitions or tournaments where players participated could influence our model, especially when players are on international duty during major tournaments such as the world qualifiers. Thus, we created dummy variables to identify what tournament players played and added those as new features.
+
+.. code:: python
+
+    def make_dummies(df, feature, suffix):
+        feature_list = list(df[feature].unique())
+
+        for col in feature_list:
+            df[col] = 0
+
+        for row in range(len(df)):
+            for features in feature_list:
+                 if df[feature].iloc[row] == features:
+                     df[features + suffix].iloc[row] = 1
+
+        return df
+   
+    feature_list = ['Serie A', 'Premier League', 'La Liga', 'Ligue 1', 'Bundesliga', 'Champions Lg', 'Europa Lg', 'FIFA World Cup', 'UEFA Nations League', 'UEFA Euro', 'Copa      América']
+
+    for col in feature_list:
+        total_match_logs_df.loc[total_match_logs_df['Comp'] == col, col] = 1
+        total_match_logs_df.loc[total_match_logs_df['Comp'] != col, col] = 0
+  
+Other important features are the injury count as well the previous injury weeks, and the weeks that players got injured.
+
+.. code:: python
+
+    new_player_df.loc[(new_player_df['injury_count']== 1) & (new_player_df['injury_count'].shift(1) == 1), 'unique_injury_count'] = 0
+    new_player_df.loc[(new_player_df['injury_count']== 1) & (new_player_df['injury_count'].shift(1) == 0), 'unique_injury_count'] = 1
+    new_player_df.loc[(new_player_df['injury_count']== 0) & (new_player_df['injury_count'].shift(1) == 0), 'unique_injury_count'] = 0
+    new_player_df.loc[(new_player_df['injury_count']== 0) & (new_player_df['injury_count'].shift(1) == 1), 'unique_injury_count'] = 0
+
+    new_player_df['cum_injury_total'] = new_player_df.groupby(['FBRefID'])['unique_injury_count'].cumsum()
+
+    new_player_df["previous_injury_week"] = new_player_df.groupby(["FBRefID", "cum_injury_total"])["cum_week"].transform("first")
+
+    new_player_df.loc[new_player_df['previous_injury_week'] == 0, 'weeks_since_last_injury'] = 0
+    new_player_df.loc[new_player_df['previous_injury_week'] != 0, 'weeks_since_last_injury'] = new_player_df["cum_week"] - new_player_df["previous_injury_week"]
 
 Our final dataset has a shape of (1680385, 68)
 
@@ -726,6 +764,23 @@ This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned
     dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
 
     # dataset[dataset['FBRefID'] == '71672fa0'].tail(60)
+
+
+.. code:: python
+
+    # Creating 'cum_sum' column to serve as base for cummulative features
+
+
+
+Visual Exploration of Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Model Building
+~~~~~~~~~~~~~~~
+
+Citing 
+~~~~~~
+
 
 The following block of code shows a function that is used to build columns. The generated columns are based on a time constrain.
 The data ranges include: a week, a month(4 weeks), a quarter(12 weeks), half the year(26 weeks), and an entire year(52 weeks).
@@ -763,57 +818,3 @@ The injured column is similar to the one above, but this is time this column is 
 Next, we develop a new colum to serve a base for the cummulative features that will be added. We do this by applying the groupby 
 function and the cumsum() operator.
 
-.. code:: python
-
-    # Creating 'cum_sum' column to serve as base for cummulative features
-
-    dataset['cum_sum'] = dataset['injured'].cumsum()
-
-Now we 
-
-
-
-
-# Creating function to add cummulative columns
-
-def cummulative_sum(dataset, cum_column, original_column):
-    dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
-    return dataset
-
-
-
-
-
-
-
-
-
-
-
-# Creating function to add cummulative columns
-
-def cummulative_sum(dataset, cum_column, original_column):
-    dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
-    return dataset
-
-
-
-# Creating cummulative variables
-cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 
-    'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 
-    'Loss', 'Draw', 'was_match']
-
-for var in cum_cols:
-    cummulative_sum(dataset, var+'_cum', var)
-
-
-
-
-Visual Exploration of Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Model Building
-~~~~~~~~~~~~~~~
-
-Citing 
-~~~~~~
