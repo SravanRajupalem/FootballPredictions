@@ -721,7 +721,7 @@ Also, we believed competitions or tournaments where players participated could i
         total_match_logs_df.loc[total_match_logs_df['Comp'] == col, col] = 1
         total_match_logs_df.loc[total_match_logs_df['Comp'] != col, col] = 0
   
-Other important features are the injury count as well the previous injury weeks, and the weeks that players got injured.
+Other important features are the injury count as well the previous injury weeks, and the weeks that players got injured. Here is how we did it:
 
 .. code:: python
 
@@ -737,7 +737,8 @@ Other important features are the injury count as well the previous injury weeks,
     new_player_df.loc[new_player_df['previous_injury_week'] == 0, 'weeks_since_last_injury'] = 0
     new_player_df.loc[new_player_df['previous_injury_week'] != 0, 'weeks_since_last_injury'] = new_player_df["cum_week"] - new_player_df["previous_injury_week"]
 
-Our final dataset has a shape of (1680385, 68)
+We also added more other features before and after we created this notebook.
+In the end, we ended with a final dataset of shape (1910255, 169).
 
 Are we done?
 
