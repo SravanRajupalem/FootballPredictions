@@ -277,12 +277,8 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
     print(df1.shape)
     print(df2.shape)
 
-At the end, we excute all remaining notebooks as csv files with the goal of concatenating them into a single dataframe. We do this in the next notebook.
-
-.. code:: python
-
-    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
-
+At the end, we excuted all remaining notebooks and exported them as csv files with the goal of concatenating them into a single dataframe. 
+We do this in the next notebook.
 
 **14. Player Data Dataframe Consolidation.ipynb**
 
