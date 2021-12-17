@@ -52,12 +52,12 @@ if section == "Scraping the Web for Data":
     st.write("This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
         players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of 51,196 the complete \
         match logs urls of all the consolidated players")
-    img5a = Image.open("images/image5a.png")
+    img5a = Image.open("images/image5a.PNG")
     st.image(img5a)
     st.write("This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
         computation; thus, our team divided the data extraction in multiple batches, where we extracted the match logs from each batch individually. \
         In the end, all these datasets were concatenated into a final dataframe we named consolidated_df_final.")
-    img5b = Image.open("images/image5b.png")
+    img5b = Image.open("images/image5b.PNG")
     st.image(img5b)
     st.write("As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
         our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
@@ -95,7 +95,7 @@ if section == "Scraping the Web for Data":
         a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...")
     st.write("Here is the new tm_profile_df dataset after the concatenation.")
-    img5f = Image.open("images/image5f.png")
+    img5f = Image.open("images/image5f.PNG")
     st.image(img5f)
     st.write("")
     st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
@@ -133,6 +133,9 @@ elif section == "Data Manipulation & Feature Engineering":
         That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
         were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.")
     st.write("")
+    st.write("This is how the dataset looked before we aggregated the dates:") 
+    img14 = Image.open("images/image14.PNG")
+    st.image(img14) 
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
@@ -143,42 +146,63 @@ elif section == "Data Manipulation & Feature Engineering":
         the player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great \
         at their respective clubs, but they were outstanding in their national teams. With this being said, are players more prompted to get injured if they perform better? \
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
-        of a game could also have an influence on players' performance and may boost the likeliness to get injured. Consequently, we created dummy variables to come up \
-        with new features for all competitions available and the venue.")
-    img15 = Image.open("images/image15.png")
+        of a game could also have an influence on players' performance and may boost the likeliness to get injured.")
+    img15 = Image.open("images/image15.PNG")
     st.image(img15)
-    img16 = Image.open("images/image16.png")
+    
+    st.write("Consequently, we created dummy variables to come up with new features for all competitions available and the venue.")
+    img16 = Image.open("images/image16.PNG")
     st.image(img16)
     
-    df_final = pd.DataFrame(columns=['Variable', 'Description'])
-    df_final['Variable'] = ['name', 'FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls',
-        'Ast', 'PK', 'Pkatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 
-        'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'Pkcon',
-        'Won', 'Loss', 'Draw', 'release_week', 'was_match', 'Height', 'Weight', 'Birth', 'cum_week', 'defender', 'attacker', \
-        'midfielder', 'goalkeeper', 'age', 'right_foot', 'left_foot', 'injury_count', 'cum_injury']
-    df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
-        'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
-        'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
-        'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
-        'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
-        'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
-        'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
-        'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
-        'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
-        'Passess that move the ball at least 10 yards toward opponent goal', \
-        'Number of times player controlled the ball with his feet', \
-        "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
-        'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
-        'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
-        'Game lost', 'Game draw', 'Week when player was released from injury', \
-        'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
-        'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
-        'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
+    img17 = Image.open("images/image17.jpg")
+    st.image(img17)
+    st.write("After all the data manipulation and feature engineering, we produced a new dataset we named complete_final_df_all with a 1,910,255 rows and 169 \
+        columns for a total of 4,588 players. We are now ready to start building our data models, but first let's take a look at the dataset. Here we \
+        want to show a subset of one of Cristiano Ronaldo's best seasons during the time he lead Real Madrid to win 'La Decima' where he broke an all time \
+        record and scored 17 goals in a single season for the Champions League.") 
+    st.write("Feel free to scroll up, down, left, and right")
+    cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
+    cr7_df
+    st.write("Here is the list of all columns from our final dataframe. All of those features were available for our time series models:")
+    df_final = pd.DataFrame(columns=['Features'])
+    df_final['Features'] = ['FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 
+        'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 
+        'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 'Loss', 'Draw', 'FootAbility', 'release_week', 'was_match',
+        'Serie A', 'Premier League', 'La Liga', 'Ligue 1', 'Bundesliga', 'Champions Lg', 'Europa Lg', 'FIFA World Cup', 'UEFA Nations League',
+        'UEFA Euro', 'Copa América', 'Away', 'Home', 'Neutral', 'week', 'year', 'PlayerFullName', 'name', 'Position:', 'Height', 'Weight', 'Foot',
+        'Birth', 'Nationality', 'Photo', 'InternationalReputation', 'Twitter', 'Instagram', 'Place of birth:', 'Citizenship:', 'cum_week', 'defender',
+        'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'left_foot', 'injury_count', 'cum_injury', 'age', 'unique_injury_count',
+        'cum_injury_total', 'previous_injury_week', 'weeks_since_last_injury', 'injured', 'injured_in_1_week', 'injured_in_4_week',
+        'injured_in_12_week', 'injured_in_26_week', 'injured_in_52_week', 'injury_count_in_1_week', 'injury_count_in_4_week',
+        'injury_count_in_12_week', 'injury_count_in_26_week',  'injury_count_in_52_week', 'cum_injury_in_1_week', 'cum_injury_in_4_week',
+        'cum_injury_in_12_week', 'cum_injury_in_26_week', 'cum_injury_in_52_week', 'cum_sum', 'Min_cum',  'Gls_cum', 'Ast_cum', 'PK_cum', 
+        'PKatt_cum', 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 
+        'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum', 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 
+        'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum', 'PKcon_cum', 'Won_cum', 'Loss_cum', 'Draw_cum', 'was_match_cum', 
+        'Serie A_cum', 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 
+        'UEFA Nations League_cum', 'UEFA Euro_cum', 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum', 'defender_cum', 'attacker_cum', 
+        'midfielder_cum', 'goalkeeper_cum', 'right_foot_cum', 'left_foot_cum', 'drop', 'last_week', 'train_split']
+    # df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
+    #     'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
+    #     'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
+    #     'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
+    #     'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
+    #     'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
+    #     'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
+    #     'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
+    #     'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
+    #     'Passess that move the ball at least 10 yards toward opponent goal', \
+    #     'Number of times player controlled the ball with his feet', \
+    #     "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
+    #     'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
+    #     'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
+    #     'Game lost', 'Game draw', 'Week when player was released from injury', \
+    #     'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
+    #     'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
+    #     'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
     df_final
-
-    st.write("After all the data manipulation and feature engineering the head of our data frame looks like so:")
-    dataset_for_model_final_head = pd.read_csv('dataframes_blog/dataset_for_model_final_head.csv')
-    st.code(dataset_for_model_final_head.head())
+    
+    st.write("Did we use all features for our predictions? Of course not...")
 
 elif section == "Visual Exploration of Data":
     st.header('Visual Exploration of Data')
@@ -238,8 +262,55 @@ else:
         return pd.read_parquet(path)
     
     # path = 'dataframes_blog/dataset_for_model_final.csv'
-    
     dataset = copy.deepcopy(get_df())
+    
+    st.write("The following set of tools has been developed to evaluate and understand how players' injuries evolve over time. It is reasonable to \
+        assume that as players age, they are more likely to become injured. Of course, there are some players that do not get injured as much as others \
+		while others get injured a lot more frequently. The following tools are intended to help us understand some of the differences \
+        between these players.") 
+    st.subheader("Compare Players' Injury History")
+    st.write("First, we want to individually compare players' injury history. Here, you are able to select up to 3 players. This line chart exhibits a clear comparison of \
+        how players start accumulating injures throughout time, where time is displayed in cumulative weeks. For this example, we are showing a model comparison on \
+        3 players with similar attributes. Football fans love to compare Ronaldo and Messi. They both have had an amazing career, have scored many goals, and have broken \
+        all the records, and it seems that they will continue to do so for the next few years.  However, Leo has accumulated more injuries than CR7 even though Leo has \
+        played fewer games. We are including Leo and Cristiano for our comparison, and also incorporate Robert Lewandoski since he has become a scoring machine the past \
+        years. It seems that Lewandoski is projected to accumulate fewer injuries than Leo. Why did Lionel Messi accumulate more injuries than Cristiano? Lionel Messi plays \
+        the South American qualifiers and Copa America while Cristiano and Lewandoski play the European qualifiers and the Eurocup. Is it because of the competitions? \
+        One thing to mention is that Messi is a midfielder while Cristiano and Lewandoski are strikers. May the position of the player influence the likeliness of a player \
+        getting injured? We mentioned earlier that goalkeepers may not be as exposed as other positions. However, they do get injured. The following visualization will \
+        help us answer this.")
+    img18 = Image.open("images/image18.PNG")
+    st.image(img18)
+    st.subheader("Compare Cummulative Injury History According to Position")
+    st.write("This tool allows you to compare the variation of injuries based on the player's position. We have previously defined 4 different positions for each player, \
+        in this tool, you can compare all players' positions at the same time. When we only select the goalkeeper position, we can immediately notice that they \
+        are less likely to get injured compared to other positions. Now, we can strongly say that, in fact, goalkeepers have a much lower chance of getting injured. Furthermore, \
+        you may think that attackers are the ones with the higher risk of getting injured; however, this graph verifies that defenders are the ones that accumulate more injuries.")
+    img19 = Image.open("images/image19.PNG")
+    st.image(img19)
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    st.write("The next visualization helps you compare a player's injuries through his entire career against the average injuries of players in the same position of \
+        the player you select. It is crucial to understand how this player is doing compared to other players in his position. Here you can visualize where a \
+        player stands with other similar players. In this case, Gareth Bale has been appointed since he is a phenomenal player who unfortunately has had had many injuries during his football career. As shown, he has \
+        accumulated more injuries than the cumulative average of all the attackers from our dataset. Thus, this is a player that may continue to get injured until the \
+        end of his football profession.")
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    img20 = Image.open("images/image20.PNG")
+    st.image(img20)
+    st.write("Here, we wanted to take a very similar approach by comparing a player's injury history against the average injuries for players of the same age as the selected player. Again, \
+        we used Gareth Bale as an example, and the same trend occurs where he's above the average cumulative total injuries of players his age. Bale's \
+        injuries have continued to increase at a steady phase during the years. It seems that he has not been able to have a full season without injuries. He is \
+        just one of those players who keeps suffering from injuries setbacks.")
+    img21 = Image.open("images/image21.PNG")
+    st.image(img21)
+    st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+    st.write("Last, this is a comparison of a single player's injuries history against the average injuries of all players. The x-axis represents the cumulative minutes \
+        of all games played, and on the y-axis, the graph displays the cumulative injuries through time. Again, we chose Robert Lewandoski to be the player to be compared. As \
+		shown on this graph, as he started to accumulate minutes at the beginning of his career, he wouldn't get as many injuries as the average football player. Once he \
+		reaches over 40,000 minutes, he overtakes this average and starts to accumulate more injuries than the average player.")
+    img22 = Image.open("images/image22.PNG")
+    st.image(img22)
+    
 
 # Plotting Chart 1: Compare Players' Injury History
 
@@ -332,7 +403,7 @@ else:
     
     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
     
-    st.write(player2 + " he has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+    st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
         str(int(picked_player_age_now)) + " years old!!!")
 
     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
