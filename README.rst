@@ -192,9 +192,11 @@ Once this function is created, we imported the mapping table of FBRefIDs and TMI
 
 
 Here we were able to generate a list of 51,196 URLs for a total of 5,192 players. This list of URLs is used to 
-scrape all match logs URLs of all the consolidated players. The list called **match_logs_list**.
+scrape all match logs URLs of all the consolidated players. The list called **match_logs_list** at first,
+but then we exported as csv named **match_logs_list_urls.csv**.
 
-.. code:: python    
+.. code:: python   
+
     # Total length of player_all_competitions is 5192
     
     match_logs_list = []
@@ -208,15 +210,15 @@ scrape all match logs URLs of all the consolidated players. The list called **ma
 
 **2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynB, ........., 2h. FBREF Player Batch 4000-5192** 
 
-It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 118,283 URLs. 
-By running this function, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
+It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 51,196 URLs. 
+When executing the function below, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
 have match logs that contain 30 attributes or columns while other players have match logs with 39 attributes. Thus, players' match logs are 
 appended to two dataframes of 30 columns and 39 columns, respectively. 
 
 **Important note**
 
-    This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
-    A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
+    This step took a significant amount of memory usage. Therefore, it was necessary to run the **match_logs_list_urls.csv** in multiple batches. 
+    A total of 8 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
     this is an example of the first batch. In the end, all dataframes are concatenated together to produce a single dataframe.
 
 .. code:: python    
@@ -257,7 +259,9 @@ def create_match_logs_tables(match_logs_list_urls_x):
     
     return df_30_columns, df_39_columns
     
-    
+    # Creating different length data frames
+
+    df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])    
 
 In this notebook, 
 
