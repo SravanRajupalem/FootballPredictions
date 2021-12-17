@@ -31,8 +31,8 @@ The main features of this project are:
 Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
- - `Data Scraping and Manipulation`_
- - `Feature Engineering`_
+ - `Scraping the Web for Data`_
+ - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
  - `Model Building`_
  - `Citing`_
@@ -48,8 +48,8 @@ Overview
 - An Amazon Web Services (AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
   when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
-Data Scraping and Manipulation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Scraping the Web for Data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First of all, import the following Libraries:
 
@@ -524,7 +524,10 @@ contribute to our ML models such as 'Retired since:', 'Without Club since:', and
 since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
+Data Manipulation & Feature Engineering
+
 **6. Consolidate Profile Data Dataframe.ipynb**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
 to spend some time reading this notebook. 
@@ -746,8 +749,6 @@ Are we done?
 
 ..... for now .....
 
-Feature Engineering
-~~~~~~~~~~~~~~~~~~~~
 
 **19. Preparing Features for Models.ipynb**
 
@@ -756,20 +757,6 @@ features that we are reeingineering as we build our models. Sometimes, adding si
 model to learn better; thus, to provide more accurate predictions.
 
 This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned.
-
-.. code:: python
-
-    # Creating 'injured' column
-
-    dataset.loc[dataset['Injury'] != '0', 'injured'] = 1
-    dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
-
-    # dataset[dataset['FBRefID'] == '71672fa0'].tail(60)
-
-
-.. code:: python
-
-    # Creating 'cum_sum' column to serve as base for cummulative features
 
 
 
