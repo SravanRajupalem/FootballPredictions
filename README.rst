@@ -208,7 +208,7 @@ but then we exported as csv named **match_logs_list_urls.csv**.
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions_filtered_list)*100)))
         sys.stdout.flush()
 
-**2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynB, ........., 2h. FBREF Player Batch 4000-5192** 
+**2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynb, ........., 2h. FBREF Player Batch 4000-5192.ipynb** 
 
 It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 51,196 URLs. 
 When executing the function below, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
@@ -280,9 +280,9 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
 At the end, we excuted all remaining notebooks and exported them as csv files with the goal of concatenating them into a single dataframe. 
 We do this in the next notebook.
 
-**14. Player Data Dataframe Consolidation.ipynb**
+**3. Player Data Dataframe Consolidation.ipynb**
 
-This notebook is used to combine all dataframes produced from the batches above. Here, we also discard unnecessary  columns and clean some NaNs
+This notebook is used to combine all dataframes produced from the batches above. Here, we also discard unnecessary columns and clean some NaNs
 
 .. code:: python
 
@@ -299,8 +299,12 @@ This notebook is used to combine all dataframes produced from the batches above.
     # Dropping unwanted columns from df_final
 
     df_final.drop(columns = ['Match Report'], inplace = True)
+    
+    # Converting date columns to datetime
 
-**15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
+    consolidated_df_final['Date'] = pd.to_datetime(consolidated_df_final['Date'])
+
+**4a. Profile Data Dataframe England.ipynb, 4b.Profile Data Dataframe Italy.ipynb, ...... 4e.Profile Data Dataframe Germany.ipynb**
 
 In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
 by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
@@ -393,7 +397,7 @@ to dataframe called **player_data_df_england.csv**.
 
     player_info_england = fbref_player_info(player_url_england)
 
-**16. Extract_Injuries.ipynb**
+**5. Extract_Injuries.ipynb**
 
 .. image:: images/zidane.gif
 
