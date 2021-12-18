@@ -852,8 +852,7 @@ using the following:
     
 Here is the result:
 
-   
-
+.. image:: images/image23.PNG
 
 Model Building
 ~~~~~~~~~~~~~~
