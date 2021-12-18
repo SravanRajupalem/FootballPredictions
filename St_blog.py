@@ -7,7 +7,7 @@ import os
 import requests
 import copy
 # import coiled
-import dask.dataframe as dd
+# import dask.dataframe as dd
 
 imglogo = Image.open("images/logo.png")
 
