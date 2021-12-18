@@ -7,8 +7,11 @@ import os
 import requests
 import copy
 
+imglogo = Image.open("images/logo.png")
+
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
-    "Visual Exploration of Data", "Model Building", "Injury Prediction Tool"))
+    "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+    "Interactive Injury Prediction Tool (BETA)", "Conclusions and Future Work"))
 
 if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
@@ -28,7 +31,6 @@ if section == "Introduction":
         managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
         certain time frame.""")
 
-    imglogo = Image.open("images/logo.png")
     st.image(imglogo, width=250)
 
     st.write("""Presenting Providemus, a tool to predict when a player will get injured.  By using data from the most reliable 
@@ -38,6 +40,9 @@ if section == "Introduction":
         soccer managers in their decisions to play or rest their players.""")
 
 elif section == "Scraping the Web for Data":
+    imgcorner = Image.open("images/corner.jpg")
+    st.image(imgcorner, width=700)
+
     imglogo = Image.open("images/logo.png")
     st.image(imglogo, width=250)
     st.header('Scraping the Web for Data')
@@ -122,7 +127,7 @@ elif section == "Data Manipulation & Feature Engineering":
     img6 = Image.open("images/image6.jpg")
     st.image(img6, width = 700)
 
-    imglogo = Image.open("images/logo.png")
+    
     st.image(imglogo, width=250)
     st.header("Merging, Cleaning and Manipulating the Data")
 
@@ -226,8 +231,13 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("Did we use all features for our predictions? Of course not...")
 
 elif section == "Visual Exploration of Data":
+
+    img7 = Image.open("images/ball.png")
+    st.image(img7, width = 700)
+
+    st.image(imglogo, width=250)
+    
     st.header('Visual Exploration of Data')
-    st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2014/10/14/20/24/football-488714_1280.jpg)")
     st.write("The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
@@ -264,22 +274,7 @@ elif section == "Visual Exploration of Data":
     st.write("Here we can analyze if there are any correlations between variables.  Logically, height is positively correlated with \
         weight. Being that we are analyzing active athletes, there doesn't seem to be any correlation between weight and age. We also \
         see a positive correlation between age and the cum_injury_total.")
-    
-elif section == "Model Building":
-    st.header("Model Building")
-
-# SECTION: INJURY PREDICTION TOOL
-else:
-    st.header('Injury Prediction Tool')
-    
-    @st.cache  # 👈 Added this
-    def get_df():
-        path = 'dataframes_blog/dataset_for_model_final.parquet'
-        return pd.read_parquet(path)
-    
-    # path = 'dataframes_blog/dataset_for_model_final.csv'
-    dataset = copy.deepcopy(get_df())
-    
+    st.header("Deeper Data Exploration")
     st.write("The following set of tools has been developed to evaluate and understand how players' injuries evolve over time. It is reasonable to \
         assume that as players age, they are more likely to become injured. Of course, there are some players that do not get injured as much as others \
 		while others get injured a lot more frequently. The following tools are intended to help us understand some of the differences \
@@ -327,140 +322,166 @@ else:
     img22 = Image.open("images/image22.PNG")
     st.image(img22)
     
+elif section == "Model Building":
+    img8 = Image.open("images/footballfire.jpeg")
+    st.image(img8, width = 700)
 
-# Plotting Chart 1: Compare Players' Injury History
+    st.image(imglogo, width=250)
+    st.header("Model Building")
 
-    st.subheader("Compare Players' Injury History")
+# SECTION: INJURY PREDICTION TOOL
+elif section == "Injury Prediction":
+    st.header('Injury Prediction')
+
     
-    sorted_unique_player = dataset['name'].sort_values().unique()
-    player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
-    player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
-    player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
+elif section == "Interactive Exploration Tool (BETA)":
+    st.header('Interactive Exploration Tool (BETA)')
+#     @st.cache  # 👈 Added this
+#     def get_df():
+#         path = 'dataframes_blog/dataset_for_model_final.parquet'
+#         return pd.read_parquet(path)
     
-    @st.cache(allow_output_mutation=True)
-    def chart1(player1, player2, player3): 
-        df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
-        df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
-        df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+#     dataset = copy.deepcopy(get_df())
 
-        df = pd.concat([df1_1, df1_2, df1_3])
+#     # Plotting Chart 1: Compare Players' Injury History
+
+#     st.subheader("Compare Players' Injury History")
     
-        chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
-            properties(width=800, height=300)
-
-        return chart1
+#     sorted_unique_player = dataset['name'].sort_values().unique()
+#     player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+#     player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+#     player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
     
-    chart1_output = copy.deepcopy(chart1(player1, player2, player3))
-    st.altair_chart(chart1_output, use_container_width=False)
+#     @st.cache(allow_output_mutation=True)
+#     def chart1(player1, player2, player3): 
+#         df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+#         df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+#         df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
 
-# Plotting Chart 2: Compare Cummulative Injury History According to Position
-    st.subheader("Compare Cummulative Injury History According to Position")
+#         df = pd.concat([df1_1, df1_2, df1_3])
     
-    dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
-    dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
-    dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
-    dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+#         chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+#             properties(width=800, height=300)
 
-    df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
-    sorted_unique_position = dataset['position'].dropna().sort_values().unique()
-    pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
-    df_pos = pd.DataFrame([])
-    for p in pos:
-        df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
+#         return chart1
     
-    df_pos['attacker'] = 0
-    df_pos['defender'] = 0
-    df_pos['goalkeeper'] = 0
-    df_pos['midfielder'] = 0
-    df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
-    df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
-    df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
-    df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
-    df_pos = df_pos.groupby('cum_week').sum().reset_index()
-    base = alt.Chart(df_pos).encode(x='cum_week:Q')
-    chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-        base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-        properties(width=800, height=300)
-    st.altair_chart(chart2, use_container_width=False)
+#     chart1_output = copy.deepcopy(chart1(player1, player2, player3))
+#     st.altair_chart(chart1_output, use_container_width=False)
 
-# Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
-
-    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-
-    player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
+# # Plotting Chart 2: Compare Cummulative Injury History According to Position
+#     st.subheader("Compare Cummulative Injury History According to Position")
     
-    picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
-    st.write(player + " plays as " + picked_player_pos + "!!!")
+#     dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
+#     dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
+#     dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
+#     dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
 
-    df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
-
-    player_max_cum_week = df_player['cum_week'].max()
-
-    df_avg_position = dataset[dataset['position'] == picked_player_pos]
-    df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
-    df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
-    df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
-
-    df_player_vs_avg = pd.concat([df_player, df_avg_position])
-
-    chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
-        properties(width=800, height=300)
-    st.altair_chart(chart3, use_container_width=False)
-
-# Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
+#     df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
+#     sorted_unique_position = dataset['position'].dropna().sort_values().unique()
+#     pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
+#     df_pos = pd.DataFrame([])
+#     for p in pos:
+#         df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
     
-    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-    st.write('* Player ages are updated with the latest data we have *')
- 
-    player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
+#     df_pos['attacker'] = 0
+#     df_pos['defender'] = 0
+#     df_pos['goalkeeper'] = 0
+#     df_pos['midfielder'] = 0
+#     df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
+#     df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
+#     df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
+#     df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
+#     df_pos = df_pos.groupby('cum_week').sum().reset_index()
+#     base = alt.Chart(df_pos).encode(x='cum_week:Q')
+#     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+#         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+#         properties(width=800, height=300)
+#     st.altair_chart(chart2, use_container_width=False)
+
+# # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
+
+#     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+
+#     player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
     
-    picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
-    picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
+#     picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
+#     st.write(player + " plays as " + picked_player_pos + "!!!")
+
+#     df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
+
+#     player_max_cum_week = df_player['cum_week'].max()
+
+#     df_avg_position = dataset[dataset['position'] == picked_player_pos]
+#     df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
+#     df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
+#     df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
+
+#     df_player_vs_avg = pd.concat([df_player, df_avg_position])
+
+#     chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
+#         properties(width=800, height=300)
+#     st.altair_chart(chart3, use_container_width=False)
+
+# # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
-    picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+#     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+#     st.write('* Player ages are updated with the latest data we have *')
+
+#     player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
-    st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
-        str(int(picked_player_age_now)) + " years old!!!")
-
-    df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
-
-    picked_player_max_age = df_player2['age'].max()
-
-    df_avg_age = dataset[['cum_week', 'name', 'age', 'cum_injury_total']]
-    df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
-    df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
-    df_avg_age['name'] = 'avg cum_injury_total'
-
-    df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
-
-    chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
-        properties(width=800, height=300)
-    st.altair_chart(chart4, use_container_width=False)
-
-# Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
-    st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
-    st.write('* Player ages are updated with the latest data we have *')
- 
-    player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
+#     picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
+#     picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
     
-    df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
-    df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
+#     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    
+#     st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+#         str(int(picked_player_age_now)) + " years old!!!")
 
-    cum_Min_max = df_picked_player['cum_Min'].max()
+#     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
 
-    df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
-    df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
-    df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
-    df_avg_min['name'] = 'avg of all players'
+#     picked_player_max_age = df_player2['age'].max()
 
-    df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+#     df_avg_age = dataset[['cum_week', 'name', 'age', 'cum_injury_total']]
+#     df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
+#     df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
+#     df_avg_age['name'] = 'avg cum_injury_total'
 
-    df_picked_player.drop_duplicates(inplace=True)
-    df_avg_min.drop_duplicates(inplace=True)
+#     df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
 
-    df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+#     chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
+#         properties(width=800, height=300)
+#     st.altair_chart(chart4, use_container_width=False)
 
-    chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
-        properties(width=800, height=300)
-    st.altair_chart(chart5, use_container_width=False)
+# # Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
+#     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+#     st.write('* Player ages are updated with the latest data we have *')
 
+#     player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
+    
+#     df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
+#     df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
+
+#     cum_Min_max = df_picked_player['cum_Min'].max()
+
+#     df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
+#     df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
+#     df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
+#     df_avg_min['name'] = 'avg of all players'
+
+#     df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+
+#     df_picked_player.drop_duplicates(inplace=True)
+#     df_avg_min.drop_duplicates(inplace=True)
+
+#     df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+
+#     chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
+#         properties(width=800, height=300)
+#     st.altair_chart(chart5, use_container_width=False)
+# 
+elif section == "Interactive Injury Prediction Tool (BETA)":
+
+     st.header("Interactive Injury Prediction Tool (BETA)")
+
+else:
+    st.header("Conclusions and Future Work")
