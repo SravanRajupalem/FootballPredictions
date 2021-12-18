@@ -391,23 +391,23 @@ elif section == "Interactive Exploration Tool (BETA)":
 
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
-    @st.cache(allow_output_mutation=True)
-    def chart2(selected_position, df):
+    # @st.cache(allow_output_mutation=True)
+    # def chart2(selected_position, df):
 
-        result = pd.DataFrame([])
-        for pos in selected_position:
-            result[pos] = df[pos]
+    #     result = pd.DataFrame([])
+    #     for pos in selected_position:
+    #         result[pos] = df[pos]
         
-        base = alt.Chart(result).encode(x='cum_week:Q')
-        chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-            base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-            properties(width=800, height=300)
-        result = st.altair_chart(chart2, use_container_width=False)
-        return result
+    #     base = alt.Chart(result).encode(x='cum_week:Q')
+    #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+    #         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+    #         properties(width=800, height=300)
+    #     result = st.altair_chart(chart2, use_container_width=False)
+    #     return result
     
-    chart2_output = chart2(selected_position, df_pos)
+    # chart2_output = chart2(selected_position, df_pos)
     
-    st.altair_chart(chart2_output, use_container_width=False)
+    # st.altair_chart(chart2_output, use_container_width=False)
 
 # # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
