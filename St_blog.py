@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 import requests
 import copy
-# import dask.dataframe as dd
+import dask.dataframe as dd
 
 imglogo = Image.open("images/logo.png")
 
@@ -343,7 +343,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     @st.cache(allow_output_mutation = True)
     def load_data():
         # df = dd.read_parquet('dataframes_blog/dataset_for_model_final.parquet') #, storage_options={"anon":True}, blocksize="16 MiB")
-        df = pd.read_parquet('dataframes_blog/df_small.parquet')
+        df = dd.read_parquet('dataframes_blog/df_small.parquet')
         return df
 
     dataset = load_data()
