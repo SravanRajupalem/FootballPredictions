@@ -12,7 +12,7 @@ imglogo = Image.open("images/logo.png")
 
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
-    "Interactive Injury Prediction Tool (BETA)", "Conclusions and Future Work"))
+    "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
 if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
@@ -495,7 +495,7 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
      st.header("Interactive Injury Prediction Tool (BETA)")
 
 else:
-    st.header("Conclusion, Challenges and Future Work")
+    st.header("Conclusion, Challenges, and Future Work")
 
     st.write("**Problems**")
     st.write("")
