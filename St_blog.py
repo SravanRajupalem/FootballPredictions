@@ -387,7 +387,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     st.subheader("Compare Cummulative Injury History According to Position")
     st.write('* (sample dataset used for performance purposes)')
     
-    positions = ['Attacker', 'Defender', 'Goalkeeper', 'Midfielder']
+    positions = ['attacker', 'defender', 'goalkeeper', 'midfielder']
 
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
