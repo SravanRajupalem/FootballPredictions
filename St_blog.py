@@ -496,3 +496,59 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
 else:
     st.header("Conclusions and Future Work")
+
+st.write("Problems")
+st.write("")
+st.write("Data Scrapping")
+st.write("There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
+    proceeded with the harvesting of data. The process of scrapping data from the web was a challenge for most of us because \
+    of multiple reasons. First of all, we were not convinced on what data to scrape for our models since we wanted to build a \
+    time series model. On top of that, we were looking at more than 3 sources at first. Second, there were many players available \
+    and a good number of attributes to choose from the websites. However, many of those attributes weren’t available for certain \
+    leagues or players, and when they were available, it seems that they were only obtainable for certain players. Also, those new \
+    features were not available for all the years, this is probably because this is new data that just started to being recorded \
+    recently. Third, scraping the data from the web required high computation and a great amount of memory capacity. We tried a few \
+    strategies to work around it. We attempted to use AWS, but we also faced many challenges with the installation as well as \
+    making the connection to the server; AWS preserved losing connection which resulted in errors in the middle of our data pulling \
+    process. On the other hand, we split the list of players to be scrapped in multiple batches between the three of us. This not only \
+    required time since we were running scripts overnight but also, required all of us to continue checking on the progress and \
+    communicating with each other to ensure the scrapping was working or finalized. Additionally, when we first completed scrapping \
+    the data from our sources, we realized that something was missed so we needed to go back to improve our API and repeat the same \
+    process more than one time. We even bumped into a few IP blocks after a high number of requests from the same IP address. In \
+    the end, we managed to scrape all the data that was required to build our models by working cooperatively.")
+st.write("")
+st.write("GitHub in Visual Studio Code")
+st.write("First, it took some effort to locally install and integrate VS Code and GitHub together. After the installation finished,\
+    and the repository was set and authenticated, we were capable to begin working in parallel, which we all enjoyed. However, we did \
+    undergo some minor problems when submitting new changes and pulling new requests. This mainly occurred because we failed to \
+    communicate which notebooks were being updated, as well as not pulling on time when needed to. This resulted in many conflicts \
+    that were not straightforward to solve, which even cause resetting the repositories in some cases. Once we were all accustomed to it, \
+    we did not face major problems. ")
+st.write("")
+st.write("Amazon Web Services")
+st.write("In addition to using VS Code to work with our GitHub repository, we incorporated Amazon Web Services so that we can attempt\
+    to run scripts that required a great amount of memory usage. The process of setting AWS was lengthy, and although we found guidelines\
+    on how to install and integrate AWS into our machines, it was still confusing to deal with it. Once AWS was installed and running, \
+    all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
+    decided to avoid employing AWS for the data scrapping.")
+st.write("")
+st.write("Time Series Model")
+st.write("Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
+    was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
+    to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
+    before we prepare the final dataset.")
+st.write("")
+st.write("StreamLit")
+st.write("This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
+    it was fairly easy to understand compared to other libraries we have used before, and also Streamlit integrated amazingly \
+    well with other libraries such Pandas or Altair. However, the challenge was when building our Players’ comparison tool. \
+    Even though we achieved to develop our tools and displayed them through Streamlit, it was taken a very long time for the \
+    custom apps to run because of the size of our main dataset and the magnitude of our models. We wanted to avoid creating \
+    frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
+    a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.")
+
+
+   
+
+
+     
