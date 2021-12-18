@@ -342,6 +342,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     st.image(imgsoccer, width = 700)
     
     st.header('Interactive Exploration Tool (BETA)')
+    st.write('Please feel free to try out our interactive exploration tool!')
     
     # cluster_state = st.empty()
 
@@ -515,8 +516,18 @@ elif section == "Interactive Exploration Tool (BETA)":
     st.altair_chart(chart5_output, use_container_width=False)
 
 elif section == "Interactive Injury Prediction Tool (BETA)":
+    st.image(imglogo, width=250)
 
-     st.header("Interactive Injury Prediction Tool (BETA)")
+    imgfield = Image.open("images/fields.jpg")
+    st.image(imgfield, width = 700)
+    
+    st.header("Interactive Injury Prediction Tool (BETA)")
+    st.write('Please feel free to try out our interactive prediction tool!')
+
+    st.write('* (sample dataset used for performance purposes)')
+
+    
+
 
 else:
     st.header("Conclusion, Challenges, and Future Work")
