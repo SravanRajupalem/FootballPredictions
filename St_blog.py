@@ -7,6 +7,8 @@ import os
 import requests
 import copy
 
+imglogo = Image.open("images/logo.jpg")
+st.image(imglogo)
 st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
 st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
 
