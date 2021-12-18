@@ -6,6 +6,8 @@ from pathlib import Path
 import os
 import requests
 import copy
+import coiled
+import dask
 
 imglogo = Image.open("images/logo.png")
 
@@ -336,12 +338,22 @@ elif section == "Injury Prediction":
     
 elif section == "Interactive Exploration Tool (BETA)":
     st.header('Interactive Exploration Tool (BETA)')
-    @st.cache  # 👈 Added this
-    def get_df():
-        path = 'dataframes_blog/dataset_for_model_final.parquet'
-        return pd.read_parquet(path)
     
-    dataset = copy.deepcopy(get_df())
+    cluster_state = st.empty()
+
+    @st.cache(allow_output_mutation = True)
+    def load_data():
+        df = dd.read_parquet('dataframes_blog/dataset_for_model_final.parquet', storage_options={"anon":True}, blocksize="16 MiB")
+        return df_final
+    
+    dataset = load_data()
+
+    # @st.cache  # 👈 Added this
+    # def get_df():
+    #     path = 'dataframes_blog/dataset_for_model_final.parquet'
+    #     return pd.read_parquet(path)
+    
+    # dataset = copy.deepcopy(get_df())
 
     # Plotting Chart 1: Compare Players' Injury History
 
