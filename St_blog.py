@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 import requests
 import copy
-import coiled
+# import coiled
 import dask
 
 imglogo = Image.open("images/logo.png")
@@ -339,7 +339,7 @@ elif section == "Injury Prediction":
 elif section == "Interactive Exploration Tool (BETA)":
     st.header('Interactive Exploration Tool (BETA)')
     
-    cluster_state = st.empty()
+    # cluster_state = st.empty()
 
     @st.cache(allow_output_mutation = True)
     def load_data():
