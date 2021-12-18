@@ -532,5 +532,23 @@ st.write("In addition to using VS Code to work with our GitHub repository, we in
     all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
     decided to avoid employing AWS for the data scrapping.")
 st.write("")
+st.write("Time Series Model")
+st.write("Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
+    was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
+    to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
+    before we prepare the final dataset.")
 st.write("")
-st.write("")
+st.write("StreamLit")
+st.write("This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
+    it was fairly easy to understand compared to other libraries we have used before, and also Streamlit integrated amazingly \
+    well with other libraries such Pandas or Altair. However, the challenge was when building our Players’ comparison tool. \
+    Even though we achieved to develop our tools and displayed them through Streamlit, it was taken a very long time for the \
+    custom apps to run because of the size of our main dataset and the magnitude of our models. We wanted to avoid creating \
+    frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
+    a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.")
+
+
+   
+
+
+     
