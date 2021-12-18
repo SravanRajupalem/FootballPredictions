@@ -41,11 +41,12 @@ if section == "Introduction":
         soccer managers in their decisions to play or rest their players.""")
 
 elif section == "Scraping the Web for Data":
-    imgcorner = Image.open("images/corner.jpg")
-    st.image(imgcorner, width=700)
-
     imglogo = Image.open("images/logo.png")
     st.image(imglogo, width=250)
+
+    imgcorner = Image.open("images/corner.jpg")
+    st.image(imgcorner, width=700)
+    
     st.header('Scraping the Web for Data')
     st.write("We hunted the web to get the most information we could about soccer players and matches.  After scanning several \
         options our runners up due to the completeness of their data were:  fbref.com and transfermarkt.com.")
@@ -124,12 +125,11 @@ elif section == "Scraping the Web for Data":
         Python library.")
     
 elif section == "Data Manipulation & Feature Engineering":
-    
+    st.image(imglogo, width=250)
+
     img6 = Image.open("images/image6.jpg")
     st.image(img6, width = 700)
-
-    
-    st.image(imglogo, width=250)
+   
     st.header("Merging, Cleaning and Manipulating the Data")
 
     st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
@@ -232,11 +232,10 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("Did we use all features for our predictions? Of course not...")
 
 elif section == "Visual Exploration of Data":
+    st.image(imglogo, width=250)
 
     img7 = Image.open("images/ball.png")
     st.image(img7, width = 700)
-
-    st.image(imglogo, width=250)
     
     st.header('Visual Exploration of Data')
     st.write("The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
@@ -324,10 +323,11 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
+    st.image(imglogo, width=250)
+
     img8 = Image.open("images/footballfire.jpeg")
     st.image(img8, width = 700)
-
-    st.image(imglogo, width=250)
+    
     st.header("Model Building")
 
 # SECTION: INJURY PREDICTION TOOL
@@ -336,6 +336,11 @@ elif section == "Injury Prediction":
 
     
 elif section == "Interactive Exploration Tool (BETA)":
+    st.image(imglogo, width=250)
+
+    imgsoccer = Image.open("images/soccer.jpg")
+    st.image(imgsoccer, width = 700)
+    
     st.header('Interactive Exploration Tool (BETA)')
     
     # cluster_state = st.empty()
@@ -439,7 +444,8 @@ elif section == "Interactive Exploration Tool (BETA)":
 # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-    st.write('* Player ages are updated with the latest data we have *')
+    st.write('* (player ages are updated with the latest data we have)')
+    st.write('* (sample dataset used for performance purposes)')
 
     player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
@@ -473,33 +479,41 @@ elif section == "Interactive Exploration Tool (BETA)":
         
     st.altair_chart(chart4_output, use_container_width=False)
 
-# # Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
-#     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
-#     st.write('* Player ages are updated with the latest data we have *')
+# Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
+    st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+    st.write('* Player ages are updated with the latest data we have *')
+    st.write('* (sample dataset used for performance purposes)')
 
-#     player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
-    
-#     df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
-#     df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
+    player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
 
-#     cum_Min_max = df_picked_player['cum_Min'].max()
+    @st.cache(allow_output_mutation=True)
+    def chart5(player, df):  
+        df_picked_player = df[df['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
+        df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
 
-#     df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
-#     df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
-#     df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
-#     df_avg_min['name'] = 'avg of all players'
+        cum_Min_max = df_picked_player['cum_Min'].max()
 
-#     df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+        df_avg_min = df[['cum_week', 'name', 'Min', 'cum_injury_total']]
+        df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
+        df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
+        df_avg_min['name'] = 'avg of all players'
 
-#     df_picked_player.drop_duplicates(inplace=True)
-#     df_avg_min.drop_duplicates(inplace=True)
+        df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
 
-#     df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+        df_picked_player.drop_duplicates(inplace=True)
+        df_avg_min.drop_duplicates(inplace=True)
 
-#     chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart5, use_container_width=False)
-# 
+        df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+
+        chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
+
+        return chart5
+
+    chart5_output = copy.deepcopy(chart5(player, dataset))
+        
+    st.altair_chart(chart5_output, use_container_width=False)
+
 elif section == "Interactive Injury Prediction Tool (BETA)":
 
      st.header("Interactive Injury Prediction Tool (BETA)")
