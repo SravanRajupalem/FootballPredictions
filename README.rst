@@ -854,6 +854,47 @@ Here is the result:
 
 .. image:: images/image23.PNG
 
+Although we are not going to every single step of how we designed all interactive apps, here is the complete coding for the "Compare Player's Injury History".
+As you can notice, we are using the altair library to build the visualizations. Go to our blog to interact with this tool.
+
+.. code:: python
+
+    elif section == "Interactive Exploration Tool (BETA)":
+        st.header('Interactive Exploration Tool (BETA)')
+        @st.cache  # 👈 Added this
+        def get_df():
+            path = 'dataframes_blog/dataset_for_model_final.parquet'
+            return pd.read_parquet(path)
+
+        dataset = copy.deepcopy(get_df())
+
+        # Plotting Chart 1: Compare Players' Injury History
+
+        st.subheader("Compare Players' Injury History")
+
+        sorted_unique_player = dataset['name'].sort_values().unique()
+        player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+        player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+        player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
+
+        @st.cache(allow_output_mutation=True)
+        def chart1(player1, player2, player3): 
+            df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+            df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+            df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+
+            df = pd.concat([df1_1, df1_2, df1_3])
+
+            chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+                properties(width=800, height=300)
+
+            return chart1
+
+        chart1_output = copy.deepcopy(chart1(player1, player2, player3))
+        st.altair_chart(chart1_output, use_container_width=False)
+        
+        
+
 Model Building
 ~~~~~~~~~~~~~~
 
