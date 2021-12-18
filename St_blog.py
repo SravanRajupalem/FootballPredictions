@@ -6,12 +6,13 @@ from pathlib import Path
 import os
 import requests
 import copy
+import dask.dataframe as dd
 
 imglogo = Image.open("images/logo.png")
 
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
-    "Interactive Injury Prediction Tool (BETA)", "Conclusions and Future Work"))
+    "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
 if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
@@ -40,11 +41,12 @@ if section == "Introduction":
         soccer managers in their decisions to play or rest their players.""")
 
 elif section == "Scraping the Web for Data":
-    imgcorner = Image.open("images/corner.jpg")
-    st.image(imgcorner, width=700)
-
     imglogo = Image.open("images/logo.png")
     st.image(imglogo, width=250)
+
+    imgcorner = Image.open("images/corner.jpg")
+    st.image(imgcorner, width=700)
+    
     st.header('Scraping the Web for Data')
     st.write("We hunted the web to get the most information we could about soccer players and matches.  After scanning several \
         options our runners up due to the completeness of their data were:  fbref.com and transfermarkt.com.")
@@ -123,12 +125,11 @@ elif section == "Scraping the Web for Data":
         Python library.")
     
 elif section == "Data Manipulation & Feature Engineering":
-    
+    st.image(imglogo, width=250)
+
     img6 = Image.open("images/image6.jpg")
     st.image(img6, width = 700)
-
-    
-    st.image(imglogo, width=250)
+   
     st.header("Merging, Cleaning and Manipulating the Data")
 
     st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
@@ -231,11 +232,10 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("Did we use all features for our predictions? Of course not...")
 
 elif section == "Visual Exploration of Data":
+    st.image(imglogo, width=250)
 
     img7 = Image.open("images/ball.png")
     st.image(img7, width = 700)
-
-    st.image(imglogo, width=250)
     
     st.header('Visual Exploration of Data')
     st.write("The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
@@ -323,10 +323,11 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
+    st.image(imglogo, width=250)
+
     img8 = Image.open("images/footballfire.jpeg")
     st.image(img8, width = 700)
-
-    st.image(imglogo, width=250)
+    
     st.header("Model Building")
 
 # SECTION: INJURY PREDICTION TOOL
@@ -335,153 +336,290 @@ elif section == "Injury Prediction":
 
     
 elif section == "Interactive Exploration Tool (BETA)":
+    st.image(imglogo, width=250)
+
+    imgsoccer = Image.open("images/soccer.jpg")
+    st.image(imgsoccer, width = 700)
+    
     st.header('Interactive Exploration Tool (BETA)')
-#     @st.cache  # 👈 Added this
-#     def get_df():
-#         path = 'dataframes_blog/dataset_for_model_final.parquet'
-#         return pd.read_parquet(path)
+    st.write('Please feel free to try out our interactive exploration tool!')
     
-#     dataset = copy.deepcopy(get_df())
+    # cluster_state = st.empty()
 
-#     # Plotting Chart 1: Compare Players' Injury History
+    # @st.cache(allow_output_mutation = True)
+    def load_data():
+        df = dd.read_parquet('dataframes_blog/df_small.parquet')
+        return df
 
-#     st.subheader("Compare Players' Injury History")
+    dataset = load_data()
+        
+    # Plotting Chart 1: Compare Players' Injury History
+
+    st.subheader("Compare Players' Injury History")
+    st.write('* (sample dataset used for performance purposes)')
+
+    dataset = dataset.compute()
+
+    sorted_unique_player = dataset['name'].sort_values().unique()
+    player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+    player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+    player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
     
-#     sorted_unique_player = dataset['name'].sort_values().unique()
-#     player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
-#     player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
-#     player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
+    @st.cache(allow_output_mutation=True)
+    def chart1(player1, player2, player3): 
+        df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+        df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+        df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+
+        df = pd.concat([df1_1, df1_2, df1_3])
     
-#     @st.cache(allow_output_mutation=True)
-#     def chart1(player1, player2, player3): 
-#         df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
-#         df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
-#         df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+        chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
 
-#         df = pd.concat([df1_1, df1_2, df1_3])
+        return chart1
     
-#         chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
-#             properties(width=800, height=300)
+    chart1_output = copy.deepcopy(chart1(player1, player2, player3))
+    st.altair_chart(chart1_output, use_container_width=False)
 
-#         return chart1
+# Plotting Chart 2: Compare Cummulative Injury History According to Position
+    @st.cache(allow_output_mutation = True)
+    def load_data_chart2():
+        df = dd.read_parquet('dataframes_blog/df_pos.parquet')
+        return df
+
+    df_pos = load_data_chart2()
     
-#     chart1_output = copy.deepcopy(chart1(player1, player2, player3))
-#     st.altair_chart(chart1_output, use_container_width=False)
-
-# # Plotting Chart 2: Compare Cummulative Injury History According to Position
-#     st.subheader("Compare Cummulative Injury History According to Position")
+    st.subheader("Compare Cummulative Injury History According to Position")
+    st.write('* (sample dataset used for performance purposes)')
     
-#     dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
-#     dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
-#     dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
-#     dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+    df_pos = df_pos.compute()
 
-#     df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
-#     sorted_unique_position = dataset['position'].dropna().sort_values().unique()
-#     pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
-#     df_pos = pd.DataFrame([])
-#     for p in pos:
-#         df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
+    positions = ['attacker', 'defender', 'goalkeeper', 'midfielder']
+
+    selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
-#     df_pos['attacker'] = 0
-#     df_pos['defender'] = 0
-#     df_pos['goalkeeper'] = 0
-#     df_pos['midfielder'] = 0
-#     df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
-#     df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
-#     df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
-#     df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
-#     df_pos = df_pos.groupby('cum_week').sum().reset_index()
-#     base = alt.Chart(df_pos).encode(x='cum_week:Q')
-#     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-#         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart2, use_container_width=False)
+    result = pd.DataFrame([])
+    result['cum_week'] = df_pos['cum_week']
 
-# # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
+    for pos in selected_position:
+        result[pos] = df_pos[pos]
+        
+    base = alt.Chart(result).encode(x='cum_week:Q')
 
-#     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-
-#     player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
+    chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker:Q'), base.mark_line(color='orange').encode(y='defender:Q'), \
+                base.mark_line(color='green').encode(y='goalkeeper:Q'), alt.layer(base.mark_line(color='blue').encode(y='midfielder:Q'))). \
+                properties(width=800, height=300)
     
-#     picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
-#     st.write(player + " plays as " + picked_player_pos + "!!!")
+    st.altair_chart(chart2, use_container_width=False)
 
-#     df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
+# Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
-#     player_max_cum_week = df_player['cum_week'].max()
-
-#     df_avg_position = dataset[dataset['position'] == picked_player_pos]
-#     df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
-#     df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
-#     df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
-
-#     df_player_vs_avg = pd.concat([df_player, df_avg_position])
-
-#     chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart3, use_container_width=False)
-
-# # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+    st.write('* (sample dataset used for performance purposes)')
     
-#     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-#     st.write('* Player ages are updated with the latest data we have *')
-
-#     player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
+    player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
+    picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
+    st.write(player + " plays as " + picked_player_pos + "!!!")
     
-#     picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
-#     picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
+    @st.cache(allow_output_mutation=True)
+    def chart3(player, df):
+        df_player = df[df['name'] == player][['cum_week', 'name', 'cum_injury_total']]
+        player_max_cum_week = df_player['cum_week'].max()
+        
+        df_avg_position = df[df['position'] == picked_player_pos]
+        df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
+        df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
+        df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
+
+        df_player_vs_avg = pd.concat([df_player, df_avg_position])
+
+        chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
+        
+        return chart3
+
+    chart3_output = copy.deepcopy(chart3(player, dataset))
+
+    st.altair_chart(chart3_output, use_container_width=False)
+
+# Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
-#     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    st.write('* (player ages are updated with the latest data we have)')
+    st.write('* (sample dataset used for performance purposes)')
+
+    player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
-#     st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
-#         str(int(picked_player_age_now)) + " years old!!!")
-
-#     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
-
-#     picked_player_max_age = df_player2['age'].max()
-
-#     df_avg_age = dataset[['cum_week', 'name', 'age', 'cum_injury_total']]
-#     df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
-#     df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
-#     df_avg_age['name'] = 'avg cum_injury_total'
-
-#     df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
-
-#     chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart4, use_container_width=False)
-
-# # Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
-#     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
-#     st.write('* Player ages are updated with the latest data we have *')
-
-#     player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
+    picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
+    picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
     
-#     df_picked_player = dataset[dataset['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
-#     df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
+    picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    
+    st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+        str(int(picked_player_age_now)) + " years old!!!")
 
-#     cum_Min_max = df_picked_player['cum_Min'].max()
+    @st.cache(allow_output_mutation=True)
+    def chart4(player, df):
+        df_player2 = df[df['name'] == player2][['name', 'age', 'cum_injury_total']]
 
-#     df_avg_min = dataset[['cum_week', 'name', 'Min', 'cum_injury_total']]
-#     df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
-#     df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
-#     df_avg_min['name'] = 'avg of all players'
+        picked_player_max_age = df_player2['age'].max()
 
-#     df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+        df_avg_age = df[['cum_week', 'name', 'age', 'cum_injury_total']]
+        df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
+        df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
+        df_avg_age['name'] = 'avg cum_injury_total'
 
-#     df_picked_player.drop_duplicates(inplace=True)
-#     df_avg_min.drop_duplicates(inplace=True)
+        df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
 
-#     df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+        chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
 
-#     chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart5, use_container_width=False)
-# 
+        return chart4
+
+    chart4_output = copy.deepcopy(chart4(player, dataset))
+        
+    st.altair_chart(chart4_output, use_container_width=False)
+
+# Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
+    st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
+    st.write('* Player ages are updated with the latest data we have *')
+    st.write('* (sample dataset used for performance purposes)')
+
+    player5 = st.selectbox("Name (type or choose):",sorted_unique_player)
+
+    @st.cache(allow_output_mutation=True)
+    def chart5(player, df):  
+        df_picked_player = df[df['name'] == player5][['cum_week', 'name', 'Min', 'cum_injury_total']]
+        df_picked_player['cum_Min'] = df_picked_player['Min'].cumsum()
+
+        cum_Min_max = df_picked_player['cum_Min'].max()
+
+        df_avg_min = df[['cum_week', 'name', 'Min', 'cum_injury_total']]
+        df_avg_min['cum_Min'] = df_avg_min.groupby(by=['name'])['Min'].cumsum()
+        df_avg_min = df_avg_min.groupby('cum_week').mean().reset_index()
+        df_avg_min['name'] = 'avg of all players'
+
+        df_avg_min = df_avg_min[df_avg_min['cum_Min'] <= cum_Min_max]
+
+        df_picked_player.drop_duplicates(inplace=True)
+        df_avg_min.drop_duplicates(inplace=True)
+
+        df_player_vs_avg_min = pd.concat([df_picked_player, df_avg_min])
+
+        chart5 = alt.Chart(df_player_vs_avg_min).mark_line().encode(x=alt.X('cum_Min:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
+
+        return chart5
+
+    chart5_output = copy.deepcopy(chart5(player, dataset))
+        
+    st.altair_chart(chart5_output, use_container_width=False)
+
 elif section == "Interactive Injury Prediction Tool (BETA)":
+    st.image(imglogo, width=250)
 
-     st.header("Interactive Injury Prediction Tool (BETA)")
+    imgfield = Image.open("images/fields.jpg")
+    st.image(imgfield, width = 700)
+    
+    st.header("Interactive Injury Prediction Tool (BETA)")
+    st.write('Please feel free to try out our interactive prediction tool!')
+
+    st.write('* (sample dataset used for performance purposes)')
+
+    
+
 
 else:
-    st.header("Conclusions and Future Work")
+    st.header("Conclusion, Challenges, and Future Work")
+    st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+
+    
+    st.subheader("Conclusion")
+    st.write("<h1 style='text-align: center; In today’s football, players compete more and moreover a single year. Apart from playing more than one \
+        tournament for their clubs, who own the rights for the players, the most talented players must attend \
+        international duties with their national teams, as well as friendly matches with both their clubs and \
+        countries. It is normal to see footballers get injured from time to time since this sport requires physical \
+        demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
+        players have to go through rigorous training and do not have much time to rest. Our goal was to create \
+        a machine learning model that could predict when a player will get injured......")
+
+    st.write("The project has been a great experience for all of us. Not only because we were challenged to come up \
+        with a data science project that could be applied to the real world and also learned a great number of \
+        new tools we previously did not have any knowledge about, but most importantly because this capstone \
+        gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
+        encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
+        and supported each other at all times. We all agree that this has been the greatest takeaway from the \
+        course and even the entire program. It was definitely not a simple task to complete ....")
+    
+    st.subheader("Challenges")
+    st.write("")
+    st.write("**Data Scrapping**")
+    st.write("There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
+        proceeded with the harvesting of data. The process of scrapping data from the web was a challenge for most of us because \
+        of multiple reasons. First of all, we were not convinced on what data to scrape for our models since we wanted to build a \
+        time series model. On top of that, we were looking at more than 3 sources at first. Second, there were many players available \
+        and a good number of attributes to choose from the websites. However, many of those attributes weren’t available for certain \
+        leagues or players, and when they were available, it seems that they were only obtainable for certain players. Also, those new \
+        features were not available for all the years, this is probably because this is new data that just started to being recorded \
+        recently. Third, scraping the data from the web required high computation and a great amount of memory capacity. We tried a few \
+        strategies to work around it. We attempted to use AWS, but we also faced many challenges with the installation as well as \
+        making the connection to the server; AWS preserved losing connection which resulted in errors in the middle of our data pulling \
+        process. On the other hand, we split the list of players to be scrapped in multiple batches between the three of us. This not only \
+        required time since we were running scripts overnight but also, required all of us to continue checking on the progress and \
+        communicating with each other to ensure the scrapping was working or finalized. Additionally, when we first completed scrapping \
+        the data from our sources, we realized that something was missed so we needed to go back to improve our API and repeat the same \
+        process more than one time. We even bumped into a few IP blocks after a high number of requests from the same IP address. In \
+        the end, we managed to scrape all the data that was required to build our models by working cooperatively.")
+    st.write("")
+    st.write("**GitHub in Visual Studio Code**")
+    st.write("First, it took some effort to locally install and integrate VS Code and GitHub together. After the installation finished,\
+        and the repository was set and authenticated, we were capable to begin working in parallel, which we all enjoyed. However, we did \
+        undergo some minor problems when submitting new changes and pulling new requests. This mainly occurred because we failed to \
+        communicate which notebooks were being updated, as well as not pulling on time when needed to. This resulted in many conflicts \
+        that were not straightforward to solve, which even cause resetting the repositories in some cases. Once we were all accustomed to it, \
+        we did not face major problems. ")
+    st.write("")
+    st.write("**Amazon Web Services**")
+    st.write("In addition to using VS Code to work with our GitHub repository, we incorporated Amazon Web Services so that we can attempt\
+        to run scripts that required a great amount of memory usage. The process of setting AWS was lengthy, and although we found guidelines\
+        on how to install and integrate AWS into our machines, it was still confusing to deal with it. Once AWS was installed and running, \
+        all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
+        decided to avoid employing AWS for the data scrapping.")
+    st.write("")
+    st.write("**Time Series Model**")
+    st.write("Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
+        was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
+        to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
+        before we prepare the final dataset.")
+    st.write("")
+    st.write("**StreamLit**")
+    st.write("This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
+        it was fairly easy to understand compared to other libraries we have used before, and also Streamlit integrated amazingly \
+        well with other libraries such Pandas or Altair. However, the challenge was when building our Players’ comparison tool. \
+        Even though we achieved to develop our tools and displayed them through Streamlit, it was taken a very long time for the \
+        custom apps to run because of the size of our main dataset and the magnitude of our models. We wanted to avoid creating \
+        frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
+        a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.")
+
+    st.subheader("Future Work")
+    
+    st.write("We have collected a significant amount of data that contains players’ profiles, stats, match logs, injuries, \
+    and more. With this data, we have created robust models that can predict players' injuries. However, \
+    there’s still room for improvement in our results if were to add more data. This may be possible by \
+    accessing biometric data which relates to the measurement of players' physical features and \
+    characteristics, GPS information of players during games and training, and even weather data since this \
+    may affect players' performance. Most of the data that we have collected comes from what was publicly \
+    available to us, thus, we do not own any information on what the footballer does before and after the \
+    actual matches. Nowadays, players are playing more games per season than ever, they barely have time \
+    to recover, and also have to go through rigorous training. In fact, there are many players that get injured \
+    during training. On top of that, they also have to constantly travel which can also contribute to \
+    accumulating more fatigue over time. Unfortunately, accessing biometrics and GPS data to evaluate the \
+    rigorous training and collect features that are disregarded could improve our model. Nevertheless, this \
+    was not possible due to the confidentiality of data and the time that it may take to incorporate new \
+    information. In addition, accessing the number of hours players rest before and after may be challenging \
+    to obtain and even raise some ethical issues.")
+
+   
+
+
+     

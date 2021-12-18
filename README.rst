@@ -34,6 +34,7 @@ Table of Contents
  - `Scraping the Web for Data`_
  - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
+ - `Blog/Website`_
  - `Model Building`_
  - `Citing`_
 
@@ -788,7 +789,10 @@ This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned
     dataset = shift_by_time_period(dataset, 26, 'cum_injury')
     dataset = shift_by_time_period(dataset, 52, 'cum_injury')
     
-The following features are used to create a 'cum_sum' column which will serve as base for cummulative features that will be used for our models
+The following features are used to create a 'cum_sum' column which will serve as base for cummulative features that will be used for our models. 
+We do this by applying the groupby function and the cumsum() operator.
+
+.. code:: python
 
     dataset['cum_sum'] = dataset['injured'].cumsum()
     
@@ -809,12 +813,90 @@ The following features are used to create a 'cum_sum' column which will serve as
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Blog/Website
+~~~~~~~~~~~~
 
+Streamlit is an open-source Python library that makes it easy to create and share custom web apps for machine learning and data science. We used Streamlit to
+create a blog where we could share our ideas for this project and also offer an interactive tool that allows you to compare players at multiple levels, generate visualizations, and more. You can now review our blog and start playing with our custom apps.
 
+First, we needed to do some research to understand how to use Streamlit and to decide if we wanted to use it. It turned out that this library was manageable to learn as compared to others we tested. 
 
+You need the following installion to make Streamlit is available.
+
+.. code:: python
+
+    pip install streamlit
+
+Although we won't go into much details, we want to share some samples of the custom app we developed with the help of Streamlit.
+
+Here we can create a selection box where we created multiple sections for our blogs. Here, users are able to select a section of our website.
+
+.. code:: python
+
+    section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
+        "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+        "Interactive Injury Prediction Tool (BETA)", "Conclusions and Future Work"))
+
+By using st.write(), we added complete sentences and paragraphs in our blog. Along with those, we incorporated images to make our
+blog more entertaining and to keep the users engaged. We first loaded the images to our GitHub repository, and then called the images and display those
+using the following:
+
+.. code:: python
+
+    st.write("The first major decision was that we would only get information from the five most competitive soccer leagues in \
+        the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France) and the Serie A (Italy). \
+        The reason for this decision was that we thought that these leagues would have better player documentation.")
+    
+    img4 = Image.open("images/image4.png")
+    st.image(img4)
+    
+Here is the result:
+
+.. image:: images/image23.PNG
+
+Although we are not going to every single step of how we designed all interactive apps, here is the complete coding for the "Compare Player's Injury History".
+As you can notice, we are using the altair library to build the visualizations. Go to our blog to interact with this tool.
+
+.. code:: python
+
+    elif section == "Interactive Exploration Tool (BETA)":
+        st.header('Interactive Exploration Tool (BETA)')
+        @st.cache  # 👈 Added this
+        def get_df():
+            path = 'dataframes_blog/dataset_for_model_final.parquet'
+            return pd.read_parquet(path)
+
+        dataset = copy.deepcopy(get_df())
+
+        # Plotting Chart 1: Compare Players' Injury History
+
+        st.subheader("Compare Players' Injury History")
+
+        sorted_unique_player = dataset['name'].sort_values().unique()
+        player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
+        player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
+        player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
+
+        @st.cache(allow_output_mutation=True)
+        def chart1(player1, player2, player3): 
+            df1_1 = dataset[dataset['name'] == player1][['cum_week', 'name', 'cum_injury_total']]
+            df1_2 = dataset[dataset['name'] == player2][['cum_week', 'name', 'cum_injury_total']]
+            df1_3 = dataset[dataset['name'] == player3][['cum_week', 'name', 'cum_injury_total']]
+
+            df = pd.concat([df1_1, df1_2, df1_3])
+
+            chart1 = alt.Chart(df).mark_line().encode(x=alt.X('cum_week:Q', axis=alt.Axis(labelAngle=0)), y='cum_injury_total:Q', color='name'). \
+                properties(width=800, height=300)
+
+            return chart1
+
+        chart1_output = copy.deepcopy(chart1(player1, player2, player3))
+        st.altair_chart(chart1_output, use_container_width=False)
+        
+        
 
 Model Building
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 Citing 
 ~~~~~~
@@ -853,6 +935,4 @@ The injured column is similar to the one above, but this is time this column is 
     dataset = shift_by_time_period(dataset, 52, 'cum_injury'
 
 
-Next, we develop a new colum to serve a base for the cummulative features that will be added. We do this by applying the groupby 
-function and the cumsum() operator.
-
+Next, we develop a new colum to serve a base for the cummulative features that will be added. 
