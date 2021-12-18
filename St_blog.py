@@ -340,9 +340,8 @@ elif section == "Interactive Exploration Tool (BETA)":
     
     # cluster_state = st.empty()
 
-    @st.cache(allow_output_mutation = True)
+    # @st.cache(allow_output_mutation = True)
     def load_data():
-        # df = dd.read_parquet('dataframes_blog/dataset_for_model_final.parquet') #, storage_options={"anon":True}, blocksize="16 MiB")
         df = dd.read_parquet('dataframes_blog/df_small.parquet')
         return df
 
@@ -404,46 +403,45 @@ elif section == "Interactive Exploration Tool (BETA)":
     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker:Q'), base.mark_line(color='orange').encode(y='defender:Q'), \
                 base.mark_line(color='green').encode(y='goalkeeper:Q'), alt.layer(base.mark_line(color='blue').encode(y='midfielder:Q'))). \
                 properties(width=800, height=300)
-    # chart2
+    
     st.altair_chart(chart2, use_container_width=False)
 
 # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-
+    st.write('* (sample dataset used for performance purposes)')
+    
     player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
-    # picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
+    picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
+    st.write(player + " plays as " + picked_player_pos + "!!!")
     
-    # st.write(player + " plays as " + picked_player_pos + "!!!")
-    dataset
-    # @st.cache(allow_output_mutation=True)
-    # def chart3(player, df):
+    @st.cache(allow_output_mutation=True)
+    def chart3(player, df):
+        df_player = df[df['name'] == player][['cum_week', 'name', 'cum_injury_total']]
+        player_max_cum_week = df_player['cum_week'].max()
         
+        df_avg_position = df[df['position'] == picked_player_pos]
+        df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
+        df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
+        df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
 
+        df_player_vs_avg = pd.concat([df_player, df_avg_position])
 
-#     df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
+        chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
+        
+        return chart3
 
-#     player_max_cum_week = df_player['cum_week'].max()
+    chart3_output = copy.deepcopy(chart3(player, dataset))
 
-#     df_avg_position = dataset[dataset['position'] == picked_player_pos]
-#     df_avg_position = df_avg_position[df_avg_position['cum_week'] <= player_max_cum_week]
-#     df_avg_position = df_avg_position.groupby('cum_week').mean().reset_index()[['cum_week', 'cum_injury_total']]
-#     df_avg_position['name'] = picked_player_pos+'s avg accum. injuries'
+    st.altair_chart(chart3_output, use_container_width=False)
 
-#     df_player_vs_avg = pd.concat([df_player, df_avg_position])
-
-#     chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart3, use_container_width=False)
-
-    # chart3 = chart3(player, dataset)
-
-# # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
+# Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
-#     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
-#     st.write('* Player ages are updated with the latest data we have *')
+    st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
+    st.write('* Player ages are updated with the latest data we have *')
 
-#     player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
+    player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
 #     picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
 #     picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
