@@ -31,8 +31,8 @@ The main features of this project are:
 Table of Contents
 ~~~~~~~~~~~~~~~~~
  - `Overview`_
- - `Data Scraping and Manipulation`_
- - `Feature Engineering`_
+ - `Scraping the Web for Data`_
+ - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
  - `Model Building`_
  - `Citing`_
@@ -48,8 +48,8 @@ Overview
 - An Amazon Web Services (AWS) environment had been generated and linked to VSCode in order to increase computational power and be more productive 
   when building applications that come at a high cost; our local machines experienced multiple memory timeouts and limitations.
 
-Data Scraping and Manipulation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Scraping the Web for Data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First of all, import the following Libraries:
 
@@ -182,60 +182,49 @@ The following function had to be applied in multiple batches since this operatio
                         
         return list(set(match_logs_list))
 
-Once this function is created, we imported the mapping table of FBRefIDs and TMIDs; this method allowed us to produce a single list of the players that are used for the scrapping of the matchlogs.
+Once this function is created, we imported the mapping table of FBRefIDs and TMIDs to only pull data from the intersection of FBRefIDs and TMIDs. This step allowed us to avoid an unnecessary effort to pull match logs for players that we will not use.
 
-    # 1st batch 0:5000 
+.. code:: python    
+
+    fbref_to_tm_mapping = pd.read_csv('.../CSV files/fbref_to_tm_mapping.csv', encoding='latin-1')
+    player_all_competitions_filtered = player_all_competitions_df.merge(fbref_to_tm_mapping, left_on='FBRefID', right_on='FBRefID', how='inner')
+    player_all_competitions_filtered_list = list(player_all_competitions_filtered[0])
+
+
+Here we were able to generate a list of 51,196 URLs for a total of 5,192 players. This list of URLs is used to 
+scrape all match logs URLs of all the consolidated players. The list called **match_logs_list** at first,
+but then we exported as csv named **match_logs_list_urls.csv**.
+
+.. code:: python   
+
+    # Total length of player_all_competitions is 5192
+    
+    match_logs_list = []
+
     count = 0
-    for i in range(len(player_all_competitions[0:5000])):
-        match_logs_list.extend(get_player_match_logs(player_all_competitions[0:5000], i))
+    for i in range(len(player_all_competitions_filtered_list)):
+        match_logs_list.extend(get_player_match_logs(player_all_competitions_filtered_list, i))
         count += 1
-        sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions[0:5000])*100)))
+        sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions_filtered_list)*100)))
         sys.stdout.flush()
 
-**1.5 Append match_url_files.ipynb**
+**2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynb, ........., 2h. FBREF Player Batch 4000-5192.ipynb** 
 
-In this notebook, we concatenate the match logs lists that were created above to build the final **match_log_urls** list that contains 
-all players' URLs match logs for every single season. This list has 148,478 URLs
-
-.. code:: python
-
-    # Uniting all match logs into a single list: match_logs_list_urls
-
-    match_logs_list_urls = []
-    match_logs_list_urls.extend(list(match_logs_list_urls_1['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_2['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_3['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_4['0']))
-    match_logs_list_urls.extend(list(match_logs_list_urls_5['0']))
-
-However, we have to ensure this list contains unique URLs since some players appear in more than one of the top 5 European leagues in their careers. 
-The final list was reduced to 118,283 URLs. Finally, this list is exported into a CSV file since it is the most comfortable and fastest method
-to save this file to the Google Drive.
-
-.. code:: python
-
-    # Eliminated Repeated match logs
-    match_logs_list_urls = list(set(match_logs_list_urls))
-
-    # Export as CSV
-    pd.DataFrame(match_logs_list_urls).to_csv('/Volumes/GoogleDrive/......./CSV Files/match_logs_list_urls.csv')
-
-**2. FBREF Player Batch 0-5000.ipynb, 3.FBREF Player Batch 0-5000.ipynB, ........., 13c. FBREF Player Batch 110000-118283** 
-
-It is time to perform the real data scrapping. Here, we are pulling data from the above list, which contains a total of 118,283 URLs. 
-By running this function, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
+It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 51,196 URLs. 
+When executing the function below, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
 have match logs that contain 30 attributes or columns while other players have match logs with 39 attributes. Thus, players' match logs are 
 appended to two dataframes of 30 columns and 39 columns, respectively. 
 
 **Important note**
 
-    This step took a significant amount of memory usage. Therefore, it was necessary to run the match_logs_list_urls.csv in multiple batches. 
-    A total of 15 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
+    This step took a significant amount of memory usage. Therefore, it was necessary to run the **match_logs_list_urls.csv** in multiple batches. 
+    A total of 8 notebooks were created in order to run all batches in parallel. The function below is used across all FBREF Player Batch notebooks; 
     this is an example of the first batch. In the end, all dataframes are concatenated together to produce a single dataframe.
 
-.. code:: python
 
-    # Pull all match_log_lists. We will convert each list individually
+.. code:: python    
+
+    # Pull all match_log_lists_x tables. We will convert each list individually WORK IN PROCESS
 
     def create_match_logs_tables(match_logs_list_urls_x):
 
@@ -251,13 +240,13 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
                 new_table = pd.read_html(player)[0]
                 new_table.columns = new_table.columns.droplevel()
                 new_table['name'] = player.split('/')[-1].replace("-Match-Logs", "")
-                
+
                 if new_table.shape[1] == 30:
                     new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
                     df_30_columns = df_30_columns.append(new_table, ignore_index=True)
                     count += 1
-                    
-                    
+
+
                 if new_table.shape[1] == 39:
                     new_table['FBRefID'] = player[(player.find("players/") + len("players/")):(player.find("/matchlogs"))]
                     df_39_columns = df_39_columns.append(new_table, ignore_index=True)
@@ -268,30 +257,32 @@ appended to two dataframes of 30 columns and 39 columns, respectively.
 
             except:
                 pass
-        
+
         return df_30_columns, df_39_columns
+    
+    # Creating different length data frames - Here is where we update the URLs that we will use
 
-    # Creating different length data frames for the first 5000 URLs
-
-    df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])
-
-Here the two dataframes generated by the function above are merged into a single dataframe. Only the most relevant columns are stored.
-
-.. code:: python
-
+    df_30_columns_1, df_39_columns_1 = create_match_logs_tables(match_logs_list_urls[0:5000])    
+    
     #Combining Df_30_columns_1 and df_39_columns_1 to dataframe_1
 
     cols = ['Date', 'Day', 'Comp', 'Round', 'Venue', 'Result', 'Squad', 'Opponent', 'Start', 'Pos', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY',
-        'CrdR', 'Match Report', 'Int', 'name', 'FBRefID']
+           'CrdR', 'Match Report', 'Int', 'name', 'FBRefID']
 
     df1 = df_39_columns_1
     df2 = df_30_columns_1
 
     df_final_1 = df1.merge(df2,how='outer', left_on=cols, right_on=cols)
 
-**14. Player Data Dataframe Consolidation.ipynb**
+    print(df1.shape)
+    print(df2.shape)
 
-This notebook is used to combine all dataframes produced from the batches above. Here, we also discard unnecessary  columns and clean some NaNs
+At the end, we excuted all remaining notebooks and exported them as csv files with the goal of concatenating them into a single dataframe. 
+We do this in the next notebook.
+
+**3. Player Data Dataframe Consolidation.ipynb**
+
+This notebook is used to combine all dataframes produced from the batches above. Here, we also discard unnecessary columns and clean some NaNs
 
 .. code:: python
 
@@ -308,8 +299,12 @@ This notebook is used to combine all dataframes produced from the batches above.
     # Dropping unwanted columns from df_final
 
     df_final.drop(columns = ['Match Report'], inplace = True)
+    
+    # Converting date columns to datetime
 
-**15a. Profile Data Dataframe England.ipynb, 1a.Profile Data Dataframe Italy.ipynb, ...... 15e.Profile Data Dataframe Germany.ipynb**
+    consolidated_df_final['Date'] = pd.to_datetime(consolidated_df_final['Date'])
+
+**4a. Profile Data Dataframe England.ipynb, 4b.Profile Data Dataframe Italy.ipynb, ...... 4e.Profile Data Dataframe Germany.ipynb**
 
 In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
 by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
@@ -402,7 +397,7 @@ to dataframe called **player_data_df_england.csv**.
 
     player_info_england = fbref_player_info(player_url_england)
 
-**16. Extract_Injuries.ipynb**
+**5. Extract_Injuries.ipynb**
 
 .. image:: images/zidane.gif
 
@@ -529,7 +524,10 @@ contribute to our ML models such as 'Retired since:', 'Without Club since:', and
 since, again, the data scraping comes at a high computational cost. These files are exported to 3 dataframes player_profile_df_1.csv,
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
-**17. Consolidate Profile Data Dataframe.ipynb**
+Data Manipulation & Feature Engineering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**6. Consolidate Profile Data Dataframe.ipynb**
 
 This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
 to spend some time reading this notebook. 
@@ -589,7 +587,7 @@ This is just the beginning...
 
 There is a great number of steps taken on this notebook, we only highlight the ones we believe are the most relevant. Steps like
 removing duplicates, dropping NaNs, updating the column types, and any other basic operations are excluded. We also do some testing in order
-to understand what data cleaning is required and more. Please refer to the **17. Consolidate Profile Data Dataframe.ipynb** for the 
+to understand what data cleaning is required and more. Please refer to the **6. Consolidate Profile Data Dataframe.ipynb** for the 
 complete notebook.
 
 Here we create some important features that are considered for our time series models.
@@ -703,8 +701,47 @@ these features could be of great importance to improve our models.
 
     new_player_df['age'] = round((pd.to_datetime(new_player_df['date']) - pd.to_datetime(new_player_df['Birth'])) / timedelta(days=365), 0)
 
+Also, we believed competitions or tournaments where players participated could influence our model, especially when players are on international duty during major tournaments such as the world qualifiers. Thus, we created dummy variables to identify what tournament players played and added those as new features.
 
-Our final dataset has a shape of (1680385, 68)
+.. code:: python
+
+    def make_dummies(df, feature, suffix):
+        feature_list = list(df[feature].unique())
+
+        for col in feature_list:
+            df[col] = 0
+
+        for row in range(len(df)):
+            for features in feature_list:
+                 if df[feature].iloc[row] == features:
+                     df[features + suffix].iloc[row] = 1
+
+        return df
+   
+    feature_list = ['Serie A', 'Premier League', 'La Liga', 'Ligue 1', 'Bundesliga', 'Champions Lg', 'Europa Lg', 'FIFA World Cup', 'UEFA Nations League', 'UEFA Euro', 'Copa      América']
+
+    for col in feature_list:
+        total_match_logs_df.loc[total_match_logs_df['Comp'] == col, col] = 1
+        total_match_logs_df.loc[total_match_logs_df['Comp'] != col, col] = 0
+  
+Other important features are the injury count as well the previous injury weeks, and the weeks that players got injured. Here is how we did it:
+
+.. code:: python
+
+    new_player_df.loc[(new_player_df['injury_count']== 1) & (new_player_df['injury_count'].shift(1) == 1), 'unique_injury_count'] = 0
+    new_player_df.loc[(new_player_df['injury_count']== 1) & (new_player_df['injury_count'].shift(1) == 0), 'unique_injury_count'] = 1
+    new_player_df.loc[(new_player_df['injury_count']== 0) & (new_player_df['injury_count'].shift(1) == 0), 'unique_injury_count'] = 0
+    new_player_df.loc[(new_player_df['injury_count']== 0) & (new_player_df['injury_count'].shift(1) == 1), 'unique_injury_count'] = 0
+
+    new_player_df['cum_injury_total'] = new_player_df.groupby(['FBRefID'])['unique_injury_count'].cumsum()
+
+    new_player_df["previous_injury_week"] = new_player_df.groupby(["FBRefID", "cum_injury_total"])["cum_week"].transform("first")
+
+    new_player_df.loc[new_player_df['previous_injury_week'] == 0, 'weeks_since_last_injury'] = 0
+    new_player_df.loc[new_player_df['previous_injury_week'] != 0, 'weeks_since_last_injury'] = new_player_df["cum_week"] - new_player_df["previous_injury_week"]
+
+We also added more other features before and after we created this notebook.
+In the end, we ended with a final dataset of shape (1910255, 169).
 
 Are we done?
 
@@ -712,8 +749,6 @@ Are we done?
 
 ..... for now .....
 
-Feature Engineering
-~~~~~~~~~~~~~~~~~~~~
 
 **19. Preparing Features for Models.ipynb**
 
@@ -723,14 +758,17 @@ model to learn better; thus, to provide more accurate predictions.
 
 This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned.
 
-.. code:: python
 
-    # Creating 'injured' column
 
-    dataset.loc[dataset['Injury'] != '0', 'injured'] = 1
-    dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
+Visual Exploration of Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    # dataset[dataset['FBRefID'] == '71672fa0'].tail(60)
+Model Building
+~~~~~~~~~~~~~~~
+
+Citing 
+~~~~~~
+
 
 The following block of code shows a function that is used to build columns. The generated columns are based on a time constrain.
 The data ranges include: a week, a month(4 weeks), a quarter(12 weeks), half the year(26 weeks), and an entire year(52 weeks).
@@ -768,57 +806,3 @@ The injured column is similar to the one above, but this is time this column is 
 Next, we develop a new colum to serve a base for the cummulative features that will be added. We do this by applying the groupby 
 function and the cumsum() operator.
 
-.. code:: python
-
-    # Creating 'cum_sum' column to serve as base for cummulative features
-
-    dataset['cum_sum'] = dataset['injured'].cumsum()
-
-Now we 
-
-
-
-
-# Creating function to add cummulative columns
-
-def cummulative_sum(dataset, cum_column, original_column):
-    dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
-    return dataset
-
-
-
-
-
-
-
-
-
-
-
-# Creating function to add cummulative columns
-
-def cummulative_sum(dataset, cum_column, original_column):
-    dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
-    return dataset
-
-
-
-# Creating cummulative variables
-cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 
-    'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 
-    'Loss', 'Draw', 'was_match']
-
-for var in cum_cols:
-    cummulative_sum(dataset, var+'_cum', var)
-
-
-
-
-Visual Exploration of Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Model Building
-~~~~~~~~~~~~~~~
-
-Citing 
-~~~~~~
