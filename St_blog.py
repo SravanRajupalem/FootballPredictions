@@ -7,25 +7,39 @@ import os
 import requests
 import copy
 
-imglogo = Image.open("images/logo.jpg")
-st.image(imglogo)
-st.markdown("![Alt Text](https://cdn.pixabay.com/photo/2016/03/27/19/03/crowd-1283691_1280.jpg)")
-st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
-
-st.write("Sravan Rajupalem") 
-st.write("Renzo Maldonado")
-st.write("Victor Ruiz")
-
-section = st.sidebar.selectbox("Sections", ("Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
+section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building", "Injury Prediction Tool"))
 
-st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the world of Data Science. Magically using complex 
-    algorithms, machine learning models and neural networks to predict sports results and players' performance attract the interest 
-    of people for different reasons. Soccer is probably one of the most unpredictable sports out there. In the hope of aiding soccer 
-    managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
-    certain time frame.""")
+if section == "Introduction":
+    imgstadium = Image.open("images/stadium1.png")
+    st.image(imgstadium, width=700)
 
-if section == "Scraping the Web for Data":
+    st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
+
+    st.write("Sravan Rajupalem (sravanr@umich.edu)") 
+    st.write("Renzo Maldonado (renzom@umich.edu)")
+    st.write("Victor Ruiz (dsvictor@umich.edu)")
+    st.markdown("***")
+
+
+    st.write("""For quite a while, 'Sports Analytics' has been the buzz-word in the world of Data Science. Magically using complex 
+        algorithms, machine learning models and neural networks to predict sports results and players' performance attract the interest 
+        of people for different reasons. Soccer is probably one of the most unpredictable sports out there. In the hope of aiding soccer 
+        managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a 
+        certain time frame.""")
+
+    imglogo = Image.open("images/logo.png")
+    st.image(imglogo, width=250)
+
+    st.write("""Presenting Providemus, a tool to predict when a player will get injured.  By using data from the most reliable 
+        international soccer sources, our data scientists have been able to train machine learning models to predict with
+        considerable accuracy when will a player get injured. The time frame the tool has are if a player will get injured
+        during the next week, month, quarter, semester or year. This system is meant to be used as a complementary tool for 
+        soccer managers in their decisions to play or rest their players.""")
+
+elif section == "Scraping the Web for Data":
+    imglogo = Image.open("images/logo.png")
+    st.image(imglogo, width=250)
     st.header('Scraping the Web for Data')
     st.write("We hunted the web to get the most information we could about soccer players and matches.  After scanning several \
         options our runners up due to the completeness of their data were:  fbref.com and transfermarkt.com.")
@@ -104,9 +118,14 @@ if section == "Scraping the Web for Data":
         Python library.")
     
 elif section == "Data Manipulation & Feature Engineering":
-    st.header("Merging, Cleaning and Manipulating the Data")
+    
     img6 = Image.open("images/image6.jpg")
-    st.image(img6)
+    st.image(img6, width = 700)
+
+    imglogo = Image.open("images/logo.png")
+    st.image(imglogo, width=250)
+    st.header("Merging, Cleaning and Manipulating the Data")
+
     st.write("This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
         and select a subset of input features from the final dataset in order to construct our machine learning tool. We achieved this by merging on the \
         intersection of all dataframes using the fbref_to_tm_df reference table on columns TMId(FBRef unique IDs) and TMID(TransferMarkt unique IDs) respectively. This phase \
@@ -246,11 +265,6 @@ elif section == "Visual Exploration of Data":
         weight. Being that we are analyzing active athletes, there doesn't seem to be any correlation between weight and age. We also \
         see a positive correlation between age and the cum_injury_total.")
     
-
-
-
-    
-
 elif section == "Model Building":
     st.header("Model Building")
 
