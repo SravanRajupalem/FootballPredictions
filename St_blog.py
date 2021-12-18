@@ -531,6 +531,8 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
 else:
     st.header("Conclusion, Challenges, and Future Work")
+    st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+
     
     st.subheader("Conclusion")
     st.write("In today’s football, players compete more and moreover a single year. Apart from playing more than one \
