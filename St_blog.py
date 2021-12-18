@@ -396,7 +396,7 @@ elif section == "Interactive Exploration Tool (BETA)":
 
         result = pd.DataFrame([])
         for pos in selected_position:
-            result[pos] = df[pos])
+            result[pos] = df[pos]
         
         # base = alt.Chart(result).encode(x='cum_week:Q')
         # chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
