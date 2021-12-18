@@ -392,7 +392,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
     @st.cache(allow_output_mutation=True)
-    def chart2(selected_positions, df):
+    def chart2(selected_position, df):
 
         result = pd.DataFrame([])
         for pos in selected_position:
@@ -405,7 +405,7 @@ elif section == "Interactive Exploration Tool (BETA)":
         
         return st.altair_chart(chart2, use_container_width=False)
     
-    chart2_output = chart2()
+    chart2_output = chart2(selected_position, df_pos)
     
     # st.altair_chart(chart2_output, use_container_width=False)
 
