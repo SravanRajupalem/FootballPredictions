@@ -525,9 +525,9 @@ since, again, the data scraping comes at a high computational cost. These files 
 player_profile_df_2.csv, and player_profile_df_3.csv.
 
 Data Manipulation & Feature Engineering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **6. Consolidate Profile Data Dataframe.ipynb**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the most extensive notebook in our entire repository. Here is where we combine all created dataframes to build the main dataframe. Thus, be prepared
 to spend some time reading this notebook. 
