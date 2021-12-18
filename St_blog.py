@@ -383,37 +383,43 @@ elif section == "Interactive Exploration Tool (BETA)":
         return df
 
     df_pos = load_data_chart2()
-
+    
     st.subheader("Compare Cummulative Injury History According to Position")
     st.write('* (sample dataset used for performance purposes)')
     
+    df_pos = df_pos.compute()
+
     positions = ['attacker', 'defender', 'goalkeeper', 'midfielder']
 
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
-    # result = pd.DataFrame([])
+    result = pd.DataFrame([])
+    result['cum_week'] = df_pos['cum_week']
+
+    for pos in selected_position:
+        result[pos] = df_pos[pos]
+        
+    base = alt.Chart(result).encode(x='cum_week:Q')
+
+    chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker:Q'), base.mark_line(color='orange').encode(y='defender:Q'), \
+                base.mark_line(color='green').encode(y='goalkeeper:Q'), alt.layer(base.mark_line(color='blue').encode(y='midfielder:Q'))). \
+                properties(width=800, height=300)
+    # chart2
+    st.altair_chart(chart2, use_container_width=False)
+
+# Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
+
+    st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
+
+    player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
+    # picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
     
-    # for pos in selected_position:
-    #     result[pos] = df_pos[pos]
-    
-    # st.write(df_pos)
+    # st.write(player + " plays as " + picked_player_pos + "!!!")
+    dataset
+    # @st.cache(allow_output_mutation=True)
+    # def chart3(player, df):
+        
 
-    # base = alt.Chart(result).encode(x='cum_week:Q')
-
-    # chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-    #             base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-    #             properties(width=800, height=300)
-    
-    # st.altair_chart(chart2, use_container_width=False)
-
-# # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
-
-#     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-
-#     player = st.selectbox('Player Name (type or choose):',sorted_unique_player)
-    
-#     picked_player_pos = dataset[dataset['name'] == player]['position'].iloc[0]
-#     st.write(player + " plays as " + picked_player_pos + "!!!")
 
 #     df_player = dataset[dataset['name'] == player][['cum_week', 'name', 'cum_injury_total']]
 
@@ -429,6 +435,8 @@ elif section == "Interactive Exploration Tool (BETA)":
 #     chart3 = alt.Chart(df_player_vs_avg).mark_line().encode(x=alt.X('cum_week:Q'), y='cum_injury_total:Q', color='name'). \
 #         properties(width=800, height=300)
 #     st.altair_chart(chart3, use_container_width=False)
+
+    # chart3 = chart3(player, dataset)
 
 # # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
