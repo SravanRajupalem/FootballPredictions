@@ -443,28 +443,35 @@ elif section == "Interactive Exploration Tool (BETA)":
 
     player2 = st.selectbox("Player's Name (type or choose):",sorted_unique_player)
     
-#     picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
-#     picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
+    picked_player_age_start = dataset[dataset['name'] == player2]['age'].min()
+    picked_player_age_now = dataset[dataset['name'] ==player2]['age'].max()
     
-#     picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    picked_player = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
     
-#     st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
-#         str(int(picked_player_age_now)) + " years old!!!")
+    st.write(player2 + " has data since the age of " + str(int(picked_player_age_start)) + ", and he is now " + \
+        str(int(picked_player_age_now)) + " years old!!!")
 
-#     df_player2 = dataset[dataset['name'] == player2][['name', 'age', 'cum_injury_total']]
+    @st.cache(allow_output_mutation=True)
+    def chart4(player, df):
+        df_player2 = df[df['name'] == player2][['name', 'age', 'cum_injury_total']]
 
-#     picked_player_max_age = df_player2['age'].max()
+        picked_player_max_age = df_player2['age'].max()
 
-#     df_avg_age = dataset[['cum_week', 'name', 'age', 'cum_injury_total']]
-#     df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
-#     df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
-#     df_avg_age['name'] = 'avg cum_injury_total'
+        df_avg_age = df[['cum_week', 'name', 'age', 'cum_injury_total']]
+        df_avg_age = df_avg_age[df_avg_age['age'] <= picked_player_max_age]
+        df_avg_age = df_avg_age.groupby('age').mean().reset_index()[['age', 'cum_injury_total']]
+        df_avg_age['name'] = 'avg cum_injury_total'
 
-#     df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
+        df_player_vs_avg_age = pd.concat([df_player2, df_avg_age])
 
-#     chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
-#         properties(width=800, height=300)
-#     st.altair_chart(chart4, use_container_width=False)
+        chart4 = alt.Chart(df_player_vs_avg_age).mark_line().encode(x=alt.X('age:Q'), y='cum_injury_total:Q', color='name'). \
+            properties(width=800, height=300)
+
+        return chart4
+
+    chart4_output = copy.deepcopy(chart4(player, dataset))
+        
+    st.altair_chart(chart4_output, use_container_width=False)
 
 # # Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
 #     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
