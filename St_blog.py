@@ -391,7 +391,7 @@ elif section == "Interactive Exploration Tool (BETA)":
         
         return st.altair_chart(chart2, use_container_width=False)
     
-    chart2_output = copy.deepcopy(chart2())
+    chart2_output = chart2()
     
     st.altair_chart(chart2_output, use_container_width=False)
 
