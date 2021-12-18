@@ -336,14 +336,14 @@ elif section == "Injury Prediction":
     
 elif section == "Interactive Exploration Tool (BETA)":
     st.header('Interactive Exploration Tool (BETA)')
-#     @st.cache  # 👈 Added this
-#     def get_df():
-#         path = 'dataframes_blog/dataset_for_model_final.parquet'
-#         return pd.read_parquet(path)
+    @st.cache  # 👈 Added this
+    def get_df():
+        path = 'dataframes_blog/dataset_for_model_final.parquet'
+        return pd.read_parquet(path)
     
-#     dataset = copy.deepcopy(get_df())
+    dataset = copy.deepcopy(get_df())
 
-#     # Plotting Chart 1: Compare Players' Injury History
+    # Plotting Chart 1: Compare Players' Injury History
 
 #     st.subheader("Compare Players' Injury History")
     
