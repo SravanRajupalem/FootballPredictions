@@ -380,36 +380,23 @@ elif section == "Interactive Exploration Tool (BETA)":
     st.subheader("Compare Cummulative Injury History According to Position")
     st.write('* (sample dataset used for performance purposes)')
     
-    # @st.cache(allow_output_mutation=True)
-    # def chart2(): 
-    #     dataset.loc[dataset['attacker'] == 1, 'position'] = 'attacker'
-    #     dataset.loc[dataset['midfielder'] == 1, 'position'] = 'midfielder'
-    #     dataset.loc[dataset['defender'] == 1, 'position'] = 'defender'
-    #     dataset.loc[dataset['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+    @st.cache(allow_output_mutation=True)
+    def chart2():
+        @st.cache(allow_output_mutation = True)
+        def get_data():
+            df = dd.read_parquet('dataframes_blog/df_pos.parquet')
+            return df
 
-    #     df = dataset[['cum_week', 'name', 'position', 'cum_injury_total']]
-    #     sorted_unique_position = dataset['position'].dropna().sort_values().unique()
-    #     pos = st.multiselect('Positions',sorted_unique_position, sorted_unique_position)
-    #     df_pos = pd.DataFrame([])
-    #     for p in pos:
-    #         df_pos = pd.concat([df_pos, df[df['position'] == p]], ignore_index=True)
-    
-    #     df_pos['attacker'] = 0
-    #     df_pos['defender'] = 0
-    #     df_pos['goalkeeper'] = 0
-    #     df_pos['midfielder'] = 0
-    #     df_pos.loc[df_pos['position'] == 'attacker', 'attacker'] = df_pos['cum_injury_total']
-    #     df_pos.loc[df_pos['position'] == 'defender', 'defender'] = df_pos['cum_injury_total']
-    #     df_pos.loc[df_pos['position'] == 'goalkeeper', 'goalkeeper'] = df_pos['cum_injury_total']
-    #     df_pos.loc[df_pos['position'] == 'midfielder', 'midfielder'] = df_pos['cum_injury_total']
-    #     df_pos = df_pos.groupby('cum_week').sum().reset_index()
-    #     base = alt.Chart(df_pos).encode(x='cum_week:Q')
-    #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-    #         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-    #         properties(width=800, height=300)
-    #     return st.altair_chart(chart2, use_container_width=False)
+        df_pos = get_data()
 
-    # st.altair_chart(chart2(), use_container_width=False)
+        base = alt.Chart(df_pos).encode(x='cum_week:Q')
+        chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+            base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+            properties(width=800, height=300)
+        
+        return st.altair_chart(chart2, use_container_width=False)
+
+    st.altair_chart(chart2(), use_container_width=False)
 
 # # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
