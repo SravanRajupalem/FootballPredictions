@@ -506,7 +506,24 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
 else:
     st.header("Conclusion, Challenges, and Future Work")
+    
+    st.subheader("Conclusion")
+    st.write("In today’s football, players compete more and moreover a single year. Apart from playing more than one \
+        tournament for their clubs, who own the rights for the players, the most talented players must attend \
+        international duties with their national teams, as well as friendly matches with both their clubs and \
+        countries. It is normal to see footballers get injured from time to time since this sport requires physical \
+        demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
+        players have to go through rigorous training and do not have much time to rest. Our goal was to create \
+        a machine learning model that could predict when a player will get injured......")
 
+    st.write("The project has been a great experience for all of us. Not only because we were challenged to come up \
+        with a data science project that could be applied to the real world and also learned a great number of \
+        new tools we previously did not have any knowledge about, but most importantly because this capstone \
+        gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
+        encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
+        and supported each other at all times. We all agree that this has been the greatest takeaway from the \
+        course and even the entire program. It was definitely not a simple task to complete ....")
+    
     st.subheader("Challenges")
     st.write("")
     st.write("**Data Scrapping**")
@@ -557,6 +574,23 @@ else:
         frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
         a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.")
 
+    st.subheader("Future Work")
+    
+    st.write("We have collected a significant amount of data that contains players’ profiles, stats, match logs, injuries, \
+    and more. With this data, we have created robust models that can predict players' injuries. However, \
+    there’s still room for improvement in our results if were to add more data. This may be possible by \
+    accessing biometric data which relates to the measurement of players' physical features and \
+    characteristics, GPS information of players during games and training, and even weather data since this \
+    may affect players' performance. Most of the data that we have collected comes from what was publicly \
+    available to us, thus, we do not own any information on what the footballer does before and after the \
+    actual matches. Nowadays, players are playing more games per season than ever, they barely have time \
+    to recover, and also have to go through rigorous training. In fact, there are many players that get injured \
+    during training. On top of that, they also have to constantly travel which can also contribute to \
+    accumulating more fatigue over time. Unfortunately, accessing biometrics and GPS data to evaluate the \
+    rigorous training and collect features that are disregarded could improve our model. Nevertheless, this \
+    was not possible due to the confidentiality of data and the time that it may take to incorporate new \
+    information. In addition, accessing the number of hours players rest before and after may be challenging \
+    to obtain and even raise some ethical issues.")
 
    
 
