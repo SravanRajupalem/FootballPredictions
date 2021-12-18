@@ -497,7 +497,7 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 else:
     st.header("Conclusion, Challenges, and Future Work")
 
-    st.write("**Problems**")
+    st.subheader("Challenges")
     st.write("")
     st.write("Data Scrapping")
     st.write("There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
