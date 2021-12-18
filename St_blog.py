@@ -376,7 +376,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     chart1_output = copy.deepcopy(chart1(player1, player2, player3))
     st.altair_chart(chart1_output, use_container_width=False)
 
-# # Plotting Chart 2: Compare Cummulative Injury History According to Position
+# Plotting Chart 2: Compare Cummulative Injury History According to Position
     @st.cache(allow_output_mutation = True)
     def load_data_chart2():
         df = dd.read_parquet('dataframes_blog/df_pos.parquet')
@@ -384,12 +384,15 @@ elif section == "Interactive Exploration Tool (BETA)":
 
     df_pos = load_data_chart2()
 
-    # st.subheader("Compare Cummulative Injury History According to Position")
-    # st.write('* (sample dataset used for performance purposes)')
+    st.subheader("Compare Cummulative Injury History According to Position")
+    st.write('* (sample dataset used for performance purposes)')
     
+    positions = ['Attacker', 'Defender', 'Goalkeeper', 'Midfielder']
+
+    selected_position = st.multiselect('Position', positions, positions)
     # @st.cache(allow_output_mutation=True)
     # def chart2():
-    #     df_pos = dd.read_parquet('dataframes_blog/df_pos.parquet')
+    #     rquet')
 
     #     base = alt.Chart(df_pos).encode(x='cum_week:Q')
     #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
