@@ -391,6 +391,7 @@ elif section == "Interactive Exploration Tool (BETA)":
 
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
+    st.write(selected_position)
     # @st.cache(allow_output_mutation=True)
     # def chart2(selected_position, df):
 
