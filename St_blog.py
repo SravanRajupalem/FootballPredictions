@@ -351,9 +351,10 @@ elif section == "Interactive Exploration Tool (BETA)":
     # Plotting Chart 1: Compare Players' Injury History
 
     st.subheader("Compare Players' Injury History")
-    st.write(dataset['name'])
+    
+    dataset = dataset.compute()
 
-    # sorted_unique_player = dataset['name'].sort_values().unique()
+    sorted_unique_player = dataset['name'].sort_values().unique()
     # player1 = st.selectbox('Player 1 Name (type or choose):',sorted_unique_player)
     # player2 = st.selectbox('Player 2 Name (type or choose):',sorted_unique_player)
     # player3 = st.selectbox('Player 3 Name (type or choose):',sorted_unique_player)
