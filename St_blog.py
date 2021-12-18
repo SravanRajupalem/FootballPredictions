@@ -541,7 +541,7 @@ else:
         countries. It is normal to see footballers get injured from time to time since this sport requires physical \
         demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
         players have to go through rigorous training and do not have much time to rest. Our goal was to create \
-        a machine learning model that could predict when a player will get injured......</h1>")
+        a machine learning model that could predict when a player will get injured......</h1>, unsafe_allow_html=True")
 
     st.write("The project has been a great experience for all of us. Not only because we were challenged to come up \
         with a data science project that could be applied to the real world and also learned a great number of \
