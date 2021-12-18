@@ -846,12 +846,13 @@ using the following:
     st.write("The first major decision was that we would only get information from the five most competitive soccer leagues in \
         the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France) and the Serie A (Italy). \
         The reason for this decision was that we thought that these leagues would have better player documentation.")
+    
     img4 = Image.open("images/image4.png")
     st.image(img4)
     
 Here is the result:
 
-    
+   
 
 
 Model Building
