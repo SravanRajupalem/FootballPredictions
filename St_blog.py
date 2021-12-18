@@ -344,9 +344,12 @@ elif section == "Interactive Exploration Tool (BETA)":
     @st.cache(allow_output_mutation = True)
     def load_data():
         df = dd.read_parquet('dataframes_blog/dataset_for_model_final.parquet', storage_options={"anon":True}, blocksize="16 MiB")
-        return df_final
-    
+        return df
+
     dataset = load_data()
+
+    
+   
 
     # @st.cache  # 👈 Added this
     # def get_df():
