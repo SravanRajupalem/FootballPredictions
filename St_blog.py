@@ -165,7 +165,7 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning")
-    img13 = Image.open("images/image13.png")
+    img13 = Image.open("images/image13.PNG")
     st.image(img13) 
     st.write("We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
         during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
