@@ -749,19 +749,69 @@ Are we done?
 
 ..... for now .....
 
-
-**19. Preparing Features for Models.ipynb**
-
-Although some features have already been created for our models as we have been consolidating our final dataset, there are still some
-features that we are reeingineering as we build our models. Sometimes, adding simple columns such the next example could help our 
-model to learn better; thus, to provide more accurate predictions.
+**xx. Preparing Features for Models.ipynb**
+Although some features had already been created for our models as we have been consolidating our final dataset, there were still some
+features that we were reengineering as we build our models. Sometimes, adding basic columns such the as next example could help our 
+model to learn better and provide more accurate predictions. Additionally, it is worth mentioning that there were a number of features
+that we created in this notebook, but were later removed since they didn't add value to our models. We have not included those. 
 
 This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned.
 
+.. code:: python
 
+    # Creating 'injured' column
+
+    dataset.loc[dataset['Injury'] != '0', 'injured'] = 1
+    dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
+
+    # Creating target column 'injured_in_one_week' and creating cumulative features
+    
+    def shift_by_time_period(df, shift_factor, column):
+        df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
+        return df
+
+    dataset = shift_by_time_period(dataset, 1, 'injured')
+    dataset = shift_by_time_period(dataset, 4, 'injured')
+    dataset = shift_by_time_period(dataset, 12, 'injured')
+    dataset = shift_by_time_period(dataset, 26, 'injured')
+    dataset = shift_by_time_period(dataset, 52, 'injured')
+
+    dataset = shift_by_time_period(dataset, 1, 'injury_count')
+    dataset = shift_by_time_period(dataset, 4, 'injury_count')
+    dataset = shift_by_time_period(dataset, 12, 'injury_count')
+    dataset = shift_by_time_period(dataset, 26, 'injury_count')
+    dataset = shift_by_time_period(dataset, 52, 'injury_count')
+
+    dataset = shift_by_time_period(dataset, 1, 'cum_injury')
+    dataset = shift_by_time_period(dataset, 4, 'cum_injury')
+    dataset = shift_by_time_period(dataset, 12, 'cum_injury')
+    dataset = shift_by_time_period(dataset, 26, 'cum_injury')
+    dataset = shift_by_time_period(dataset, 52, 'cum_injury')
+    
+The following features are used to create a 'cum_sum' column which will serve as base for cummulative features that will be used for our models
+
+    dataset['cum_sum'] = dataset['injured'].cumsum()
+    
+    # Creating function to add cummulative columns
+
+    def cummulative_sum(dataset, cum_column, original_column):
+        dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
+        return dataset
+            
+    # Creating cummulative variables
+    cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 
+        'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 
+        'Loss', 'Draw', 'was_match']
+
+    for var in cum_cols:
+        cummulative_sum(dataset, var+'_cum', var)
 
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
 
 Model Building
 ~~~~~~~~~~~~~~~
