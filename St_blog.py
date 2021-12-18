@@ -332,8 +332,61 @@ elif section == "Model Building":
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
+    st.image(imglogo, width=250)
+
+    imgballinfield = Image.open("images/ballinfield.jpg")
+    st.image(imgballinfield, width = 700)
+
     st.header('Injury Prediction')
 
+    st.write("As we have mentioned along our blog, there have been 5 previous stages before being able to do any kind of prediction. \
+        Scraping of data from the web, data manipulation, feature engineering, visual exploration of data and model building, all gave \
+        us the best models to predict injuries.")
+    
+    st.write("To start our prediction process we broke up the task into prediction horizons. We decided to predict if a player would \
+        get injured during the next week, month, quarter, or year. Our model numbers showed that as our prediction was further away, \
+        it was harder to predict with accuracy if a player would get injured.  The best horizon was the week horizon with an F1-score \
+        of .41 using the Light Gradient Boosting Machine.")
+
+    st.write("Once all the models were trained, they were saved into a pickle file to retrieve later. Turns out there were different \
+        models in different horizons.  For example as we mentioned before the one week horizon had the Light Grdient Boosting Machine \
+        as its best performing model. The 1 semester horizon had the Ada Boost Classifier as its best performing model. Producing \
+        predictions was a fairly simple process after we had finished all the preceding tasks.  We loaded the models and fired up a \
+        prediction for all the values in our data set.  Then we accounted for the predicted injuries that had an injury the week before. \
+        That is, if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
+        player could not get injured again.  Once we had these numbers we accumulated them in a single column and accounted for the time \
+        window we were predicting.  These predicted values were finally combined with the real values of the dataset to create a continuous \
+        time series with a line with two colors, blue for real injuries and orange for predicted injuries. We basically decided to do \
+        this to aid the viewer in detecting injuries and making inferences from them.")
+
+    st.write("We are going to pick one of the best soccer players in the world, Neymar, as our example player.  As it turns out \
+        Neymar has very interesting numbers.")
+
+    week = Image.open('images/week.png')
+    st.image(week, width = 800)
+
+    st.write('Our system predicts that Neymar will not get injured during the next week.')
+
+    # month = Image.open('images/month.png')
+    # st.image(month, width = 800)
+    
+    quarter = Image.open('images/quarter.png')
+    st.image(quarter, width = 800)
+
+    st.write("However, if we look at the quarter window, we see that according to our model Neymar is going get a single injury \
+        in the next 12 weeks.  This injury will happen in around 7 weeks.")
+
+    semester = Image.open('images/semester.png')
+    st.image(semester, width=800)
+
+    st.write("The one semester prediction tells us that Neymar will only have 1 injury during the next semester.")
+    
+    year = Image.open('images/year.png')
+    st.image(year, width=800)
+
+    st.write("Finally, the one year prediction yields that Neymar is going to get injures 3 times in the next year.")
+
+    st.write("Please use our interactive prediction tool which is located two sections down.")
     
 elif section == "Interactive Exploration Tool (BETA)":
     st.image(imglogo, width=250)
@@ -527,6 +580,7 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
     st.write('* (sample dataset used for performance purposes)')
 
     
+
 
 
 else:
