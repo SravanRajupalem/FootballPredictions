@@ -395,8 +395,10 @@ elif section == "Interactive Exploration Tool (BETA)":
             properties(width=800, height=300)
         
         return st.altair_chart(chart2, use_container_width=False)
-
-    st.altair_chart(chart2(), use_container_width=False)
+    
+    chart2_output = copy.deepcopy(chart2())
+    
+    st.altair_chart(chart2_output, use_container_width=False)
 
 # # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
