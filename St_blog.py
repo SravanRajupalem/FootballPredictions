@@ -389,19 +389,23 @@ elif section == "Interactive Exploration Tool (BETA)":
     
     positions = ['Attacker', 'Defender', 'Goalkeeper', 'Midfielder']
 
-    selected_position = st.multiselect('Position', positions, positions)
-    # @st.cache(allow_output_mutation=True)
-    # def chart2():
-    #     rquet')
-
-    #     base = alt.Chart(df_pos).encode(x='cum_week:Q')
-    #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-    #         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-    #         properties(width=800, height=300)
-        
-    #     return st.altair_chart(chart2, use_container_width=False)
+    selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
-    # chart2_output = chart2()
+    @st.cache(allow_output_mutation=True)
+    def chart2(selected_positions, df):
+
+        result = pd.DataFrame([])
+        for pos in selected_position:
+            result = pd.concat(result, df[pos])
+        
+        base = alt.Chart(result).encode(x='cum_week:Q')
+        chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+            base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+            properties(width=800, height=300)
+        
+        return st.altair_chart(chart2, use_container_width=False)
+    
+    chart2_output = chart2()
     
     # st.altair_chart(chart2_output, use_container_width=False)
 
