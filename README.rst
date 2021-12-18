@@ -34,6 +34,7 @@ Table of Contents
  - `Scraping the Web for Data`_
  - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
+ - `Blog/Website`_
  - `Model Building`_
  - `Citing`_
 
@@ -788,7 +789,10 @@ This new feature assigns a 1 when a player is injured, otherwise a 0 is assigned
     dataset = shift_by_time_period(dataset, 26, 'cum_injury')
     dataset = shift_by_time_period(dataset, 52, 'cum_injury')
     
-The following features are used to create a 'cum_sum' column which will serve as base for cummulative features that will be used for our models
+The following features are used to create a 'cum_sum' column which will serve as base for cummulative features that will be used for our models. 
+We do this by applying the groupby function and the cumsum() operator.
+
+.. code:: python
 
     dataset['cum_sum'] = dataset['injured'].cumsum()
     
@@ -809,12 +813,49 @@ The following features are used to create a 'cum_sum' column which will serve as
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Blog/Website
+~~~~~~~~~~~~
 
+Streamlit is an open-source Python library that makes it easy to create and share custom web apps for machine learning and data science. We used Streamlit to
+create a blog where we could share our ideas for this project and also offer an interactive tool that allows you to compare players at multiple levels, generate visualizations, and more. You can now review our blog and start playing with our custom apps.
 
+First, we needed to do some research to understand how to use Streamlit and to decide if we wanted to use it. It turned out that this library was manageable to learn as compared to others we tested. 
+
+You need the following installion to make Streamlit is available.
+
+.. code:: python
+
+    pip install streamlit
+
+Although we won't go into much details, we want to share some samples of the custom app we developed with the help of Streamlit.
+
+Here we can create a selection box where we created multiple sections for our blogs. Here, users are able to select a section of our website.
+
+.. code:: python
+
+    section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
+        "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+        "Interactive Injury Prediction Tool (BETA)", "Conclusions and Future Work"))
+
+By using st.write(), we added complete sentences and paragraphs in our blog. Along with those, we incorporated images to make our
+blog more entertaining and to keep the users engaged. We first loaded the images to our GitHub repository, and then called the images and display those
+using the following:
+
+.. code:: python
+
+    st.write("The first major decision was that we would only get information from the five most competitive soccer leagues in \
+        the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France) and the Serie A (Italy). \
+        The reason for this decision was that we thought that these leagues would have better player documentation.")
+    img4 = Image.open("images/image4.png")
+    st.image(img4)
+    
+Here is the result:
+
+    
 
 
 Model Building
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 Citing 
 ~~~~~~
@@ -853,6 +894,4 @@ The injured column is similar to the one above, but this is time this column is 
     dataset = shift_by_time_period(dataset, 52, 'cum_injury'
 
 
-Next, we develop a new colum to serve a base for the cummulative features that will be added. We do this by applying the groupby 
-function and the cumsum() operator.
-
+Next, we develop a new colum to serve a base for the cummulative features that will be added. 
