@@ -392,10 +392,11 @@ elif section == "Interactive Exploration Tool (BETA)":
     selected_position = st.multiselect('Choose Positions to show:', positions, positions)
     
     @st.cache(allow_output_mutation=True)
-    def chart2(selected_position, df):
+    def chart2(position_lst, df):
         result = pd.DataFrame([])
-        for pos in selected_position:
-            result[pos] = df[pos]
+        for pos in position_lst:
+            print(pos)
+            # result[pos] = df[pos]
         
     #     base = alt.Chart(result).encode(x='cum_week:Q')
     #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
