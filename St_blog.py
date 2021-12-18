@@ -395,14 +395,13 @@ elif section == "Interactive Exploration Tool (BETA)":
     def chart2(position_lst, df):
         result = pd.DataFrame([])
         for pos in position_lst:
-            print(pos)
-            # result[pos] = df[pos]
+            result[pos] = df[pos]
         
-    #     base = alt.Chart(result).encode(x='cum_week:Q')
-    #     chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
-    #         base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
-    #         properties(width=800, height=300)
-    #     result = st.altair_chart(chart2, use_container_width=False)
+        base = alt.Chart(result).encode(x='cum_week:Q')
+        chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
+            base.mark_line(color='green').encode(y='goalkeeper'), alt.layer(base.mark_line(color='blue').encode(y='midfielder'))). \
+            properties(width=800, height=300)
+        result = st.altair_chart(chart2, use_container_width=False)
         return result
 
     st.write(chart2(selected_position, df_pos))
