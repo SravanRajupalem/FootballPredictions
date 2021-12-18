@@ -382,12 +382,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     
     @st.cache(allow_output_mutation=True)
     def chart2():
-        @st.cache(allow_output_mutation = True)
-        def get_data():
-            df = dd.read_parquet('dataframes_blog/df_pos.parquet')
-            return df
-
-        df_pos = get_data()
+        df_pos = dd.read_parquet('dataframes_blog/df_pos.parquet')
 
         base = alt.Chart(df_pos).encode(x='cum_week:Q')
         chart2 = alt.layer(base.mark_line(color='red').encode(y='attacker'), base.mark_line(color='orange').encode(y='defender'), \
