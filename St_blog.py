@@ -44,8 +44,9 @@ st.markdown("""
 
 
 if section == "Introduction":
-    imgstadium = Image.open("images/stadium1.png")
-    st.image(imgstadium)
+    # imgstadium = Image.open("images/stadium1.png")
+    # st.image(imgstadium)
+    st.video("https://youtu.be/vxaXYFLHf2I")
 
     st.title("Anticipate Sooner")
          
