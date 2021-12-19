@@ -919,8 +919,6 @@ recall, precision and F1 across all the models for easy comparison.
 
 .. image:: images/image28.PNG
 
-Refer to the complete notebooks to review all of the remaining results.
-
 
 Blog/Website
 ~~~~~~~~~~~~
@@ -1003,10 +1001,15 @@ As you can notice, we are using the altair library to build the visualizations. 
         st.altair_chart(chart1_output, use_container_width=False)
         
 
-
-
-
 Citing 
 ~~~~~~
+
+- FBref.com. 2021. Football Statistics and History | FBref.com. [online] Available at: <https://fbref.com/en/> [Accessed 19 December 2021].
+- Transfermarkt.com. 2021. Football transfers, rumours, market values and news. [online] Available at: <https://www.transfermarkt.com/> [Accessed 19 December 2021].
+- Medium. 2021. Beating soccer odds using Machine Learning — Project Walkthrough. [online] Available at: <https://medium.com/analytics-vidhya/beating-soccer-odds-using-machine-learning-project-walkthrough-a1c3445b285a> [Accessed 19 December 2021].
+- Kaggle.com. 2021. Comprehensive data exploration with Python. [online] Available at: <https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python> [Accessed 19 December 2021].
+- Medium. 2021. Creating Multipage applications using Streamlit (efficiently!). [online] Available at: <https://towardsdatascience.com/creating-multipage-applications-using-streamlit-efficiently-b58a58134030> [Accessed 19 December 2021].
+
+
 
 
