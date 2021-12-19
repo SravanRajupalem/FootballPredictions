@@ -661,7 +661,13 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     # fig.update_layout(title_text='80%')
     fig.add_annotation(dict(x=26, y=85, text='80% of Injuries', showarrow=True, arrowsize=3.0, ax=0, ay=-20))
     st.plotly_chart(fig)
-
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Moving on to how well the model classifies injuries, below is the confusion matrix: 
+             """, unsafe_allow_html=True)  
+    
+    img13 = Image.open("images/Confusion Matrix One Week.png")
+    st.image(img13, width = 500)
+    
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
     st.image(imglogo, width=250)
