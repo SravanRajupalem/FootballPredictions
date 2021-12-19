@@ -680,7 +680,7 @@ else:
     st.subheader("Challenges")
     st.write("")
     img25 = Image.open("images/image25.png")
-    st.image(img25)
+    st.image(img25, width = 700)
     
     st.write("**Data Scrapping**")
     st.write("<p style='text-align: justify; font-size: 15px'>There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
