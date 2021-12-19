@@ -44,6 +44,8 @@ if section == "Introduction":
         during the next week, month, quarter, semester or year. This system is meant to be used as a complementary tool for \
         soccer managers in their decisions to play or rest their players.</h1>", unsafe_allow_html=True)
 
+###############################################################################################################################
+
 elif section == "Scraping the Web for Data":
     imglogo = Image.open("images/logo.png")
     st.image(imglogo, width=250)
@@ -128,7 +130,9 @@ elif section == "Scraping the Web for Data":
     st.write("")
     st.write("<p style='text-align: justify; font-size: 15px'>The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library.</h1>", unsafe_allow_html=True)
-    
+
+###############################################################################################################################
+
 elif section == "Data Manipulation & Feature Engineering":
     st.image(imglogo, width=250)
 
@@ -236,6 +240,8 @@ elif section == "Data Manipulation & Feature Engineering":
     
     st.write("<p style='text-align: justify; font-size: 15px'>Did we use all features for our predictions? Of course not...</h1>", unsafe_allow_html=True)
 
+###############################################################################################################################
+
 elif section == "Visual Exploration of Data":
     st.image(imglogo, width=250)
 
@@ -326,7 +332,9 @@ elif section == "Visual Exploration of Data":
 		reaches over 40,000 minutes, he overtakes this average and starts to accumulate more injuries than the average player.</h1>", unsafe_allow_html=True)
     img22 = Image.open("images/image22.PNG")
     st.image(img22)
-    
+
+###############################################################################################################################
+
 elif section == "Model Building and Evaluation":
     
     st.image(imglogo, width=250)
@@ -776,6 +784,8 @@ best_model = compare_models(turbo=False)
     st.write("""<p style='text-align: justify; font-size: 15px'>In the next blog post, we will introduce our interactive Injury Prediction Tool, \
         where you can play around with the predictions to determine whether your favourite player is in danger of getting an injury in the near future.""", unsafe_allow_html=True)
 
+###############################################################################################################################
+
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
     st.image(imglogo, width=250)
@@ -837,7 +847,9 @@ elif section == "Injury Prediction":
         3 times in the next year, where the first injury occurs only after a few weeks.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 15px'>Please use our interactive prediction tool which is located two sections down.</h1>", unsafe_allow_html=True)
-    
+
+###############################################################################################################################
+  
 elif section == "Interactive Exploration Tool (BETA)":
     st.image(imglogo, width=250)
 
@@ -847,8 +859,6 @@ elif section == "Interactive Exploration Tool (BETA)":
     st.header('Interactive Exploration Tool (BETA)')
     st.write('Please feel free to try out our interactive exploration tool!')
     
-    # cluster_state = st.empty()
-
     # @st.cache(allow_output_mutation = True)
     def load_data():
         df = dd.read_parquet('dataframes_blog/df_small.parquet')
@@ -884,7 +894,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     chart1_output = copy.deepcopy(chart1(player1, player2, player3))
     st.altair_chart(chart1_output, use_container_width=False)
 
-# Plotting Chart 2: Compare Cummulative Injury History According to Position
+    # Plotting Chart 2: Compare Cummulative Injury History According to Position
     @st.cache(allow_output_mutation = True)
     def load_data_chart2():
         df = dd.read_parquet('dataframes_blog/df_pos.parquet')
@@ -915,7 +925,7 @@ elif section == "Interactive Exploration Tool (BETA)":
     
     st.altair_chart(chart2, use_container_width=False)
 
-# Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
+    # Plotting Chart 3:  Compare Player Injury History vs. the Average Injuries in the Position He Plays
 
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
     st.write('* (sample dataset used for performance purposes)')
@@ -945,7 +955,7 @@ elif section == "Interactive Exploration Tool (BETA)":
 
     st.altair_chart(chart3_output, use_container_width=False)
 
-# Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
+    # Plotting Chart 4: Compara Player Injury History vs. the Average Injuries for His Age
     
     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
     st.write('* (player ages are updated with the latest data we have)')
@@ -983,7 +993,7 @@ elif section == "Interactive Exploration Tool (BETA)":
         
     st.altair_chart(chart4_output, use_container_width=False)
 
-# Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
+    # Plotting Chart 5 Compare Player Injury History vs. the Average Player's Injuries
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
     st.write('* Player ages are updated with the latest data we have *')
     st.write('* (sample dataset used for performance purposes)')
@@ -1018,6 +1028,8 @@ elif section == "Interactive Exploration Tool (BETA)":
         
     st.altair_chart(chart5_output, use_container_width=False)
 
+###############################################################################################################################
+
 elif section == "Interactive Injury Prediction Tool (BETA)":
     st.image(imglogo, width=250)
 
@@ -1029,9 +1041,125 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
     st.write('* (sample dataset used for performance purposes)')
 
+    @st.cache(allow_output_mutation = True)
+    def get_inter_pred_data():
+        df = dd.read_parquet('dataframes_blog/small_dataset_with_prediction.parquet')
+        return df
+
+    df_pred_int = get_inter_pred_data().compute()
     
+    st.subheader('Pick a player to predict his injuries.')
+
+    sorted_unique_player = df_pred_int['name'].unique()
+    player_to_forecast = st.selectbox('Select player to forecast (type or choose):',sorted_unique_player)
+
+    picked_player_to_forecast_df = df_pred_int[df_pred_int['name'] == player_to_forecast]
+
+    # Function to Forecast players injuries and plot a chart
+    def forecast_it(weeks, df1):
+        df = df1.reset_index()
+        final_index = df.index.max()
+        pos = 'cum_injury_in_'+str(weeks)+'_week'
+        for n in range(weeks,0,-1): 
+            df.loc[final_index-n+1, pos] = ''
+        df.loc[df[pos] == "", 'single_injury_prediction_in_'+str(weeks)+'_week'] = df[pos].shift(1) 
+        df.loc[df['single_injury_prediction_in_'+str(weeks)+'_week'] == "", 'single_injury_prediction_in_'+str(weeks)+'_week'] = \
+            df['unique_predicted_injuries_'+str(weeks)+'_week']
+        df['cum_injury_prediction_in_'+str(weeks)+'_week'] = df['single_injury_prediction_in_'+str(weeks)+'_week'].cumsum()
+        # df['cum_injury_prediction_in_'+str(weeks)+'_week'] = df['cum_injury_prediction_in_'+str(weeks)+'_week'].fillna('')
+        # df.loc[df['cum_injury_in_'+str(weeks)+'_week'] != "", 'cum_injury_prediction_in_'+str(weeks)+'_week'] = df['cum_injury_in_'+str(weeks)+'_week']
+        df.loc[df['cum_injury_prediction_in_'+str(weeks)+'_week'].isna(), 'cum_injury_prediction_in_'+str(weeks)+'_week'] = df['cum_injury_in_'+str(weeks)+'_week']
+
+        df.loc[df['cum_injury_in_'+str(weeks)+'_week'] != "", 'type_for_'+str(weeks)] = 'Actual Injuries'
+        df.loc[df['cum_injury_in_'+str(weeks)+'_week'] == "", 'type_for_'+str(weeks)] = 'Predicted Injuries'
+
+        extra_point = df[df['type_for_'+str(weeks)] == 'Actual Injuries'].tail(1)
+        extra_point['type_for_'+str(weeks)] = 'Predicted Injuries'
+        df = pd.concat([df, extra_point]) #.reset_index(drop=True)
+
+        df.loc[df['attacker'] == 1, 'position'] = 'attacker'
+        df.loc[df['defender'] == 1, 'position'] = 'defender'
+        df.loc[df['goalkeeper'] == 1, 'position'] = 'goalkeeper'
+        df.loc[df['midfielder'] == 1, 'position'] = 'midfielder'
+
+        df = df[['FBRefID', 'name', 'date', 'cum_week', 'position', 'Min_cum', 'cum_injury_prediction_in_'+str(weeks)+'_week', 'type_for_'+str(weeks)]]
+        
+        df.loc[df['cum_injury_prediction_in_'+str(weeks)+'_week'] == '', 'cum_injury_prediction_in_'+str(weeks)+'_week'] = None
+        df['cum_injury_prediction_in_'+str(weeks)+'_week'] = df['cum_injury_prediction_in_'+str(weeks)+'_week'].ffill()
+        
+        return df
+    
+    # Forecasting the different horizons for picked player
+    final_small_df_1_week = forecast_it(1, picked_player_to_forecast_df)
+    final_small_df_4_week = forecast_it(4, picked_player_to_forecast_df)
+    final_small_df_12_week = forecast_it(12, picked_player_to_forecast_df)
+    final_small_df_26_week = forecast_it(26, picked_player_to_forecast_df)
+    final_small_df_52_week = forecast_it(52, picked_player_to_forecast_df)
+
+    # Function to change name of columns of all dataframes
+    def transform_it(weeks, df):
+        df = df.rename(columns={'cum_injury_prediction_in_'+str(weeks)+'_week':'predicted_cum_injuries', 'type_for_'+str(weeks):'label'})
+        df['horizon'] = weeks
+        return df
+
+    # Changing column names and concatenating dataframes
+    final_df_lst = [final_small_df_1_week, final_small_df_4_week, final_small_df_12_week, final_small_df_26_week, \
+        final_small_df_52_week]
+    weeks_lst = [1, 4, 12, 26, 52]
+
+    final_player_df = pd.DataFrame(columns=list(transform_it(1,final_small_df_1_week).columns))
+    counter = 0
+
+    for df in final_df_lst:
+        final_player_df = final_player_df.append(transform_it(weeks_lst[counter], df))
+        counter += 1
+
+    #Plotting Chart
+    @st.cache(allow_output_mutation = True)
+    def plot_it(weeks, df):
+        
+        df = df[df['horizon'] == weeks]
+
+        if weeks == 1:
+            df_final = df[len(df)-25:].sort_index()
+        elif weeks == 4:
+            df_final = df[len(df)-25:].sort_index()
+        elif weeks == 12:
+            df_final = df[len(df)-25:].sort_index()
+        else:
+            df_final = df[len(df)-(weeks*2):].sort_index()
+
+        domain_min = df_final['predicted_cum_injuries'].min()-5
+        domain_max = df_final['predicted_cum_injuries'].max()+5
+
+        chart = alt.Chart(df_final).mark_line().encode(x=alt.X('date', timeUnit='yearmonthdate'), \
+            y=alt.Y('predicted_cum_injuries', scale=alt.Scale(domain=[domain_min, domain_max])), color=alt.Color('label'), \
+            strokeDash=alt.condition(alt.datum.symbol == 'label', alt.value([5, 5]), alt.value([0]))). \
+            properties(title = str(df_final['name'].iloc[0])+"'s Injury Prediction for "+str(weeks)+" weeks", width=800, height=300)
+
+        return chart
+    
+    horizons = ['1 week', '1 month', '1 quarter', '1 semester', '1 year']
+    player_horizon = st.selectbox('Please select player horizon:',horizons)
+
+    st.write(str(final_player_df['name'].iloc[0])+"'s position is "+final_player_df['position'].iloc[0]+"!")
+
+    if player_horizon == '1 week':
+        horizon = 1
+    elif player_horizon == '1 month':
+        horizon = 4
+    elif player_horizon == '1 quarter':
+        horizon = 12
+    elif player_horizon == '1 semester':
+        horizon = 26
+    else:
+        horizon = 52
+
+    chart_output = copy.deepcopy(plot_it(horizon, final_player_df))    
+    st.altair_chart(chart_output, use_container_width=False)
 
 
+###############################################################################################################################
 
 else:
     st.header("Conclusion, Challenges, and Future Work")
