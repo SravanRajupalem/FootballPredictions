@@ -558,7 +558,7 @@ set_config('y_test', y_test)
     df
     
     fig = px.scatter(df, x="Recall", y="Precision",
-	         size="AUC", color="Horizon",
+	         size="F1", color="Horizon",
                  hover_name="Model")
     
     st.plotly_chart(fig)
