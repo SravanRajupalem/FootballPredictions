@@ -561,7 +561,7 @@ set_config('y_test', y_test)
 	         size="AUC", color="Horizon",
                  hover_name="Model")
     
-    fig.show()
+    st.plotly_chart(fig)
 
 
 # SECTION: INJURY PREDICTION TOOL
