@@ -13,15 +13,18 @@ import plotly.graph_objects as go
 
 imglogo = Image.open("images/logo.png")
 
+st.sidebar.image(imglogo, use_column_width=True)
+
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
     "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
+
 if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
-    st.image(imgstadium, width=700)
+    st.image(imgstadium)
 
-    st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
+    st.title("Anticipate Sooner - Walkthrough to predict when an elite soccer player will get injured.")
 
     st.write("Sravan Rajupalem (sravanr@umich.edu)") 
     st.write("Renzo Maldonado (renzom@umich.edu)")
@@ -36,8 +39,6 @@ if section == "Introduction":
         managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a \
         certain time frame.</h1>", unsafe_allow_html=True)
 
-    st.image(imglogo, width=250)
-
     st.write("<p style='text-align: justify; font-size: 15px'>Presenting Providemus, a tool to predict when a player will get injured. \
         By using data from the most reliable international soccer sources, our data scientists have been able to train machine learning \
         models to predict with considerable accuracy when will a player get injured. The time frame the tool has are if a player will get injured \
@@ -47,11 +48,9 @@ if section == "Introduction":
 ###############################################################################################################################
 
 elif section == "Scraping the Web for Data":
-    imglogo = Image.open("images/logo.png")
-    st.image(imglogo, width=250)
 
     imgcorner = Image.open("images/corner.jpg")
-    st.image(imgcorner, width=700)
+    st.image(imgcorner)
     
     st.header('Scraping the Web for Data')
     st.write("<p style='text-align: justify; font-size: 15px'>We hunted the web to get the most information we could about soccer \
@@ -134,12 +133,11 @@ elif section == "Scraping the Web for Data":
 ###############################################################################################################################
 
 elif section == "Data Manipulation & Feature Engineering":
-    st.image(imglogo, width=250)
 
     img6 = Image.open("images/image6.jpg")
-    st.image(img6, width = 700)
+    st.image(img6)
    
-    st.header("Merging, Cleaning and Manipulating the Data")
+    st.header("Data Manipulation & Feature Engineering")
 
     st.write("<p style='text-align: justify; font-size: 15px'>This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
         and select a subset of input features from the final dataset in order to construct our machine learning tool. We achieved this by merging on the \
@@ -155,7 +153,7 @@ elif section == "Data Manipulation & Feature Engineering":
         from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
         to our model? We will see!</h1>", unsafe_allow_html=True)
     img5e = Image.open("images/image5e.jpg")
-    st.image(img5e, width = 700) 
+    st.image(img5e, use_column_width ="always") 
     st.write("")
     st.write("<p style='text-align: justify; font-size: 15px'>Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
         (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this new dataframe as player_injuries_profile_final, \
@@ -188,7 +186,7 @@ elif section == "Data Manipulation & Feature Engineering":
     
     st.write("<p style='text-align: justify; font-size: 15px'>Consequently, we created dummy variables to come up with new features for all competitions available and the venue.</h1>", unsafe_allow_html=True)
     img16 = Image.open("images/image16.PNG")
-    st.image(img16, width = 700)
+    st.image(img16)
     
     img17 = Image.open("images/image17.jpg")
     st.image(img17)
@@ -243,7 +241,6 @@ elif section == "Data Manipulation & Feature Engineering":
 ###############################################################################################################################
 
 elif section == "Visual Exploration of Data":
-    st.image(imglogo, width=250)
 
     img7 = Image.open("images/ball.png")
     st.image(img7, width = 700)
@@ -337,7 +334,6 @@ elif section == "Visual Exploration of Data":
 
 elif section == "Model Building and Evaluation":
     
-    st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
     
@@ -788,7 +784,6 @@ best_model = compare_models(turbo=False)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
-    st.image(imglogo, width=250)
 
     imgballinfield = Image.open("images/ballinfield.jpg")
     st.image(imgballinfield, width = 700)
@@ -851,7 +846,6 @@ elif section == "Injury Prediction":
 ###############################################################################################################################
   
 elif section == "Interactive Exploration Tool (BETA)":
-    st.image(imglogo, width=250)
 
     imgsoccer = Image.open("images/soccer.jpg")
     st.image(imgsoccer, width = 700)
@@ -1031,8 +1025,7 @@ elif section == "Interactive Exploration Tool (BETA)":
 ###############################################################################################################################
 
 elif section == "Interactive Injury Prediction Tool (BETA)":
-    st.image(imglogo, width=250)
-
+    
     imgfield = Image.open("images/fields.jpg")
     st.image(imgfield, width = 700)
     
@@ -1183,8 +1176,8 @@ else:
     
     st.subheader("Challenges")
     st.write("")
-    img25 = Image.open("images/image25.png")
-    st.image(img25, width = 700)
+    img25 = Image.open("images/image25.png", )
+    st.image(img25, use_column_width ="always")
     
     st.write("**Data Scrapping**")
     st.write("<p style='text-align: justify; font-size: 15px'>There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
