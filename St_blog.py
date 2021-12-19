@@ -149,7 +149,7 @@ elif section == "Data Manipulation & Feature Engineering":
         from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
         to our model? We will see!</h1>", unsafe_allow_html=True)
     img5e = Image.open("images/image5e.jpg")
-    st.image(img5e) 
+    st.image(img5e, width = 700) 
     st.write("")
     st.write("<p style='text-align: justify; font-size: 15px'>Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
         (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this new dataframe as player_injuries_profile_final, \
