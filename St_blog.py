@@ -659,7 +659,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
                                   line=dict(color='blue', dash='dash')))
     # fig.update_traces(textposition='top center')
     # fig.update_layout(title_text='80%')
-    fig.add_annotation(dict(x=10, y=50, text='80%', showarrow=False, ax=10, ay=70))
+    fig.add_annotation(dict(x=26, y=80, text='80%', showarrow=False, ax=10, ay=70))
     st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
