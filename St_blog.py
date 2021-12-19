@@ -431,7 +431,7 @@ elif section == "Injury Prediction":
 
     st.header('Injury Prediction')
 
-    st.write("<p style='text-align: justify; font-size: 15px'>As we have mentioned along our blog, there have been 5 previous stages before being able to do any kind of prediction. \
+    st.write("<p style='text-align: justify; font-size: 15px'>As we have mentioned before in our blog, there have been 5 previous stages before being able to do any kind of prediction. \
         Scraping of data from the web, data manipulation, feature engineering, visual exploration of data and model building, all gave \
         us the best models to predict injuries.</h1>", unsafe_allow_html=True)
     
@@ -441,18 +441,19 @@ elif section == "Injury Prediction":
         of .41 using the Light Gradient Boosting Machine.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 15px'>Once all the models were trained, they were saved into a pickle file to retrieve later. Turns out there were different \
-        models in different horizons.  For example as we mentioned before the one week horizon had the Light Grdient Boosting Machine \
-        as its best performing model. The 1 semester horizon had the Ada Boost Classifier as its best performing model. Producing \
+        models in different horizons.  For example, as we mentioned before the one-week horizon had the Light Gradient Boosting Machine \
+        as its best performing model. The 1-semester horizon had the Ada Boost Classifier as its best performing model. Producing \
         predictions was a fairly simple process after we had finished all the preceding tasks.  We loaded the models and fired up a \
         prediction for all the values in our data set.  Then we accounted for the predicted injuries that had an injury the week before. \
-        That is, if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
+        That is if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
         player could not get injured again.  Once we had these numbers we accumulated them in a single column and accounted for the time \
         window we were predicting.  These predicted values were finally combined with the real values of the dataset to create a continuous \
-        time series with a line with two colors, blue for real injuries and orange for predicted injuries. We basically decided to do \
+        time series with a line with two colors, blue for real injuries and orange for predicted injuries. We decided to do \
         this to aid the viewer in detecting injuries and making inferences from them.</h1>", unsafe_allow_html=True)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>We are going to pick one of the best soccer players in the world, Neymar, as our example player.  As it turns out \
-        Neymar has very interesting numbers.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'> On the first visualization, we observe Neymar's injuries history, which is \
+        represented by the blue line, along with our injury prediction for the following week, which is displayed in orange. Since the line \
+        has not experienced an increase, our system is predicting that Neymar will not get injured during the next week.</h1>", unsafe_allow_html=True)
 
     week = Image.open('images/week.png')
     st.image(week, width = 800)
