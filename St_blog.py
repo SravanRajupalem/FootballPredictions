@@ -602,7 +602,7 @@ set_config('y_test', y_test)
                num_leaves=30, random_state=4936, reg_alpha=10, reg_lambda=2)""")
     
     st.write("""<p style='text-align: justify; font-size: 15px'>Once we were comfortable with the tuning, we moved on the analyse various elements of the model, starting with observing the F1 score \
-        across the train and test datasets to identify any oversfitting.
+        across the train and test datasets to identify any overfitting.
              """, unsafe_allow_html=True) 
     
     st.code("""
@@ -631,18 +631,18 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     df
     
-#     st.code("""
-# Test F1 Score: 0.4530585770981545
-# Train F1 Score: 0.541175154259169
-# Test Recall Score: 0.7080815972984309
-# Train Recall Score: 0.7786046926686957
-# Test Precision Score: 0.5375662736170564
-# Train Precision Score: 0.5476529766788258
-# """)
-    
     fig = px.bar(df, x='Metric', y='Value', color='Train_Test', barmode='group')
     
     st.plotly_chart(fig)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>As shown in the chart and table above, there is still some overfitting to the training data, in future iterations of this work we \
+        could address this issue via some form of regularization or employing an early stopping technique. For now, we will proceed with analysing this model. Firstly, below are top 10 most \
+            important features in the model.
+             """, unsafe_allow_html=True)
+    
+    img12 = Image.open("images/1 Week Feature Importance.png")
+    st.image(img11, width = 700)
+    
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
