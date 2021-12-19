@@ -577,13 +577,27 @@ set_config('y_test', y_test)
     st.write("""<p style='text-align: justify; font-size: 15px'>After comparing all algorithms, we selected the model that performed the best in terms of F1 score, which was the \
         Light Gradient Boosting Machine for the one-week model. We then fit this model with 10 cross validation folds.""", unsafe_allow_html=True)
     
-    st.code("""model = create_model(df.index[0], fold=10)
-            save_model(model, 'model_1_week')""")
+    st.code("""
+    model = create_model(df.index[0], fold=10)
+    save_model(model, 'model_1_week')
+    """)
     
     img11 = Image.open("images/One Week Model Initial.png")
     st.image(img11, width = 500)
     
-
+    st.write("""<p style='text-align: justify; font-size: 15px'>After fitting with 10 folds, we see that the average F1 score remains at 0.41. We then go ahead and perform hyperparameter tuning, \
+        this is very simple when using PyCaret as it can be done with just one line of code: 
+             """, unsafe_allow_html=True)
+    
+    st.code("""tuned_model = tune_model(model, optimize = 'F1')""")
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Again, we have chosen to optimize the F1 score. Below are the results after tuning, it has improved the F1 score slight from <i>0.4084</i> \
+        to <i>0.4110</i>.
+             """, unsafe_allow_html=True)
+    
+    img12 = Image.open("images/One Week Model Tuned.png")
+    st.image(img12, width = 400)
+    
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
