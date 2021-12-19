@@ -18,7 +18,7 @@ if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
     st.image(imgstadium, width=700)
 
-    st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.</h1>", unsafe_allow_html=True)
+    st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
 
     st.write("Sravan Rajupalem (sravanr@umich.edu)") 
     st.write("Renzo Maldonado (renzom@umich.edu)")
