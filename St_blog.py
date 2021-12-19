@@ -591,13 +591,13 @@ else:
 
     
     st.subheader("Conclusion")
-    st.markdown("<h1 style='text-align: center; color: red;'>In today’s football, players compete more and moreover a single year. Apart from playing more than one \
+    st.write("<h1 style='text-align: center; color: red;'>In today’s football, players compete more and moreover a single year. Apart from playing more than one \
         tournament for their clubs, who own the rights for the players, the most talented players must attend \
         international duties with their national teams, as well as friendly matches with both their clubs and \
         countries. It is normal to see footballers get injured from time to time since this sport requires physical \
         demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
         players have to go through rigorous training and do not have much time to rest. Our goal was to create \
-        a machine learning model that could predict when a player will get injured......</h1>, unsafe_allow_html=True")
+        a machine learning model that could predict when a player will get injured......</h1>", unsafe_allow_html=True)
 
     st.write("The project has been a great experience for all of us. Not only because we were challenged to come up \
         with a data science project that could be applied to the real world and also learned a great number of \
