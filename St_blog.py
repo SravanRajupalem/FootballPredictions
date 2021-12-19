@@ -608,7 +608,7 @@ set_config('y_test', y_test)
              """, unsafe_allow_html=True)    
     
     img12 = Image.open("images/Discrimination_1_week.png")
-    st.image(img12, width = 400) 
+    st.image(img12, width = 700) 
     
     st.write("""<p style='text-align: justify; font-size: 15px'>Once we were comfortable with the tuning, we moved on the analyse various elements of the model, starting with observing the F1 score \
         across the train and test datasets to identify any overfitting.
