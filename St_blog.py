@@ -640,7 +640,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
 # Train Precision Score: 0.5476529766788258
 # """)
     
-    fig = px.bar(df, x='Train_Test', y='Value', color='Metric')
+    fig = px.bar(df, x='Train_Test', y='Value', color='Metric', barmode='group')
     
     st.plotly_chart(fig)
 
