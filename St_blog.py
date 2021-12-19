@@ -581,7 +581,7 @@ set_config('y_test', y_test)
             save_model(model, 'model_1_week')""")
     
     img11 = Image.open("images/One Week Model Initial.png")
-    st.image(img11, width = 300)
+    st.image(img11, width = 500)
     
 
 
