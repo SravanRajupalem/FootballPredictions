@@ -330,7 +330,7 @@ elif section == "Model Building":
     
     st.header("Model Building")
     
-    st.write("Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
+    st.write("""Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
         we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
             - One Week
@@ -338,7 +338,7 @@ elif section == "Model Building":
             - One Quarter (3 months)
             - One Semester (6 months)
             - One Year (12 months)
-            ")
+            """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
