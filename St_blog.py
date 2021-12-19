@@ -702,9 +702,35 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     fig = px.line(df[df['Week of Career'] > 0], x="Week of Career", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'>As expected model consistently under-predicts when compared with the actual injuries for the same time period.
+    st.write("""<p style='text-align: justify; font-size: 15px'>As expected, the model consistently under-predicts when compared with the actual injuries for the same time period. \
+        The test set starts later than the training set as we have taken the last 25% of a player's career in the test set. However, since players are generally older in the test set, \
+            the number of injuries are proportionately higher in the test set when compared to the training set.
             """, unsafe_allow_html=True)
     
+    st.subheader('Injury Duration Scan')
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>As mentioned earlier, we did also construct an injury duration prediction model which \
+        looked at how long a player is expected to be injured when they incur a certain injury. In order to do this, we first created dummy variable columns \
+            for the top 30 injuries across the whole dataset and added them to the existing features already in the dataset.
+            """, unsafe_allow_html=True)
+    
+    st.code("""
+feature_list = list(dict(dataset_injury['Injury'].value_counts()).keys())
+
+for col in feature_list:
+    dataset_injury.loc[dataset_injury['Injury'] == col, col] = 1
+    dataset_injury.loc[dataset_injury['Injury'] != col, col] = 0)
+
+extended_features = ['Height', 'Weight', 'cum_week', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'cum_injury_total',
+ 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum', 'Sh_cum', 'SoT_cum', 'CrdY_cum',
+ 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum',
+ 'SCA_cum', 'GCA_cum', 'Cmp_cum', 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum',
+ 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum', 'PKcon_cum', 'Serie A_cum', 'Premier League_cum',
+ 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum',
+ 'UEFA Nations League_cum', 'UEFA Euro_cum', 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum',
+                     'Injury_Recurrence_cum'] + list(dict(dataset_injury['Injury'].value_counts()).keys())[:30]
+"""
+    )
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
     st.image(imglogo, width=250)
