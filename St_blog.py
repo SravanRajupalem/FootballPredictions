@@ -7,6 +7,7 @@ import os
 import requests
 import copy
 import dask.dataframe as dd
+import streamlit.components.v1 as components
 
 imglogo = Image.open("images/logo.png")
 
@@ -330,7 +331,18 @@ elif section == "Model Building":
     
     st.header("Model Building")
     
-    st.write("""<div style="text-align: center"> your-text-here </div> Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
+    components.html("""
+                    <div style="text-align: center"> Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
+        we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
+            This was done by creating the target variable, whether a player got injured or not, using five different time periods:
+            \n- One Week
+            \n- One Month
+            \n- One Quarter (3 months)
+            \n- One Semester (6 months)
+            \n- One Year (12 months) </div>
+                    """)
+    
+    st.write("""Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
         we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
             \n- One Week
