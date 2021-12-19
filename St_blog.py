@@ -160,7 +160,7 @@ elif section == "Data Manipulation & Feature Engineering":
         That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
         were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.</h1>", unsafe_allow_html=True)
     st.write("")
-    st.write("<p style='text-align: justify; font-size: 15px'>This is how the dataset looked before we aggregated the dates:</h1>", unsafe_allow_html=True)") 
+    st.write("<p style='text-align: justify; font-size: 15px'>This is how the dataset looked before we aggregated the dates:</h1>", unsafe_allow_html=True) 
     img14 = Image.open("images/image14.PNG")
     st.image(img14) 
     st.write("<p style='text-align: justify; font-size: 15px'>There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
