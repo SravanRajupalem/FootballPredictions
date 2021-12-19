@@ -111,7 +111,7 @@ elif section == "Scraping the Web for Data":
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
     player_injuries_df
     st.write("<p style='text-align: justify; font-size: 15px'>Additional information about the players' profile was scraped from transfermarkt.com by using the player urls.  This \
-        process was done in batches of 4,000 records and it yielded the following DataFrames:")
+        process was done in batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table2 = pd.DataFrame(columns=['DataFrame Name', 'Shape'])
     table2['DataFrame Name'] = ['player_profile_df_1', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
