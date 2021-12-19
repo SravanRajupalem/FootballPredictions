@@ -326,9 +326,11 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
+    
     st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
+    
     st.image(img8, width = 700)
     
     st.header("Model Building")
@@ -404,14 +406,12 @@ for var in cum_cols:
     cummulative_sum(dataset, var+'_cum', var)
     """, language='python')
 
-    st.subheader('Classification Algorithms')
-    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
-        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. 
-        \nThe first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
+    st.write("""<p style='text-align: justify; font-size: 15px'>
+        \n<p style='text-align: justify; font-size: 15px'>The first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
             capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
                 explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
                     
-                    \nOnce the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
+                    \n<p style='text-align: justify; font-size: 15px'>Once the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
                         can be randomly allocated across the dataset, this analysis requries a different approach as it is a time series analysis for each player. Hence, the \
                             number of weeks each player plays was determined and the first 75% of the player's career in weeks was allocated to the training dataset and the remaining 25% was \
                                 allocated to the test set (as shown below).
@@ -421,6 +421,99 @@ for var in cum_cols:
     df_train = dataset[dataset['cum_week'] <= dataset["train_split"]].dropna()
     df_test = dataset[dataset['cum_week'] > dataset["train_split"]].dropna()
             """)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>We selected a subset of the features in the data which we determined to be have some predictive power based on\
+        trends we observed in the data exploration phase. They are outlined in the table below:
+                """, unsafe_allow_html=True)
+    
+    df = pd.DataFrame(columns=['Features', 'Description'])
+    
+    extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+                         'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+                         'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+                         'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+                         'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+    
+    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy variable of whether the player is a defender (1 if defender)', 
+                    'Dummy variable of whether the player is a attacker (1 if attacker)', 'Dummy variable of whether the player is a midfielder (1 if midfielder)',
+                    'Dummy variable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy variable of whether the player is right footed (1 if right footed)',
+                    'Age of Player at each data point', 'Total number of injuries till the datapoint for each player', 'Number of weeks since last injury', 
+                    'Total number of Minutes played in matches till the datapoint for each player', 'Cumulative Goals scored or allowed', 'Cumulative Completed assists',
+                    'Cumulative Penalty kicks made', 'Cumulative Penalty kicks attempted', 'Cumulative Shots (not including penalty kicks)',
+                    'Cumulative Shots on target (not including penalty kicks)', 'Cumulative Yellow cards', 'Cumulative Red cards', 'Cumulative Touches in attacking penalty area',
+                    'Cumulative Passes made while under pressure of opponent', 'Cumulative Number of players tackled', 'Cumulative Interceptions',
+                    'Cumulative Number of times blocking the ball by standing on its path', 'Cumulative Expected goals', 'Cumulative Non-penalty expected goals',
+                    'Cumulative Expected assists previous to a goal', 'Cumulative Two offensive actions previous to a shot',
+                    'Cumulative Two offensive actions previous to a goal', 'Cumulative Passess completed', 'Cumulative Passes attempted',
+                    'Cumulative Passess that move the ball at least 10 yards toward opponent goal',
+                    'Cumulative Number of times player controlled the ball with his feet',
+                    "Cumulative Carries that move the ball toward opponent's goal at least 5 yards", 'Cumulative Dribbles completed successfully',
+                    'Cumulative Dribbles attempted', 'Cumulative Fouls committed', 'Cumulative Fouls drawn', 'Cumulative Offsides', 'Cumulative Crosses',
+                    'Cumulative Tackles were possession of the ball was won', 'Cumulative Own goals', 'Cumulative Penalty kicks won', 'Cumulative Penalty kicks conceded',
+                    'Cumulative games played in Serie A', 'Cumulative games played in Premier League', 'Cumulative games played in La Liga',
+                    'Cumulative games played in Ligue 1', 'Cumulative games played in Bundesliga', 'Cumulative games played in Champions League',
+                    'Cumulative games played in Europa League', 'Cumulative games played in FIFA World Cup', 'Cumulative games played in UEFA Nations League',
+                    'Cumulative games played in UEFA Euro', 'Cumulative games played in Copa América', 'Cumulative games played Away', 'Cumulative games played Home',
+                    'Cumulative games played in Neutral venues']
+    
+    df['Features'] = extended_features
+    df['Description'] = descriptions
+    
+    df
+    
+    st.subheader('Classification Algorithms')
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
+        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
+            for this analysis we have decided to implement the PyCaret library.""", unsafe_allow_html=True) 
+    st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+                """, unsafe_allow_html=True)
+
+    st.code("""
+injured_pred = 'injured_in_1_week'
+
+extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+ 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+ 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+ 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+ 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+ 
+X_train = df_train[extended_features]
+y_train = df_train[injured_pred]
+
+X_test = df_test[extended_features]
+y_test = df_test[injured_pred]
+            
+exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
+            """)
+
+    df = pd.DataFrame(columns=['Description', 'Value'])    
+
+    description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
+               'Transformed Test Set',	'Shuffle Train-Test',	'Stratify Train-Test',	'Fold Generator',	'Fold Number',	'CPU Jobs',	'Use GPU',	'Log Experiment',	'Experiment Name',	'USI',	'Imputation Type',	'Iterative Imputation Iteration',	'Numeric Imputer',
+               'Iterative Imputation Numeric Model',	'Categorical Imputer',	'Iterative Imputation Categorical Model',	'Unknown Categoricals Handling',	'Normalize',	'Normalize Method',	'Transformation',	'Transformation Method',	'PCA',	'PCA Method',	'PCA Components',	'Ignore Low Variance',
+               'Combine Rare Levels',	'Rare Level Threshold',	'Numeric Binning',	'Remove Outliers',	'Outliers Threshold',	'Remove Multicollinearity',	'Multicollinearity Threshold',	'Remove Perfect Collinearity',	'Clustering',	'Clustering Iteration',	'Polynomial Features',	'Polynomial Degree',	
+               'Trignometry Features',	'Polynomial Threshold',	'Group Features',	'Feature Selection',	'Feature Selection Method',	'Features Selection Threshold',	'Feature Interaction',	'Feature Ratio',	'Interaction Threshold',	'Fix Imbalance',	'Fix Imbalance Method']		
+
+    value = ['4936',	'injured_in_1_week',	'Binary',	'0.0: 0, 1.0: 1',	'(1787492, 59)',	'TRUE',	'53',	'5',	'FALSE',	'FALSE',	'None',	'(1248469, 54)',
+         '(534994, 54)',	'TRUE',	'FALSE',	'TimeSeriesSplit',	'2',	'-1',	'FALSE',	'FALSE',	'clf-default-name',	'00f0',	'simple',	'None',
+         'mean',	'None',	'constant',	'None',	'least_frequent',	'FALSE',	'None',	'FALSE',	'None',	'FALSE',	'None',	'None',
+         'FALSE',	'FALSE',	'None',	'FALSE',	'FALSE',	'None',	'FALSE',	'None',	'TRUE',	'FALSE',	'None',	'FALSE',
+         'None',	'FALSE',	'None',	'FALSE',	'TRUE',	'classic',	'0.8',	'FALSE',	'FALSE',	'None',	'TRUE',	'SMOTE']
+
+    df['Description'] = description
+    df['Value'] = value
+
+    df
+
+    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+                """, unsafe_allow_html=True)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
@@ -431,7 +524,7 @@ elif section == "Injury Prediction":
 
     st.header('Injury Prediction')
 
-    st.write("<p style='text-align: justify; font-size: 15px'>As we have mentioned along our blog, there have been 5 previous stages before being able to do any kind of prediction. \
+    st.write("<p style='text-align: justify; font-size: 15px'>As we have mentioned before in our blog, there have been 5 previous stages before being able to do any kind of prediction. \
         Scraping of data from the web, data manipulation, feature engineering, visual exploration of data and model building, all gave \
         us the best models to predict injuries.</h1>", unsafe_allow_html=True)
     
@@ -441,23 +534,23 @@ elif section == "Injury Prediction":
         of .41 using the Light Gradient Boosting Machine.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 15px'>Once all the models were trained, they were saved into a pickle file to retrieve later. Turns out there were different \
-        models in different horizons.  For example as we mentioned before the one week horizon had the Light Grdient Boosting Machine \
-        as its best performing model. The 1 semester horizon had the Ada Boost Classifier as its best performing model. Producing \
+        models in different horizons.  For example, as we mentioned before the one-week horizon had the Light Gradient Boosting Machine \
+        as its best performing model. The 1-semester horizon had the Ada Boost Classifier as its best performing model. Producing \
         predictions was a fairly simple process after we had finished all the preceding tasks.  We loaded the models and fired up a \
         prediction for all the values in our data set.  Then we accounted for the predicted injuries that had an injury the week before. \
-        That is, if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
+        That is if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
         player could not get injured again.  Once we had these numbers we accumulated them in a single column and accounted for the time \
         window we were predicting.  These predicted values were finally combined with the real values of the dataset to create a continuous \
-        time series with a line with two colors, blue for real injuries and orange for predicted injuries. We basically decided to do \
+        time series with a line with two colors, blue for real injuries and orange for predicted injuries. We decided to do \
         this to aid the viewer in detecting injuries and making inferences from them.</h1>", unsafe_allow_html=True)
-
-    st.write("<p style='text-align: justify; font-size: 15px'>We are going to pick one of the best soccer players in the world, Neymar, as our example player.  As it turns out \
-        Neymar has very interesting numbers.</h1>", unsafe_allow_html=True)
 
     week = Image.open('images/week.png')
     st.image(week, width = 800)
 
-    st.write('Our system predicts that Neymar will not get injured during the next week.')
+    st.write("<p style='text-align: justify; font-size: 15px'> On the first visualization, we observe Neymar's injuries history, which is \
+        represented by the blue line, along with our injury prediction for the following week, which is displayed in orange. Since the line \
+        has not experienced an increase, our system is predicting that Neymar will not get injured during the next week.</h1>", unsafe_allow_html=True)
+    # st.write('Our system predicts that Neymar will not get injured during the next week.')
 
     # month = Image.open('images/month.png')
     # st.image(month, width = 800)
@@ -465,18 +558,22 @@ elif section == "Injury Prediction":
     quarter = Image.open('images/quarter.png')
     st.image(quarter, width = 800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>However, if we look at the quarter window, we see that according to our model Neymar is going get a single injury \
-        in the next 12 weeks.  This injury will happen in around 7 weeks.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>This visualization is making a quarter prediction(12 weeks). We can already see \
+        that the orange line is not straight anymore when comparing it to the previous graph. The quarter window injury prediction is informing \
+        us that Neymar will suffer one injury in the next 12 weeks. This injury will happen in around 7 weeks.</h1>", unsafe_allow_html=True)
 
     semester = Image.open('images/semester.png')
     st.image(semester, width=800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>The one semester prediction tells us that Neymar will only have 1 injury during the next semester.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>This graph will give us a 1 semester (26 weeks) injury prediction. This is similar \
+        to our visualization above, where Neymar experienced one injury after 7 weeks. Here, Neymar also experienced a single injury, but if we \
+        take a closer look, our prediction tells us that Neymar will get injured in around 15 weeks.</h1>", unsafe_allow_html=True)
     
     year = Image.open('images/year.png')
     st.image(year, width=800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>Finally, the one year prediction yields that Neymar is going to get injures 3 times in the next year.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>Finally, the one-year prediction yields that Neymar is going to get injured \
+        3 times in the next year, where the first injury occurs only after a few weeks.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 15px'>Please use our interactive prediction tool which is located two sections down.</h1>", unsafe_allow_html=True)
     
