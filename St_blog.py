@@ -527,7 +527,14 @@ set_config('y_test', y_test)
     img9 = Image.open("images/results_1_week.png")
     st.image(img9, width = 700)
     
+    st.write("""<p style='text-align: justify; font-size: 15px'> In this case, the modelw ith the best overall accuracy was the Dummy Classifier, however, for this application in which we \
+        have a highly imbalanced dataset, accuracy is not a got metric to evaluate the performance of the model. Instead, since we are predicting class labels and the positive class (i.e. whether \
+        the player is injured) is more important with false positives and false negatives are equally costly for the prediction we will use the F1 Score as the primary metric for evaluation. \
+        If we were more interested in the probability of injury rather than the pure classifictaion of injuries and non-injuries we may use the AUC metric instead (as shown in the diagram below).
+            """, unsafe_allow_html=True)
     
+    img10 = Image.open("images/Evaluation Metric Selection.jpeg")
+    st.image(img9, width = 700)
 
    
 
