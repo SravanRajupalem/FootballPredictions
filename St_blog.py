@@ -466,13 +466,33 @@ for var in cum_cols:
     st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
             for this analysis we have decided to implement the PyCaret library.
+            
+            [PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.
                 """, unsafe_allow_html=True) 
     st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
     
-    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
-        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
-            for this analysis we have decided to implement the PyCaret library.
+    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
                 """, unsafe_allow_html=True)
+
+    st.code("""
+injured_pred = 'injured_in_1_week'
+
+extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+ 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+ 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+ 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+ 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+ 
+X_train = df_train[extended_features]
+y_train = df_train[injured_pred]
+
+X_test = df_test[extended_features]
+y_test = df_test[injured_pred]
+            
+exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
+            """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
