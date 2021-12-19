@@ -182,7 +182,7 @@ elif section == "Data Manipulation & Feature Engineering":
     
     st.write("<p style='text-align: justify; font-size: 15px'>Consequently, we created dummy variables to come up with new features for all competitions available and the venue.</h1>", unsafe_allow_html=True)
     img16 = Image.open("images/image16.PNG")
-    st.image(img16)
+    st.image(img16, width = 700)
     
     img17 = Image.open("images/image17.jpg")
     st.image(img17)
