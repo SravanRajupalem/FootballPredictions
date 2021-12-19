@@ -334,7 +334,7 @@ elif section == "Model Building":
     
     st.subheader("Target Variable Preparation")
     
-    st.write("""Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
         we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
             \n- One Week
@@ -345,16 +345,27 @@ elif section == "Model Building":
             
             \nThis was done by creating the target variables in the dataset using the function below:
             """)
+    
     with st.echo():
         
         def shift_by_time_period(df, shift_factor, column):
             df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
             return df
         
-    st.write("""This function was used to determine an injury indicator shifted by the time horizons specified. For example, for the one week horizon, if a player gets injured in week 60 in the data, \
+    st.write("""<p style='text-align: justify; font-size: 15px'>This function was used to determine an injury indicator shifted by the time horizons specified. For example, for the one week horizon, if a player gets injured in week 60 in the data, \
         the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
-            The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur, rather we \
-                would like to allow managers to prempt injuries and rest or focus on rehab with player for which injuries are predicted in the future.
+            The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur. Rather, we \
+                would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.
+                <INSERT IMAGE HERE>
+                """)
+    
+    st.subheader("Redefining Features")
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now that we have our target variables defined for each model we also need to make some adjustments to the features available in the data.\
+        For example, the number of minutes played in matches should be an important indicator of potential injury concerns for a player. However, we would need a cumulative sum of this variable up until\
+            each datapoint (i.e. number of cumulative minutes played until week 60). We will need this accumulation over the lifespan of the players career. This was done via the function\
+            below where any columns that required an accumulation over the players career were recalculated. Other examples of accumulated features were number of games won, lost and drawn as well as number\
+                of games player in certain leagues (i.e. Champions League games of their career).
                 """)
 
 # SECTION: INJURY PREDICTION TOOL
