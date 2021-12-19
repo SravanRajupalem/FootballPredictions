@@ -329,6 +329,18 @@ elif section == "Model Building":
     st.image(img8, width = 700)
     
     st.header("Model Building")
+    
+    st.write("""<div style="text-align: center"> your-text-here </div> Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
+        we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
+            This was done by creating the target variable, whether a player got injured or not, using five different time periods:
+            \n- One Week
+            \n- One Month
+            \n- One Quarter (3 months)
+            \n- One Semester (6 months)
+            \n- One Year (12 months)
+            
+            \n
+            """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
@@ -367,11 +379,9 @@ elif section == "Injury Prediction":
 
     st.write('Our system predicts that Neymar will not get injured during the next week.')
 
-    month = Image.open('images/month.png')
-    st.image(month, width = 800)
+    # month = Image.open('images/month.png')
+    # st.image(month, width = 800)
     
-    st.write('Our system also predicts that Neymar will not get injured during the next month.')
-
     quarter = Image.open('images/quarter.png')
     st.image(quarter, width = 800)
 
@@ -581,17 +591,17 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
     st.write('* (sample dataset used for performance purposes)')
 
-else:
-    imgvic = Image.open("images/vic.png")
-    st.image(imgvic, width = 250)
-    st.header("Conclusion, Challenges, and Future Work")
-    # st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", 
-    # unsafe_allow_html=True)
+    
 
-    # p style="font-family:Courier;
+
+
+else:
+    st.header("Conclusion, Challenges, and Future Work")
+    st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+
+    
     st.subheader("Conclusion")
-    st.write("<p style='text-align: justify; font-size: 15px'>In today’s football, players compete more and moreover a single year. \
-        Apart from playing more than one \
+    st.markdown("<h1 style='text-align: center; color: red;'>In today’s football, players compete more and moreover a single year. Apart from playing more than one \
         tournament for their clubs, who own the rights for the players, the most talented players must attend \
         international duties with their national teams, as well as friendly matches with both their clubs and \
         countries. It is normal to see footballers get injured from time to time since this sport requires physical \
@@ -599,19 +609,18 @@ else:
         players have to go through rigorous training and do not have much time to rest. Our goal was to create \
         a machine learning model that could predict when a player will get injured......</h1>", unsafe_allow_html=True)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>The project has been a great experience for all of us. \
-        Not only because we were challenged to come up \
+    st.write("The project has been a great experience for all of us. Not only because we were challenged to come up \
         with a data science project that could be applied to the real world and also learned a great number of \
         new tools we previously did not have any knowledge about, but most importantly because this capstone \
         gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
         encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
         and supported each other at all times. We all agree that this has been the greatest takeaway from the \
-        course and even the entire program. It was definitely not a simple task to complete ....</h1>", unsafe_allow_html=True)
+        course and even the entire program. It was definitely not a simple task to complete ....")
     
     st.subheader("Challenges")
     st.write("")
     st.write("**Data Scrapping**")
-    st.write("<p style='text-align: justify; font-size: 15px'>There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
+    st.write("There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
         proceeded with the harvesting of data. The process of scrapping data from the web was a challenge for most of us because \
         of multiple reasons. First of all, we were not convinced on what data to scrape for our models since we wanted to build a \
         time series model. On top of that, we were looking at more than 3 sources at first. Second, there were many players available \
@@ -626,41 +635,41 @@ else:
         communicating with each other to ensure the scrapping was working or finalized. Additionally, when we first completed scrapping \
         the data from our sources, we realized that something was missed so we needed to go back to improve our API and repeat the same \
         process more than one time. We even bumped into a few IP blocks after a high number of requests from the same IP address. In \
-        the end, we managed to scrape all the data that was required to build our models by working cooperatively.</h1>", unsafe_allow_html=True)
+        the end, we managed to scrape all the data that was required to build our models by working cooperatively.")
     st.write("")
     st.write("**GitHub in Visual Studio Code**")
-    st.write("<p style='text-align: justify; font-size: 15px'>First, it took some effort to locally install and integrate VS Code and GitHub together. After the installation finished,\
+    st.write("First, it took some effort to locally install and integrate VS Code and GitHub together. After the installation finished,\
         and the repository was set and authenticated, we were capable to begin working in parallel, which we all enjoyed. However, we did \
         undergo some minor problems when submitting new changes and pulling new requests. This mainly occurred because we failed to \
         communicate which notebooks were being updated, as well as not pulling on time when needed to. This resulted in many conflicts \
         that were not straightforward to solve, which even cause resetting the repositories in some cases. Once we were all accustomed to it, \
-        we did not face major problems.</h1>", unsafe_allow_html=True)
+        we did not face major problems. ")
     st.write("")
     st.write("**Amazon Web Services**")
-    st.write("<p style='text-align: justify; font-size: 15px'>In addition to using VS Code to work with our GitHub repository, we incorporated Amazon Web Services so that we can attempt\
+    st.write("In addition to using VS Code to work with our GitHub repository, we incorporated Amazon Web Services so that we can attempt\
         to run scripts that required a great amount of memory usage. The process of setting AWS was lengthy, and although we found guidelines\
         on how to install and integrate AWS into our machines, it was still confusing to deal with it. Once AWS was installed and running, \
         all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
-        decided to avoid employing AWS for the data scrapping.</h1>", unsafe_allow_html=True)
+        decided to avoid employing AWS for the data scrapping.")
     st.write("")
     st.write("**Time Series Model**")
-    st.write("<p style='text-align: justify; font-size: 15px'>Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
+    st.write("Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
         was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
         to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
-        before we prepare the final dataset.</h1>", unsafe_allow_html=True)
+        before we prepare the final dataset.")
     st.write("")
     st.write("**StreamLit**")
-    st.write("<p style='text-align: justify; font-size: 15px'>This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
+    st.write("This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
         it was fairly easy to understand compared to other libraries we have used before, and also Streamlit integrated amazingly \
         well with other libraries such Pandas or Altair. However, the challenge was when building our Players’ comparison tool. \
         Even though we achieved to develop our tools and displayed them through Streamlit, it was taken a very long time for the \
         custom apps to run because of the size of our main dataset and the magnitude of our models. We wanted to avoid creating \
         frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
-        a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.</h1>", unsafe_allow_html=True)
+        a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.")
 
     st.subheader("Future Work")
     
-    st.write("<p style='text-align: justify; font-size: 15px'>We have collected a significant amount of data that contains players’ profiles, stats, match logs, injuries, \
+    st.write("We have collected a significant amount of data that contains players’ profiles, stats, match logs, injuries, \
     and more. With this data, we have created robust models that can predict players' injuries. However, \
     there’s still room for improvement in our results if were to add more data. This may be possible by \
     accessing biometric data which relates to the measurement of players' physical features and \
@@ -674,7 +683,7 @@ else:
     rigorous training and collect features that are disregarded could improve our model. Nevertheless, this \
     was not possible due to the confidentiality of data and the time that it may take to incorporate new \
     information. In addition, accessing the number of hours players rest before and after may be challenging \
-    to obtain and even raise some ethical issues.</h1>", unsafe_allow_html=True)
+    to obtain and even raise some ethical issues.")
 
    
 
