@@ -644,12 +644,14 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     st.image(img12, width = 700)
 
     st.write("""<p style='text-align: justify; font-size: 15px'>Weeks since last injury is the most important feature in this model (and was the same for \
-             most of the longer horizon models). This seems to make intuitive sense, as if you have gove injured recently, there is a chance
+             most of the longer horizon models). This seems to make intuitive sense, as if you have gove injured recently, there is probably a higher chance \
+                 of injury immediately after sustaining and recovering from another injury. This is also demostrated in the chart below with most 
              """, unsafe_allow_html=True)    
     
     df = pd.read_parquet('dataframes_blog/example_weeks_since_injury.parquet')
+    df['Cumulative Injuries in 1 Week'] = df['injured_in_one_week'].cumsum()
     
-    fig = px.scatter(df, x='weeks_since_last_injury', y='injured_in_1_week')
+    fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week')
     st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
