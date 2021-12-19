@@ -10,6 +10,7 @@ import dask.dataframe as dd
 import streamlit.components.v1 as components
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit_player import st_player
 
 imglogo = Image.open("images/logo.png")
 
@@ -18,8 +19,9 @@ section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web fo
     "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
 if section == "Introduction":
-    imgstadium = Image.open("images/stadium1.png")
-    st.image(imgstadium, width=700)
+    # imgstadium = Image.open("images/stadium1.png")
+    # st.image(imgstadium, width=700)
+    st_player("https://youtu.be/vxaXYFLHf2I")
 
     st.title("Sooner or later?  Walkthrough to predict when an elite soccer player will get injured.")
 
