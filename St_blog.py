@@ -602,6 +602,14 @@ set_config('y_test', y_test)
                learning_rate=0.15, min_child_samples=100, min_split_gain=0,
                num_leaves=30, random_state=4936, reg_alpha=10, reg_lambda=2)""")
     
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>The chart below also shows that we have optimised the model to maximise the F1 score \
+        and the changes in the recall and precision scores as we have tuned the model.
+             """, unsafe_allow_html=True)    
+    
+    img12 = Image.open("images/Discrimination_1_week.png")
+    st.image(img12, width = 400) 
+    
     st.write("""<p style='text-align: justify; font-size: 15px'>Once we were comfortable with the tuning, we moved on the analyse various elements of the model, starting with observing the F1 score \
         across the train and test datasets to identify any overfitting.
              """, unsafe_allow_html=True) 
@@ -682,8 +690,10 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     images = ['images/Classification Report.png', 'images/Error Report_1_Week.png']
     st.image(images, use_column_width=True)
-    # st.image(images[1], width=250)
     
+    st.write("""<p style='text-align: justify; font-size: 15px'>This point is further emphasized in the classification report and also the error report below. \
+        There are misclassifictaions both on the injury and non-injuries side.
+             """, unsafe_allow_html=True)
     
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
