@@ -326,7 +326,7 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
-        st.image(imglogo, width=250)
+    st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
     st.image(img8, width = 700)
