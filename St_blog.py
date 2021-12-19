@@ -707,7 +707,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
             the number of injuries are proportionately higher in the test set when compared to the training set.
             """, unsafe_allow_html=True)
     
-    st.subheader('Injury Duration Scan')
+    st.subheader('Injury Duration Prediction')
     
     st.write("""<p style='text-align: justify; font-size: 15px'>As mentioned earlier, we did also construct an injury duration prediction model which \
         looked at how long a player is expected to be injured when they incur a certain injury. In order to do this, we first created dummy variable columns \
@@ -731,6 +731,15 @@ extended_features = ['Height', 'Weight', 'cum_week', 'defender', 'attacker', 'mi
                      'Injury_Recurrence_cum'] + list(dict(dataset_injury['Injury'].value_counts()).keys())[:30]
 """
     )
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>We also created a recurrent injury column, which looks at how often each player gets a \
+        certain type of injury over their career.""", unsafe_allow_html=True)
+    
+    st.code("""
+injury_recurrence = pd.DataFrame(dataset_injury.groupby(['FBRefID','Injury', 'injury_week', 'injury_year'])['Injury'].count()).rename(columns={'Injury':'Injury_Recurrence'}).reset_index().sort_values(by=['FBRefID','injury_year', 'injury_week'])
+injury_recurrence['Injury_Recurrence_cum'] = injury_recurrence.groupby(['FBRefID','Injury'])['Injury_Recurrence'].cumsum()
+""")
+
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
     st.image(imglogo, width=250)
