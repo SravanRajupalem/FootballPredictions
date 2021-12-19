@@ -10,8 +10,9 @@ The main features of this project are:
 - A high-level API allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani, and England).
 - A high-level API allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players' injury data.
 - Reference Table of mapped IDs from Fbref players and TransferMarkt sites
-- Time series ML models to build injury predictors ...
-
+- Time series ML models to build injury predictors
+- Multiple Visualizations to help the user of all results
+- A set of interactive tools to compare players and generate predictions based on players selected by users
 
 **Important note**
 
@@ -27,6 +28,10 @@ The main features of this project are:
     !pip install beautifulsoup4
     !pip install pyjsparser
     !pip install js2xml
+    !pip install streamlit
+    !pip install pycaret
+    !pip install scklearn
+    
 
 Table of Contents
 ~~~~~~~~~~~~~~~~~
@@ -97,7 +102,16 @@ First of all, import the following Libraries:
     warnings.filterwarnings("ignore")
     warnings.simplefilter(action='ignore', category=FutureWarning)
     pd.set_option('display.max_columns', None)
-
+    
+    # Machine Learning Models
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score, confusion_matrix,roc_curve, roc_auc_score, precision_score, recall_score,   precision_recall_curve
+    from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, RepeatedStratifiedKFold, StratifiedKFold
+    from sklearn.datasets import make_hastie_10_2
+    from sklearn.ensemble import GradientBoostingClassifier
+    from imblearn.pipeline import make_pipeline as make_pipeline_with_sampler
+    from imblearn.under_sampling import RandomUnderSampler
+    from pycaret.classification import * 
 
 **1. FBREF Extract.ipynb**
 
@@ -898,41 +912,10 @@ As you can notice, we are using the altair library to build the visualizations. 
 Model Building
 ~~~~~~~~~~~~~~
 
+
+
+
 Citing 
 ~~~~~~
 
 
-The following block of code shows a function that is used to build columns. The generated columns are based on a time constrain.
-The data ranges include: a week, a month(4 weeks), a quarter(12 weeks), half the year(26 weeks), and an entire year(52 weeks).
-The columns that are created/updated are 'injured", 'injury_count', and 'cum_injury'. 
-
-The injured column is similar to the one above, but this is time this column is build around the time range.
-
-.. code:: python
-
-    # Creating target column 'injured_in_one_week' and creating cumulative features
-    
-    def shift_by_time_period(df, shift_factor, column):
-        df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
-        return df
-
-    dataset = shift_by_time_period(dataset, 1, 'injured')
-    dataset = shift_by_time_period(dataset, 4, 'injured')
-    dataset = shift_by_time_period(dataset, 12, 'injured')
-    dataset = shift_by_time_period(dataset, 26, 'injured')
-    dataset = shift_by_time_period(dataset, 52, 'injured')
-
-    dataset = shift_by_time_period(dataset, 1, 'injury_count')
-    dataset = shift_by_time_period(dataset, 4, 'injury_count')
-    dataset = shift_by_time_period(dataset, 12, 'injury_count')
-    dataset = shift_by_time_period(dataset, 26, 'injury_count')
-    dataset = shift_by_time_period(dataset, 52, 'injury_count')
-
-    dataset = shift_by_time_period(dataset, 1, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 4, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 12, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 26, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 52, 'cum_injury'
-
-
-Next, we develop a new colum to serve a base for the cummulative features that will be added. 
