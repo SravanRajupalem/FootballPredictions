@@ -636,14 +636,18 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'>As shown in the chart and table above, there is still some overfitting to the training data, in future iterations of this work we \
-        could address this issue via some form of regularization or employing an early stopping technique. This is also shown below in the Learning Curve, \
-            where the cross validation scores are consistently lower than the training scores across all training instances. For now, we will proceed with analysing this model. Firstly, below are top 10 most \
-            important features in the model.
+    st.write("""<p style='text-align: justify; font-size: 15px'>As shown in the chart and table above, there is still some overfitting to the training data. \
+             This is also shown below in the Learning Curve, \
+            where the cross validation scores are consistently lower than the training scores across all training instances. 
+            In future iterations of this work we could address this issue via some form of regularization or employing an early stopping technique. \
+            For now, we will proceed with analysing this model.
              """, unsafe_allow_html=True)
     
     img12 = Image.open("images/Learning Curves for 1 Week Model.png")
     st.image(img12, width = 700)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Firstly, below are top 10 most important features in the model.
+             """, unsafe_allow_html=True)
     
     img12 = Image.open("images/1 Week Feature Importance.png")
     st.image(img12, width = 700)
