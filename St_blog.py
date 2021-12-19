@@ -10,7 +10,7 @@ import dask.dataframe as dd
 import streamlit.components.v1 as components
 import plotly.express as px
 import plotly.graph_objects as go
-from streamlit_player import st_player
+# from streamlit_player import st_player
 
 imglogo = Image.open("images/logo.png")
 
