@@ -584,6 +584,8 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
 
 
 else:
+    imgvic = Image.open("images/vic.png")
+    st.image(imgvic, width = 250)
     st.header("Conclusion, Challenges, and Future Work")
     # st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
 
