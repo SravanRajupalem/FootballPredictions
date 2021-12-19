@@ -12,7 +12,7 @@ import streamlit.components.v1 as components
 imglogo = Image.open("images/logo.png")
 
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
-    "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+    "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
     "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
 if section == "Introduction":
