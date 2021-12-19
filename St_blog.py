@@ -12,23 +12,19 @@ import plotly.express as px
 import plotly.graph_objects as go
 # from streamlit_player import st_player
 
-imglogo = Image.open("images/logo.png")
+# imglogo = Image.open("images/logo.png")
+newlogo = Image.open("images/new_logo.png")
 
 # img7 = Image.open("images/ball.png")
 # st.image(img7, width = 700)
 
 # st.sidebar.image(imglogo, use_column_width=True)
 
-# col1, col2, col3 = st.beta_columns([1,6,1])
 
-# with col1:
-# st.sidebar.write("")
+st.sidebar.image(newlogo)
 
-# with col2:
-# st.sidebar.image(imglogo, width=200)
 
-# with col3:
-# st.sidebar.write("")
+# st.sidebar.image("<p style='text-align: justify; font-size: 16px'>imglogo, unsafe_allow_html=True)
 
 
 # st.sidebar.image(imglogo, width=200)
