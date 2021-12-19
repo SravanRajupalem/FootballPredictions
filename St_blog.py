@@ -408,11 +408,11 @@ for var in cum_cols:
     st.subheader('Classification Algorithms')
     st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. 
-        \nThe first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
+        \n<p style='text-align: justify; font-size: 15px'>The first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
             capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
                 explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
                     
-                    \nOnce the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
+                    \n<p style='text-align: justify; font-size: 15px'>Once the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
                         can be randomly allocated across the dataset, this analysis requries a different approach as it is a time series analysis for each player. Hence, the \
                             number of weeks each player plays was determined and the first 75% of the player's career in weeks was allocated to the training dataset and the remaining 25% was \
                                 allocated to the test set (as shown below).
@@ -457,10 +457,10 @@ for var in cum_cols:
                     'Cumulative games played in UEFA Euro', 'Cumulative games played in Copa América', 'Cumulative games played Away', 'Cumulative games played Home',
                     'Cumulative games played in Neutral venues']
     
-    df['Features'] = extended_features
-    df['descriptions'] = descriptions
+    # df['Features'] = extended_features
+    # df['descriptions'] = descriptions
     
-    st.write(df)
+    st.write(len(extended_features), len(descriptions))
 
 
 # SECTION: INJURY PREDICTION TOOL
