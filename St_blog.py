@@ -650,8 +650,9 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     df = pd.read_parquet('dataframes_blog/example_weeks_since_injury.parquet')
     df['Cumulative Injuries in 1 Week'] = df['injured_in_1_week'].cumsum()
+    df['Cumulative Injuries in 1 Week (%)'] = 100*df['Cumulative Injuries in 1 Week']/df['injured_in_1_week'].sum()
     
-    fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week')
+    fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week (%)')
     st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
