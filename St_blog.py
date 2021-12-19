@@ -757,7 +757,7 @@ best_model = compare_models(turbo=False)
                 in the accuracy scores. Second, injury duration is something that can currently be advised by team doctors, and hence isn't as valuable as \
                     predicting injuries before they happen. We may further tune and improve this model in the future once further data is acquired.""", unsafe_allow_html=True)
 
-    st.subheader('Final Thoughts')
+    st.subheader('Final Thoughts and Next Steps')
     
     st.write("""<p style='text-align: justify; font-size: 15px'>As demonstrated by the model accuracies, predicting whether injuries occur is a really difficult task. \
         There are some issues with overfitting which can be reduced as explained earlier. \
