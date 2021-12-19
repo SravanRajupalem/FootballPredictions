@@ -702,9 +702,11 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     fig = px.line(df[df['Week of Career'] > 0], x="Week of Career", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'>As expected, the model consistently under-predicts when compared with the actual injuries for the same time period. \
+    st.write("""<p style='text-align: justify; font-size: 15px'>As expected, the model consistently underpredicts when compared with the actual injuries for the same time period. \
         The test set starts later than the training set as we have taken the last 25% of a player's career in the test set. However, since players are generally older in the test set, \
-            the number of injuries are proportionately higher in the test set when compared to the training set.
+            the number of injuries are proportionately higher in the test set when compared to the training set. What is encouraging from this analysis is that despite the model underpredicting, \
+                the trend of the cumulative predicted injuries closely follows that of the actual injuries suggesting that the model is picking enough of a signal \
+                    from the data to be able to predict overall trends.
             """, unsafe_allow_html=True)
     
     st.subheader('Injury Duration Prediction')
@@ -750,6 +752,29 @@ best_model = compare_models(turbo=False)
     
     images = 'images/Injury Duration Models.png'
     st.image(images, use_column_width=True)
+
+    st.write("""<p style='text-align: justify; font-size: 15px'> The best R^2 score was 18.84% using the <b>Bayesian Ridge</b> model.\
+        We did not pursue any further analysis on this model in this iteration for two reasons. Firstly, the duration which a player gets an injury is \
+            highly unique to the player's physiology and their rehabilitation program. This is information which we don't currently have and this is relfected \
+                in the accuracy scores. Second, injury duration is something that can currently be advised by team doctors, and hence isn't as valuable as \
+                    predicting injuries before they happen. We may further tune and improve this model in the future once further data is acquired.""", unsafe_allow_html=True)
+
+    st.subheader('Final Thoughts and Next Steps')
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>As demonstrated by the model accuracies, predicting whether injuries occur is a really difficult task. \
+        There are some issues with overfitting which can be reduced as explained earlier. \
+        The data acquired for this analysis was mainly game statistics and some player profile information. However, a lot of injuries are also acquired due to \
+            players activities outside of competitive games (i.e. in training). This information is generally not publicly available. 
+            
+            \nAnother piece of \
+                information that we have not taken into account is biometric data of players. As mentioned in the book, <i>"Why we Sleep"<\i> by Matthew Walker, \
+                    the occurence of injuries has been linked to lack of sleep. Other information such as the amount of running a player does on the field \
+                        could also be captured via GPS tracking devices. Again, this information is generally not publicly available but club would maintain \
+                            databases on their players related to this. If this information can be obtained, the accuracy of the models will be expected to \
+                                further improve.""", unsafe_allow_html=True)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>In the next blog post, we will introduce our interactive Injury Prediction Tool, \
+        where you can play around with the predictions to determine whether your favourite player is in danger of getting an injury in the near future.""", unsafe_allow_html=True)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
