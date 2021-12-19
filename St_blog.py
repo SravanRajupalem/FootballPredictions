@@ -325,7 +325,7 @@ elif section == "Visual Exploration of Data":
     img22 = Image.open("images/image22.PNG")
     st.image(img22)
     
-elif section == "Model Building":
+elif section == "Model Building and Evaluation":
     
     st.image(imglogo, width=250)
 
@@ -490,7 +490,6 @@ y_test = df_test[injured_pred]
             
 exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
             """)
-
     df = pd.DataFrame(columns=['Description', 'Value'])    
 
     description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
@@ -509,11 +508,26 @@ exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred
     df['Value'] = value
 
     df
+    st.write("""<p style='text-align: justify; font-size: 15px'>The setup function outputs the above table with all the parameters flowing into the classification algorithms. Any of the parameters can be adjusted \
+        using the set_config() method as we will do now to adjust the algorithms to use our train and test datasets rather than the ones compiled by PyCaret.
+            """, unsafe_allow_html=True)
+    
+    st.code("""        set_config('X_train', X_train)
+set_config('X_test', X_test)
+set_config('y_train', y_train)
+set_config('y_test', y_test)
+"""
+)
+    st.write("""<p style='text-align: justify; font-size: 15px'>Next we can run a range of classification algorithms all with one simple line of code. This produces an output with accuracy, AUC, recall, precision and F1 \
+        across all the models for easy comparison.
+            """, unsafe_allow_html=True)
+    
+    st.code("""best_model = compare_models()""")
+    
+    
+    
 
-    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
-        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
-            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
-                """, unsafe_allow_html=True)
+   
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
