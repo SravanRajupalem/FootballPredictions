@@ -91,7 +91,7 @@ elif section == "Scraping the Web for Data":
     st.image(img5c)
     st.write("<p style='text-align: justify; font-size: 15px'>The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
         the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
-        obtain each player's profile information. This yielded the following DataFrames:")
+        obtain each player's profile information. This yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
     table['Country'] = ['England', 'Italy', 'Spain', 'France', 'Germany']
     table['DataFrame Name'] = ['player_data_df_england', 'player_data_df_italy', 'player_data_df_spain', 'player_data_df_france', \
@@ -100,7 +100,7 @@ elif section == "Scraping the Web for Data":
     table['Columns'] = [15,15,15,15,15]
     table
     st.write("<p style='text-align: justify; font-size: 15px'>Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
-        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:")    
+        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
