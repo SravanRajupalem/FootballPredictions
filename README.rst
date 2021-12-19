@@ -40,7 +40,7 @@ Table of Contents
  - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
  - `Model Building`_
-  - `Blog/Website`_
+ - `Blog/Website`_
  - `Citing`_
 
 Overview
@@ -831,7 +831,6 @@ Visual Exploration of Data
 
 Model Building
 ~~~~~~~~~~~~~~
-
 
 
 
