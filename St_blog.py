@@ -702,9 +702,11 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     fig = px.line(df[df['Week of Career'] > 0], x="Week of Career", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'>As expected, the model consistently under-predicts when compared with the actual injuries for the same time period. \
+    st.write("""<p style='text-align: justify; font-size: 15px'>As expected, the model consistently underpredicts when compared with the actual injuries for the same time period. \
         The test set starts later than the training set as we have taken the last 25% of a player's career in the test set. However, since players are generally older in the test set, \
-            the number of injuries are proportionately higher in the test set when compared to the training set.
+            the number of injuries are proportionately higher in the test set when compared to the training set. What is encouraging from this analysis is that despite the model underpredicting, \
+                the trend of the cumulative predicted injuries closely follows that of the actual injuries suggesting that the model is picking enough of a signal \
+                    from the data to be able to predict overall trends.
             """, unsafe_allow_html=True)
     
     st.subheader('Injury Duration Prediction')
