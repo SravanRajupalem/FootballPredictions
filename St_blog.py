@@ -329,6 +329,7 @@ elif section == "Model Building":
     st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
+    
     st.image(img8, width = 700)
     
     st.header("Model Building")
@@ -421,6 +422,46 @@ for var in cum_cols:
     df_train = dataset[dataset['cum_week'] <= dataset["train_split"]].dropna()
     df_test = dataset[dataset['cum_week'] > dataset["train_split"]].dropna()
             """)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>We selected a subset of the features in the data which we determined to be have some predictive power based on\
+        trends we observed in the data exploration phase. They are outlined in the table below.
+                """, unsafe_allow_html=True)
+    
+    df = pd.DataFrame(['Features', 'Description'])
+    
+    extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+                         'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+                         'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+                         'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+                         'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+    
+    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy vaiable of whether the player is a defender (1 if defender)', 
+                    'Dummy vaiable of whether the player is a attacker (1 if attacker)', 'Dummy vaiable of whether the player is a midfielder (1 if midfielder)',
+                    'Dummy vaiable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy vaiable of whether the player is right footed (1 if right footed)',
+                    'Age of Player at each data point', 'Total number of injuries till the datapoint for each player', 'Number of weeks since last injury', 
+                    'Total number of Minutes played in matches till the datapoint for each player', 'Cumulative Goals scored or allowed', 'Cumulative Completed assists',
+                    'Cumulative Penalty kicks made', 'Cumulative Penalty kicks attempted', 'Cumulative Shots (not including penalty kicks)',
+                    'Cumulative Shots on target (not including penalty kicks)', 'Cumulative Yellow cards', 'Cumulative Red cards', 'Cumulative Touches in attacking penalty area',
+                    'Cumulative Passes made while under pressure of opponent', 'Cumulative Number of players tackled', 'Cumulative Interceptions',
+                    'Cumulative Number of times blocking the ball by standing on its path', 'Cumulative Expected goals', 'Cumulative Non-penalty expected goals',
+                    'Cumulative Expected assists previous to a goal', 'Cumulative Two offensive actions previous to a shot',
+                    'Cumulative Two offensive actions previous to a goal', 'Cumulative Passess completed', 'Cumulative Passes attempted',
+                    'Cumulative Passess that move the ball at least 10 yards toward opponent goal',
+                    'Cumulative Number of times player controlled the ball with his feet',
+                    "Cumulative Carries that move the ball toward opponent's goal at least 5 yards", 'Cumulative Dribbles completed successfully',
+                    'Cumulative Dribbles attempted', 'Cumulative Fouls committed', 'Cumulative Fouls drawn', 'Cumulative Offsides', 'Cumulative Crosses',
+                    'Cumulative Tackles were possession of the ball was won', 'Cumulative Own goals', 'Cumulative Penalty kicks won', 'Cumulative Penalty kicks conceded',
+                    'Cumulative games played in Serie A', 'Cumulative games played in Premier League', 'Cumulative games played in La Liga',
+                    'Cumulative games played in Ligue 1', 'Cumulative games played in Bundesliga', 'Cumulative games played in Champions League',
+                    'Cumulative games played in Europa League', 'Cumulative games played in FIFA World Cup', 'Cumulative games played in UEFA Nations League',
+                    'Cumulative games played in UEFA Euro', 'Cumulative games played in Copa América', 'Cumulative games played Away', 'Cumulative games played Home',
+                    'Cumulative games played in Neutral venues']
+    
+    df['Features'] = extended_features
+    df['descriptions'] = descriptions
+    
+    st.write(df)
+
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
