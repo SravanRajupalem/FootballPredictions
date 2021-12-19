@@ -739,6 +739,17 @@ extended_features = ['Height', 'Weight', 'cum_week', 'defender', 'attacker', 'mi
 injury_recurrence = pd.DataFrame(dataset_injury.groupby(['FBRefID','Injury', 'injury_week', 'injury_year'])['Injury'].count()).rename(columns={'Injury':'Injury_Recurrence'}).reset_index().sort_values(by=['FBRefID','injury_year', 'injury_week'])
 injury_recurrence['Injury_Recurrence_cum'] = injury_recurrence.groupby(['FBRefID','Injury'])['Injury_Recurrence'].cumsum()
 """)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Then we followed a similar workflow as the classification modelling with PyCaret but with the \
+        Regression module.""", unsafe_allow_html=True)
+    
+    st.code("""
+exp_reg = setup(dataset_injury_1[extended_features + [injured_pred]], target = injured_pred, fold=10, feature_selection=True)
+best_model = compare_models(turbo=False)
+""")
+    
+    images = 'images/Injury Duration Models.png'
+    st.image(images, use_column_width=True)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
