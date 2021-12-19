@@ -367,6 +367,10 @@ elif section == "Model Building":
             below where any columns that required an accumulation over the players career were recalculated. Other examples of accumulated features were number of games won, lost and drawn as well as number\
                 of games player in certain leagues (i.e. Champions League games of their career).
                 """)
+    
+    st.code("""def cummulative_sum(dataset, cum_column, original_column):
+    dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
+    return dataset""", language='python')
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
