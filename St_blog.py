@@ -561,8 +561,8 @@ set_config('y_test', y_test)
     
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'> As shown in the above chart, injury prediction is a difficult task. The one week model is by far the best performing with F1 score of 0.41, \
-        recall of 0.37 and precision of 0.45. This suggests that in any given week, if the model predicts that two players will get injured, one of the player actually will get injured. \
+    st.write("""<p style='text-align: justify; font-size: 15px'> As shown in the above chart, injury prediction is a difficult task. The one week model is by far the best performing with F1 score of <i>0.41</i>, \
+        recall of <i>0.37</i> and precision of <i>0.45</i> using the <b>Light Gradient Boosting Machine</b>. This suggests that in any given week, if the model predicts that two players will get injured, one of the player actually will get injured. \
             This will be particularly useful for coaches for week-to-week management of the players. If they wanted to be cautious they could rest both players or if it is very important game \
                 they may choose to take the risk and play both players. 
                 
@@ -570,7 +570,7 @@ set_config('y_test', y_test)
                     there are more uncertainties and hence prediction is a more difficult task. There was some overfitting observed in the larger horizon models which was partially reduced by applying cross validation. \
                         In future work, this be further could be reduced by training with more data, removing features that are not predictive in the long-term, early stopping and ensembling.
                         
-                        \n<p style='text-align: justify; font-size: 15px'>For the one week model, the <b> In the next section we will dive deeper into further tuning and evaluating the one week model. 
+                        \n<p style='text-align: justify; font-size: 15px'> In the next section we will dive deeper into further tuning and evaluating the one week model. 
             """, unsafe_allow_html=True)
     
 
