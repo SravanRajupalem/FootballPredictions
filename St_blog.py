@@ -326,7 +326,7 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
-    st.image(imglogo, width=250)
+        st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
     
@@ -405,9 +405,7 @@ for var in cum_cols:
     cummulative_sum(dataset, var+'_cum', var)
     """, language='python')
 
-    st.subheader('Classification Algorithms')
-    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
-        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. 
+    st.write("""<p style='text-align: justify; font-size: 15px'>
         \n<p style='text-align: justify; font-size: 15px'>The first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
             capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
                 explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
@@ -424,7 +422,7 @@ for var in cum_cols:
             """)
     
     st.write("""<p style='text-align: justify; font-size: 15px'>We selected a subset of the features in the data which we determined to be have some predictive power based on\
-        trends we observed in the data exploration phase. They are outlined in the table below.
+        trends we observed in the data exploration phase. They are outlined in the table below:
                 """, unsafe_allow_html=True)
     
     df = pd.DataFrame(columns=['Features', 'Description'])
@@ -461,6 +459,13 @@ for var in cum_cols:
     df['Description'] = descriptions
     
     df
+    
+    st.subheader('Classification Algorithms')
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
+        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
+            for this analysis we have decided to implement the PyCaret library. [PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.
+                """, unsafe_allow_html=True)
 
 
 # SECTION: INJURY PREDICTION TOOL
