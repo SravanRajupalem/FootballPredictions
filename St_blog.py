@@ -648,10 +648,11 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
              """, unsafe_allow_html=True)    
     
     df = pd.read_parquet('dataframes_blog/example_weeks_since_injury.parquet')
+    df
     
-    fig = px.scatter(df, x='weeks_since_last_injury', y='injured_in_1_week')
+    # fig = px.scatter(df, x='weeks_since_last_injury', y='injured_in_1_week')
     
-    st.plotly_chart(fig)
+    # st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
