@@ -613,15 +613,26 @@ from sklearn.metrics import precision_score
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
-print(f1_score(y_test, y_pred, average='macro'))
-print(f1_score(y_train, clf.predict(X_train), average='macro'))
+print("Test F1 Score: " + str(f1_score(y_test, y_pred, average='macro')))
+print("Train F1 Score: " + str(f1_score(y_train, clf.predict(X_train), average='macro')))
 
-print(recall_score(y_test, y_pred, average='macro'))
-print(recall_score(y_train, clf.predict(X_train), average='macro'))
+print("Test Recall Score: " + str(recall_score(y_test, y_pred, average='macro')))
+print("Train Recall Score: " + str(recall_score(y_train, clf.predict(X_train), average='macro')))
 
-print(precision_score(y_test, y_pred, average='macro'))
-print(precision_score(y_train, clf.predict(X_train), average='macro'))
+print("Test Precision Score: " + str(precision_score(y_test, y_pred, average='macro')))
+print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_train), average='macro')))
 """)  
+    
+    st.code("""
+Test F1 Score: 0.4530585770981545
+Train F1 Score: 0.541175154259169
+Test Recall Score: 0.7080815972984309
+Train Recall Score: 0.7786046926686957
+Test Precision Score: 0.5375662736170564
+Train Precision Score: 0.5476529766788258
+""")
+    
+    
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
