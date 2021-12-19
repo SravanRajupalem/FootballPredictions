@@ -15,9 +15,9 @@ import plotly.graph_objects as go
 newlogo = Image.open("images/new_logo.png")
 
 st.sidebar.image(newlogo)
-section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
-    "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
-    "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
+section = st.sidebar.selectbox("Sections", ("Introduction", "Data Scraping ", "Data Manipulation", 
+    "Data Exploration", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+    "Interactive Injury Prediction Tool (BETA)", "Conclusion and Challenges"))
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
@@ -35,7 +35,10 @@ st.markdown("""
         <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="https://www.transfermarkt.com" target="_blank">TransferMarkt</a>
+        <a class="nav-link" href="https://transfermarkt.com" target="_blank">TransferMarkt</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="mailto:providemus2021@gmail.com" target="_blank">Contact Us</a>
       </li>
     </ul>
   </div>
@@ -46,11 +49,9 @@ st.markdown("""
 if section == "Introduction":
     imgstadium = Image.open("images/stadium1.png")
     st.image(imgstadium)
-
-    st.title("Anticipate Sooner")
-         
-    st.title("Walkthrough to predict when an elite soccer player will get injured.")
-
+    st.title("**Anticipate Sooner**")
+    st.title("*Walkthrough to predict when an elite soccer player will get injured.*")
+    st.markdown("***")
     st.write("Sravan Rajupalem (sravanr@umich.edu)") 
     st.write("Renzo Maldonado (renzom@umich.edu)")
     st.write("Victor Ruiz (dsvictor@umich.edu)")
@@ -159,7 +160,7 @@ elif section == "Scraping the Web for Data":
 
 ###############################################################################################################################
 
-elif section == "Data Manipulation & Feature Engineering":
+elif section == "Data Manipulation and Feature Engineering":
 
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
