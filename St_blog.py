@@ -12,7 +12,7 @@ import streamlit.components.v1 as components
 imglogo = Image.open("images/logo.png")
 
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
-    "Visual Exploration of Data", "Model Building", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
+    "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
     "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
 
 if section == "Introduction":
@@ -325,7 +325,7 @@ elif section == "Visual Exploration of Data":
     img22 = Image.open("images/image22.PNG")
     st.image(img22)
     
-elif section == "Model Building":
+elif section == "Model Building and Evaluation":
     
     st.image(imglogo, width=250)
 
@@ -470,7 +470,8 @@ for var in cum_cols:
     
     st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
         such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
-            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'. Due to computation and time contraints, the initial set of models was \
+                build using only 2 folds.
                 """, unsafe_allow_html=True)
 
     st.code("""
@@ -490,7 +491,6 @@ y_test = df_test[injured_pred]
             
 exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
             """)
-
     df = pd.DataFrame(columns=['Description', 'Value'])    
 
     description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
@@ -509,11 +509,38 @@ exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred
     df['Value'] = value
 
     df
+    st.write("""<p style='text-align: justify; font-size: 15px'>The setup function outputs the above table with all the parameters flowing into the classification algorithms. Any of the parameters can be adjusted \
+        using the set_config() method as we will do now to adjust the algorithms to use our train and test datasets rather than the ones compiled by PyCaret.
+            """, unsafe_allow_html=True)
+    
+    st.code("""        
+set_config('X_train', X_train)
+set_config('X_test', X_test)
+set_config('y_train', y_train)
+set_config('y_test', y_test)
+"""
+)
+    st.write("""<p style='text-align: justify; font-size: 15px'>Next we can run a range of classification algorithms all with one simple line of code. This produces an output with accuracy, AUC, recall, precision and F1 \
+        across all the models for easy comparison.
+            """, unsafe_allow_html=True)
+    
+    st.code("""best_model = compare_models()""")
+    img9 = Image.open("images/results_1_week.png")
+    st.image(img9, width = 700)
+    
+    st.markdown("""<p style='text-align: justify; font-size: 15px'> In this case, the model with the best overall accuracy was the _Dummy Classifier_, however, for this application in which we \
+        have a highly imbalanced dataset, accuracy is not a good metric to evaluate the performance of the model. Instead, since we are predicting class labels and the positive class (i.e. whether \
+        the player is injured) is more important with false positives and false negatives are equally costly for the prediction we will use the F1 Score as the primary metric for evaluation. \
+        If we were more interested in the probability of injury rather than the pure classifictaion of injuries and non-injuries we may use the AUC metric instead (as shown in the diagram below).
+            """, unsafe_allow_html=True)
+    
+    img10 = Image.open("images/Evaluation Metric Selection.jpeg")
+    st.image(img10, width = 700)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light
+            """, unsafe_allow_html=True)
 
-    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
-        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
-            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
-                """, unsafe_allow_html=True)
+   
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
