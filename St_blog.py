@@ -36,11 +36,11 @@ if section == "Introduction":
 
     st.image(imglogo, width=250)
 
-    st.write("""Presenting Providemus, a tool to predict when a player will get injured.  By using data from the most reliable 
-        international soccer sources, our data scientists have been able to train machine learning models to predict with
-        considerable accuracy when will a player get injured. The time frame the tool has are if a player will get injured
-        during the next week, month, quarter, semester or year. This system is meant to be used as a complementary tool for 
-        soccer managers in their decisions to play or rest their players.""")
+    st.write("<p style='text-align: justify; font-size: 15px'>Presenting Providemus, a tool to predict when a player will get injured. \
+        By using data from the most reliable international soccer sources, our data scientists have been able to train machine learning \
+        models to predict with considerable accuracy when will a player get injured. The time frame the tool has are if a player will get injured \
+        during the next week, month, quarter, semester or year. This system is meant to be used as a complementary tool for \
+        soccer managers in their decisions to play or rest their players.</h1>", unsafe_allow_html=True)
 
 elif section == "Scraping the Web for Data":
     imglogo = Image.open("images/logo.png")
