@@ -39,8 +39,8 @@ Table of Contents
  - `Scraping the Web for Data`_
  - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
- - `Blog/Website`_
  - `Model Building`_
+  - `Blog/Website`_
  - `Citing`_
 
 Overview
@@ -827,6 +827,14 @@ We do this by applying the groupby function and the cumsum() operator.
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        
+
+Model Building
+~~~~~~~~~~~~~~
+
+
+
+
 Blog/Website
 ~~~~~~~~~~~~
 
@@ -907,10 +915,6 @@ As you can notice, we are using the altair library to build the visualizations. 
         chart1_output = copy.deepcopy(chart1(player1, player2, player3))
         st.altair_chart(chart1_output, use_container_width=False)
         
-        
-
-Model Building
-~~~~~~~~~~~~~~
 
 
 
