@@ -466,7 +466,8 @@ for var in cum_cols:
     st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
             for this analysis we have decided to implement the PyCaret library.
-                """, unsafe_allow_html=True) st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
+                """, unsafe_allow_html=True) 
+    st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
     
     st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
