@@ -587,11 +587,12 @@ else:
     imgvic = Image.open("images/vic.png")
     st.image(imgvic, width = 250)
     st.header("Conclusion, Challenges, and Future Work")
-    # st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+    # st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", 
+    # unsafe_allow_html=True)
 
     
     st.subheader("Conclusion")
-    st.write("<style='text-align: justify;'>In today’s football, players compete more and moreover a single year. \
+    st.write("<h1 style='text-align: justify; font-size: 20px'>In today’s football, players compete more and moreover a single year. \
         Apart from playing more than one \
         tournament for their clubs, who own the rights for the players, the most talented players must attend \
         international duties with their national teams, as well as friendly matches with both their clubs and \
