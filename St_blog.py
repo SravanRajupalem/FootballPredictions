@@ -680,7 +680,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
         a smaller proportion of non-injuries are classified as injuries (2007 false negatives).         
              """, unsafe_allow_html=True)
     
-    images = ['images/Classification Report', 'images/Error Report_1_week.png']
+    images = ['images/Classification Report.png', 'images/Error Report_1_week.png']
     st.image(images, use_column_width=True)
     
     
