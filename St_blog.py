@@ -538,9 +538,7 @@ set_config('y_test', y_test)
     img10 = Image.open("images/Evaluation Metric Selection.jpeg")
     st.image(img10, width = 700)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light Gradient Boosting Machine was the best performing model in terms of \
-        the F1 score. In the next section we will dive deeper into further tuning and evaluating this one week model. Here is a summary of all the algorithms selected for each \
-            of the forecast horizons.
+    st.write("""<p style='text-align: justify; font-size: 15px'> Here is a summary of all the algorithms selected for each of the forecast horizons.
             """, unsafe_allow_html=True)
     
     df = pd.DataFrame(columns=['Horizon', 'Model', 'Accuracy', 'AUC', 'Recall', 'Precision', 'F1', 'Kappa', 'MCC', 'TT (Sec)'])
@@ -562,6 +560,19 @@ set_config('y_test', y_test)
                  hover_name="Model")
     
     st.plotly_chart(fig)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'> As shown in the above chart, injury prediction is a difficult task. The one week model is by far the best performing with F1 score of 0.41, \
+        recall of 0.37 and precision of 0.45. This suggests that in any given week, if the model predicts that two players will get injured, one of the player actually will get injured. \
+            This will be particularly useful for coaches for week-to-week management of the players. If they wanted to be cautious they could rest both players or if it is very important game \
+                they may choose to take the risk and play both players. 
+                
+                \n<p style='text-align: justify; font-size: 15px'>The overall performance of the models reduce of the longer time periods. Intuitively, this is because as the horizon gets longer \
+                    there are more uncertainties and hence prediction is a more difficult task. There was some overfitting observed in the larger horizon models which was partially reduced by applying cross validation. \
+                        In future work, this be further could be reduced by training with more data, removing features that are not predictive in the long-term, early stopping and ensembling.
+                        
+                        \n<p style='text-align: justify; font-size: 15px'>For the one week model, the <b> In the next section we will dive deeper into further tuning and evaluating the one week model. 
+            """, unsafe_allow_html=True)
+    
 
 
 # SECTION: INJURY PREDICTION TOOL
