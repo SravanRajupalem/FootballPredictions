@@ -344,7 +344,7 @@ elif section == "Model Building":
             \n- One Year (12 months)
             
             \nThis was done by creating the target variables in the dataset using the function below:
-            """)
+            """, unsafe_allow_html=True)
     
     with st.echo():
         
@@ -357,7 +357,7 @@ elif section == "Model Building":
             The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur. Rather, we \
                 would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.
                 <INSERT IMAGE HERE>
-                """)
+                """, unsafe_allow_html=True)
     
     st.subheader("Redefining Features")
     
@@ -366,7 +366,7 @@ elif section == "Model Building":
             each datapoint (i.e. number of cumulative minutes played until week 60). We will need this accumulation over the lifespan of the players career. This was done via the function\
             below where any columns that required an accumulation over the players career were recalculated. Other examples of accumulated features were number of games won, lost and drawn as well as number\
                 of games player in certain leagues (i.e. Champions League games of their career).
-                """)
+                """, unsafe_allow_html=True)
     
     st.code("""def cummulative_sum(dataset, cum_column, original_column):
     dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
