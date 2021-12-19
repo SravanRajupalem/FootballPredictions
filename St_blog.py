@@ -451,14 +451,13 @@ elif section == "Injury Prediction":
         time series with a line with two colors, blue for real injuries and orange for predicted injuries. We decided to do \
         this to aid the viewer in detecting injuries and making inferences from them.</h1>", unsafe_allow_html=True)
 
-    st.write("<p style='text-align: justify; font-size: 15px'> On the first visualization, we observe Neymar's injuries history, which is \
-        represented by the blue line, along with our injury prediction for the following week, which is displayed in orange. Since the line \
-        has not experienced an increase, our system is predicting that Neymar will not get injured during the next week.</h1>", unsafe_allow_html=True)
-
     week = Image.open('images/week.png')
     st.image(week, width = 800)
 
-    st.write('Our system predicts that Neymar will not get injured during the next week.')
+    st.write("<p style='text-align: justify; font-size: 15px'> On the first visualization, we observe Neymar's injuries history, which is \
+        represented by the blue line, along with our injury prediction for the following week, which is displayed in orange. Since the line \
+        has not experienced an increase, our system is predicting that Neymar will not get injured during the next week.</h1>", unsafe_allow_html=True)
+    # st.write('Our system predicts that Neymar will not get injured during the next week.')
 
     # month = Image.open('images/month.png')
     # st.image(month, width = 800)
@@ -466,8 +465,9 @@ elif section == "Injury Prediction":
     quarter = Image.open('images/quarter.png')
     st.image(quarter, width = 800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>However, if we look at the quarter window, we see that according to our model Neymar is going get a single injury \
-        in the next 12 weeks.  This injury will happen in around 7 weeks.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>This visualization is making a quarter prediction(12 weeks). We can already see \
+        that the orange line is not straight anymore when comparing it to the previous graph. The quarter window injury prediction is informing \
+        us that Neymar will suffer one injury in the next 12 weeks. This injury will happen in around 7 weeks.</h1>", unsafe_allow_html=True)
 
     semester = Image.open('images/semester.png')
     st.image(semester, width=800)
