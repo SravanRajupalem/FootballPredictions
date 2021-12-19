@@ -352,7 +352,8 @@ elif section == "Model Building":
     st.write("""This function was used to determine an injury indicator shifted by the time horizons specified. For example, for the one week horizon, if a player gets injured in week 60 in the data, \
         the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
             The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur, rather we \
-                would like to allow managers to prempt injuries and rest or focus on rehab with player for which injuries are predicted in the future."""
+                would like to allow managers to prempt injuries and rest or focus on rehab with player for which injuries are predicted in the future.
+                """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
