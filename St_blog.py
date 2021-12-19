@@ -38,7 +38,7 @@ section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web fo
 if section == "Introduction":
     # imgstadium = Image.open("images/stadium1.png")
     # st.image(imgstadium)
-    st.video("https://youtu.be/vxaXYFLHf2I")
+    st.video("https://youtu.be/bnq4hXZoCt0")
 
     st.title("Anticipate Sooner")
          
