@@ -331,17 +331,6 @@ elif section == "Model Building":
     
     st.header("Model Building")
     
-    components.html("""
-                    <div style="text-align: center"> Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
-        we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
-            This was done by creating the target variable, whether a player got injured or not, using five different time periods:
-            \n- One Week
-            \n- One Month
-            \n- One Quarter (3 months)
-            \n- One Semester (6 months)
-            \n- One Year (12 months) </div>
-                    """)
-    
     st.write("""Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
         we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
@@ -351,8 +340,23 @@ elif section == "Model Building":
             \n- One Semester (6 months)
             \n- One Year (12 months)
             
-            \n
+            \nThis was done by creating the target variables in the dataset using the function below:
             """)
+    st.echo(
+        # Creating 'injured' column
+        dataset.loc[dataset['Injury'] != '0', 'injured'] = 1
+        dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
+        
+        def shift_by_time_period(df, shift_factor, column):
+            df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
+        return df
+
+        dataset = shift_by_time_period(dataset, 1, 'injured')
+        dataset = shift_by_time_period(dataset, 4, 'injured')
+        dataset = shift_by_time_period(dataset, 12, 'injured')
+        dataset = shift_by_time_period(dataset, 26, 'injured')
+        dataset = shift_by_time_period(dataset, 52, 'injured')
+    )
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
