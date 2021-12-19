@@ -27,15 +27,15 @@ st.markdown("""
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav"> 
       <li class="nav-item active">
-        <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="https://www.youtube.com/watch?v=cJOSvvdy27I" target="_blank">YouTube</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/peruproductor" target="_blank">Twitter</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="https://www.transfermarkt.com" target="_blank">TransferMarkt</a>
       </li>
     </ul>
   </div>
@@ -44,9 +44,8 @@ st.markdown("""
 
 
 if section == "Introduction":
-    # imgstadium = Image.open("images/stadium1.png")
-    # st.image(imgstadium)
-    st.video("https://youtu.be/vxaXYFLHf2I")
+    imgstadium = Image.open("images/stadium1.png")
+    st.image(imgstadium)
 
     st.title("Anticipate Sooner")
          
