@@ -692,8 +692,19 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     st.image(images, use_column_width=True)
     
     st.write("""<p style='text-align: justify; font-size: 15px'>This point is further emphasized in the classification report and also the error report below. \
-        There are misclassifictaions both on the injury and non-injuries side.
+        There are misclassifictaions both on the injury and non-injuries side. Let's use the predict function on both the training and test dataset and plot the \
+            predicted cumulative injuries over time when compared with actual injuries.
              """, unsafe_allow_html=True)
+    
+    df = pd.read_parquet('dataframes_blog/actual_vs_predicted_1_week.parquet')
+    
+    fig = px.line(df_plot_final[df_plot_final['cum_week'] > 0], x="cum_week", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
+    fig.add_shape(go.layout.Shape(type="rect", x0 = 0, y0=0, x1=52, y1=80, opacity=0.2, fillcolor='blue', 
+                                  line=dict(color='blue', dash='dash')))
+    # fig.update_traces(textposition='top center')
+    # fig.update_layout(title_text='80%')
+    fig.add_annotation(dict(x=26, y=85, text='80% of Injuries', showarrow=True, arrowsize=3.0, ax=0, ay=-20))
+    st.plotly_chart(fig)
     
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
