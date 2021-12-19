@@ -491,22 +491,24 @@ y_test = df_test[injured_pred]
 exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
             """)
 
-df = pd.DataFrame(columns=['Description', 'Value'])    
+    df = pd.DataFrame(columns=['Description', 'Value'])    
 
-description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
+    description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
                'Transformed Test Set',	'Shuffle Train-Test',	'Stratify Train-Test',	'Fold Generator',	'Fold Number',	'CPU Jobs',	'Use GPU',	'Log Experiment',	'Experiment Name',	'USI',	'Imputation Type',	'Iterative Imputation Iteration',	'Numeric Imputer',
                'Iterative Imputation Numeric Model',	'Categorical Imputer',	'Iterative Imputation Categorical Model',	'Unknown Categoricals Handling',	'Normalize',	'Normalize Method',	'Transformation',	'Transformation Method',	'PCA',	'PCA Method',	'PCA Components',	'Ignore Low Variance',
                'Combine Rare Levels',	'Rare Level Threshold',	'Numeric Binning',	'Remove Outliers',	'Outliers Threshold',	'Remove Multicollinearity',	'Multicollinearity Threshold',	'Remove Perfect Collinearity',	'Clustering',	'Clustering Iteration',	'Polynomial Features',	'Polynomial Degree',	
                'Trignometry Features',	'Polynomial Threshold',	'Group Features',	'Feature Selection',	'Feature Selection Method',	'Features Selection Threshold',	'Feature Interaction',	'Feature Ratio',	'Interaction Threshold',	'Fix Imbalance',	'Fix Imbalance Method']		
 
-value = ['4936',	'injured_in_1_week',	'Binary',	'0.0: 0, 1.0: 1',	'(1787492, 59)',	'TRUE',	'53',	'5',	'FALSE',	'FALSE',	'None',	'(1248469, 54)',
+    value = ['4936',	'injured_in_1_week',	'Binary',	'0.0: 0, 1.0: 1',	'(1787492, 59)',	'TRUE',	'53',	'5',	'FALSE',	'FALSE',	'None',	'(1248469, 54)',
          '(534994, 54)',	'TRUE',	'FALSE',	'TimeSeriesSplit',	'2',	'-1',	'FALSE',	'FALSE',	'clf-default-name',	'00f0',	'simple',	'None',
          'mean',	'None',	'constant',	'None',	'least_frequent',	'FALSE',	'None',	'FALSE',	'None',	'FALSE',	'None',	'None',
          'FALSE',	'FALSE',	'None',	'FALSE',	'FALSE',	'None',	'FALSE',	'None',	'TRUE',	'FALSE',	'None',	'FALSE',
          'None',	'FALSE',	'None',	'FALSE',	'TRUE',	'classic',	'0.8',	'FALSE',	'FALSE',	'None',	'TRUE',	'SMOTE']
 
-df['Description'] = description
-df['Value'] = value
+    df['Description'] = description
+    df['Value'] = value
+
+    df
 
     st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
         such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
