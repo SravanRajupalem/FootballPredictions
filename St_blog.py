@@ -642,7 +642,16 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     img12 = Image.open("images/1 Week Feature Importance.png")
     st.image(img12, width = 700)
+
+    st.write("""<p style='text-align: justify; font-size: 15px'>Weeks since last injury is the most important feature in this model (and was the same for \
+             most of the longer horizon models). This seems to make intuitive sense, as if you have gove injured recently, there is a chance
+             """, unsafe_allow_html=True)    
     
+    df = pd.read_parquet('dataframes_blog/example_weeks_since_injury.parquet')
+    
+    fig = px.scatter(df, x='weeks_since_last_injury', y='injured_in_1_week')
+    
+    st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
