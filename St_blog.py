@@ -470,7 +470,8 @@ for var in cum_cols:
     
     st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
         such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
-            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'. Due to computation and time contraints, the initial set of models was \
+                build using only 2 folds.
                 """, unsafe_allow_html=True)
 
     st.code("""
@@ -527,14 +528,17 @@ set_config('y_test', y_test)
     img9 = Image.open("images/results_1_week.png")
     st.image(img9, width = 700)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'> In this case, the model with the best overall accuracy was the Dummy Classifier, however, for this application in which we \
-        have a highly imbalanced dataset, accuracy is not a got metric to evaluate the performance of the model. Instead, since we are predicting class labels and the positive class (i.e. whether \
+    st.markdown("""<p style='text-align: justify; font-size: 15px'> In this case, the model with the best overall accuracy was the _Dummy Classifier_, however, for this application in which we \
+        have a highly imbalanced dataset, accuracy is not a good metric to evaluate the performance of the model. Instead, since we are predicting class labels and the positive class (i.e. whether \
         the player is injured) is more important with false positives and false negatives are equally costly for the prediction we will use the F1 Score as the primary metric for evaluation. \
         If we were more interested in the probability of injury rather than the pure classifictaion of injuries and non-injuries we may use the AUC metric instead (as shown in the diagram below).
             """, unsafe_allow_html=True)
     
     img10 = Image.open("images/Evaluation Metric Selection.jpeg")
     st.image(img10, width = 700)
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light
+            """, unsafe_allow_html=True)
 
    
 
