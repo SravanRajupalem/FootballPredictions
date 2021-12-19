@@ -834,6 +834,7 @@ We do this by applying the groupby function and the cumsum() operator.
     for var in cum_cols:
         cummulative_sum(dataset, var+'_cum', var)
 
+
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -856,9 +857,11 @@ Please refer to the the following notebooks:
 **8e. One Year Prediction.ipynb**
 **8f. Interactive Prediction Tool Development.ipynb**
 
+First, we created a variable called "injured_pred", this has been updated throughout all notebooks so we could update the time range for our predictions.
+Additionally, we created to list of simple features and a second list of extended features as we were doing some trial and error using multiple features
+for our models.
 
-
-
+Here we will only show what we did for the **8a. One Week Prediction.ipynb** notebook
 
 .. code:: python
 
@@ -873,6 +876,30 @@ Please refer to the the following notebooks:
     'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
     'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
     'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+
+We split out dataset to create a train set and test set for our models. This analysis requries a different approach as it is a time series 
+analysis for each player. Hence, the number of weeks each player plays was determined and the first 75% of the player's career in weeks was 
+allocated to the training dataset and the remaining 25% was allocated to the test set.
+
+.. code:: python
+
+    # Get Train Test Split
+    df_train = dataset[dataset['cum_week'] <= dataset["train_split"]].dropna()
+    df_test = dataset[dataset['cum_week'] > dataset["train_split"]].dropna()
+
+    X_train = df_train[extended_features]
+    y_train = df_train[injured_pred]
+
+    X_test = df_test[extended_features]
+    y_test = df_test[injured_pred]
+
+
+The following operation allows to compare multiple models at once. This method is very powerfull since we avoid the need to create models
+individually.
+
+.. image:: images/image26.PNG
+
+
 
 
 Blog/Website
