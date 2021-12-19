@@ -49,8 +49,9 @@ elif section == "Scraping the Web for Data":
     st.image(imgcorner, width=700)
     
     st.header('Scraping the Web for Data')
-    st.write("<p style='text-align: justify; font-size: 15px'>We hunted the web to get the most information we could about soccer players and matches.  After scanning several \
-        options our runners up due to the completeness of their data were:  fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>We hunted the web to get the most information we could about soccer \
+        players and matches. After scanning several options our runners up due to the completeness of their data \
+        were:  fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
     img = Image.open("images/image1.png")
     img2 = Image.open("images/image2.png")
     img3 = Image.open("images/image3.png")
@@ -62,11 +63,11 @@ elif section == "Scraping the Web for Data":
         The reason for this decision was that we thought that these leagues would have better player documentation.</h1>", unsafe_allow_html=True)
     img4 = Image.open("images/image4.png")
     st.image(img4)
-    st.write("<p style='text-align: justify; font-size: 15px'>From FBRef.com we first scraped urls from the big 5 European leagues. With that base, we again scraped the website \
+    st.write("<p style='text-align: justify; font-size: 15px'>From FBRef we first scraped urls from the big 5 European leagues. With that base, we again scraped the website \
         for all the seasons for each league. Then we scraped the players' urls from each of all available seasons of the top 5. \
         This operation yielded a list of 78,959 unique records. Those embedded urls contained an identifier (FBRefID) for each of the \
         19,572 players from this fbref.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
-        website, we decided to only pull data for the players whose information was available on both sites. ")    
+        website, we decided to only pull data for the players whose information was available on both sites.</h1>", unsafe_allow_html=True)   
     st.write("<p style='text-align: justify; font-size: 15px'>Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
         FBRefID and TMID (TransferMarkt ID), which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) \
         (kudos!). Via string conversions and splitting we extracted the FBRefID's from the generated list and decided to only scrape \
