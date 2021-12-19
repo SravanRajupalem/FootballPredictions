@@ -649,7 +649,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
              """, unsafe_allow_html=True)    
     
     df = pd.read_parquet('dataframes_blog/example_weeks_since_injury.parquet')
-    df['Cumulative Injuries in 1 Week'] = df['injured_in_one_week'].cumsum()
+    df['Cumulative Injuries in 1 Week'] = df['injured_in_1_week'].cumsum()
     
     fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week')
     st.plotly_chart(fig)
