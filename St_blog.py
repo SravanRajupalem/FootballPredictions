@@ -165,7 +165,7 @@ elif section == "Data Manipulation & Feature Engineering":
     st.image(img14) 
     st.write("<p style='text-align: justify; font-size: 15px'>There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
         when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
-        the game from the beginning")
+        the game from the beginning.</h1>", unsafe_allow_html=True) 
     img13 = Image.open("images/image13.PNG")
     st.image(img13) 
     st.write("<p style='text-align: justify; font-size: 15px'>We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
@@ -190,7 +190,7 @@ elif section == "Data Manipulation & Feature Engineering":
     st.write("<p style='text-align: justify; font-size: 15px'>Feel free to scroll up, down, left, and right")
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
-    st.write("<p style='text-align: justify; font-size: 15px'>Here is the list of all columns from our final dataframe. All of those features were available for our time series models:")
+    st.write("<p style='text-align: justify; font-size: 15px'>Here is the list of all columns from our final dataframe. All of those features were available for our time series models:</h1>", unsafe_allow_html=True)
     df_final = pd.DataFrame(columns=['Features'])
     df_final['Features'] = ['FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 
         'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 
