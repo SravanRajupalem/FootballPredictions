@@ -332,6 +332,8 @@ elif section == "Model Building":
     
     st.header("Model Building")
     
+    st.subheader("Target Variable Preparation")
+    
     st.write("""Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
         we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
@@ -348,6 +350,12 @@ elif section == "Model Building":
         def shift_by_time_period(df, shift_factor, column):
             df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
             return df
+        
+    st.write("""This function was used to determine an injury indicator shifted by the time horizons specified. For example, for the one week horizon, if a player gets injured in week 60 in the data, \
+        the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
+            The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur, rather we \
+                would like to allow managers to prempt injuries and rest or focus on rehab with player for which injuries are predicted in the future.
+                """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
