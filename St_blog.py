@@ -368,9 +368,20 @@ elif section == "Model Building":
                 of games player in certain leagues (i.e. Champions League games of their career).
                 """, unsafe_allow_html=True)
     
-    st.code("""def cummulative_sum(dataset, cum_column, original_column):
+    st.code("""# Creating function to add cummulative columns
+
+def cummulative_sum(dataset, cum_column, original_column):
     dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
-    return dataset""", language='python')
+    return dataset
+    
+    # Creating cummulative variables
+cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 
+    'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 
+    'Loss', 'Draw', 'was_match']
+
+for var in cum_cols:
+    cummulative_sum(dataset, var+'_cum', var)
+    """, language='python')
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
