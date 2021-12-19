@@ -343,19 +343,10 @@ elif section == "Model Building":
             \nThis was done by creating the target variables in the dataset using the function below:
             """)
     with st.echo():
-        # Creating 'injured' column
-        dataset.loc[dataset['Injury'] != '0', 'injured'] = 1
-        dataset.loc[dataset['Injury'] == '0', 'injured'] = 0
         
         def shift_by_time_period(df, shift_factor, column):
             df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
             return df
-
-        dataset = shift_by_time_period(dataset, 1, 'injured')
-        dataset = shift_by_time_period(dataset, 4, 'injured')
-        dataset = shift_by_time_period(dataset, 12, 'injured')
-        dataset = shift_by_time_period(dataset, 26, 'injured')
-        dataset = shift_by_time_period(dataset, 52, 'injured')
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
