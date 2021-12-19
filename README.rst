@@ -10,8 +10,9 @@ The main features of this project are:
 - A high-level API allows data scraping from the FBRef website (https://fbref.com/) to obtain match logs data of signed players from the top 5 European Leagues (Spain, Italy, France, Germani, and England).
 - A high-level API allows data scraping from the TransfMarkt website (https://www.transfermarkt.com/) to obtain all possible players' injury data.
 - Reference Table of mapped IDs from Fbref players and TransferMarkt sites
-- Time series ML models to build injury predictors ...
-
+- Time series ML models to build injury predictors
+- Multiple Visualizations to help the user of all results
+- A set of interactive tools to compare players and generate predictions based on players selected by users
 
 **Important note**
 
@@ -27,6 +28,10 @@ The main features of this project are:
     !pip install beautifulsoup4
     !pip install pyjsparser
     !pip install js2xml
+    !pip install streamlit
+    !pip install pycaret
+    !pip install scklearn
+    
 
 Table of Contents
 ~~~~~~~~~~~~~~~~~
@@ -34,8 +39,8 @@ Table of Contents
  - `Scraping the Web for Data`_
  - `Data Manipulation & Feature Engineering`_
  - `Visual Exploration of Data`_
- - `Blog/Website`_
  - `Model Building`_
+ - `Blog/Website`_
  - `Citing`_
 
 Overview
@@ -97,7 +102,16 @@ First of all, import the following Libraries:
     warnings.filterwarnings("ignore")
     warnings.simplefilter(action='ignore', category=FutureWarning)
     pd.set_option('display.max_columns', None)
-
+    
+    # Machine Learning Models
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score, confusion_matrix,roc_curve, roc_auc_score, precision_score, recall_score,   precision_recall_curve
+    from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, RepeatedStratifiedKFold, StratifiedKFold
+    from sklearn.datasets import make_hastie_10_2
+    from sklearn.ensemble import GradientBoostingClassifier
+    from imblearn.pipeline import make_pipeline as make_pipeline_with_sampler
+    from imblearn.under_sampling import RandomUnderSampler
+    from pycaret.classification import * 
 
 **1. FBREF Extract.ipynb**
 
@@ -209,7 +223,14 @@ but then we exported as csv named **match_logs_list_urls.csv**.
         sys.stdout.write("\r{0} percent".format((count / len(player_all_competitions_filtered_list)*100)))
         sys.stdout.flush()
 
-**2a. FBREF Player Batch 0-5000.ipynb, 2b. FBREF Player Batch 5000-10000.ipynb, ........., 2h. FBREF Player Batch 4000-5192.ipynb** 
+**2a. FBREF Player Batch 0-5000.ipynb** 
+**2b. FBREF Player Batch 5000-10000.ipynb**
+**2c. FBREF Player Batch 10000-15000.ipynb**
+**2d. FBREF Player Batch 15000-20000.ipynb**
+**23. FBREF Player Batch 20000-25000.ipynb**
+**2f. FBREF Player Batch 25000-30000.ipynb**
+**2g. FBREF Player Batch 30000-40000.ipynb**
+**2h. FBREF Player Batch 40000-51196.ipynb** 
 
 It is time to perform the real data scrapping. Here, we are pulling data from the created list, which contains a total of 51,196 URLs. 
 When executing the function below, we are extracting the match logs of all seasons for every single player. In addition, we found that some players 
@@ -305,12 +326,15 @@ This notebook is used to combine all dataframes produced from the batches above.
 
     consolidated_df_final['Date'] = pd.to_datetime(consolidated_df_final['Date'])
 
-**4a. Profile Data Dataframe England.ipynb, 4b.Profile Data Dataframe Italy.ipynb, ...... 4e.Profile Data Dataframe Germany.ipynb**
+**4a. Profile Data Dataframe England.ipynb**
+**4b. Profile Data Dataframe Italy.ipynb**
+**4c. Profile Data Dataframe Spain.ipynb**
+**4d. Profile Data Dataframe France.ipynb**
+**4e. Profile Data Dataframe Germany.ipynb**
 
 In these notebooks, we go back to the FBRef website to obtain players' profile information as well as the FBRefIDs, which are unique IDs assigned 
 by FBRef to each player. Some relevant profile information such as birth date, height, position, and more are considered for the ML models. All 
 notebooks follow the same format. Due to the high computational power needed, those 5 notebooks are executed in parallel.
-
 
 First, we create a function that generates a list of all seasons starting in 2010 from the top 5 leagues. 
 Then we apply this function to one league. In this example, the list will be generated for the English league.
@@ -810,8 +834,91 @@ We do this by applying the groupby function and the cumsum() operator.
     for var in cum_cols:
         cummulative_sum(dataset, var+'_cum', var)
 
+
 Visual Exploration of Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        
+
+Model Building
+~~~~~~~~~~~~~~
+
+Now it is time to start buiding our machine learning models that will be used to generate predcitions. At first, we attempted to use 
+scklearn which provided us results, but we decided to use pycaret since it run faster when we use it as a tool inside our blog. Here, we will
+just show you a few samples of what we did using pycaret.
+
+Please refer to the the following notebooks:
+
+**8. Modelling Without Pycaret.ipynb**
+**8a. One Week Prediction.ipynb**
+**8b. One Month Prediction.ipynb**
+**8c. One Quarter Prediction.ipynb**
+**8d. One Semester Prediction.ipynb**
+**8e. One Year Prediction.ipynb**
+**8f. Interactive Prediction Tool Development.ipynb**
+
+First, we created a variable called "injured_pred", this has been updated throughout all notebooks so we could update the time range for our predictions.
+Additionally, we created to list of simple features and a second list of extended features as we were doing some trial and error using multiple features
+for our models.
+
+Here we will only show what we did for the **8a. One Week Prediction.ipynb** notebook
+
+.. code:: python
+
+    injured_pred = 'injured_in_1_week'
+
+    simple_features = ['Height', 'Weight', 'age','cum_injury_total', 'weeks_since_last_injury', 'Min_cum','Serie A_cum',
+    'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+    'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+
+    extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+    'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+    'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+    'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+    'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+
+We split out dataset to create a train set and test set for our models. This analysis requries a different approach as it is a time series 
+analysis for each player. Hence, the number of weeks each player plays was determined and the first 75% of the player's career in weeks was 
+allocated to the training dataset and the remaining 25% was allocated to the test set.
+
+.. code:: python
+
+    # Get Train Test Split
+    df_train = dataset[dataset['cum_week'] <= dataset["train_split"]].dropna()
+    df_test = dataset[dataset['cum_week'] > dataset["train_split"]].dropna()
+
+    X_train = df_train[extended_features]
+    y_train = df_train[injured_pred]
+
+    X_test = df_test[extended_features]
+    y_test = df_test[injured_pred]
+
+
+The following operation allows to compare multiple models at once. This method is very powerfull since we avoid the need to create models
+individually. We run a range of classification algorithms all with one simple line of code. This produces an output with accuracy, AUC, 
+recall, precision and F1 across all the models for easy comparison.
+
+.. image:: images/image26.PNG
+
+.. code:: python
+
+    # df = pull()
+    # df.to_csv('results_1_year.csv', index=False)
+    df = pull().sort_values(by=['F1'], ascending=False)
+
+
+    # Select best model
+    model = create_model(df.index[0], fold=10)
+    save_model(model, 'model_1_week')
+
+.. image:: images/image27.PNG
+
+.. code:: python
+
+    tuned_model = tune_model(model, optimize = 'F1')
+
+.. image:: images/image28.PNG
+
 
 Blog/Website
 ~~~~~~~~~~~~
@@ -894,45 +1001,15 @@ As you can notice, we are using the altair library to build the visualizations. 
         st.altair_chart(chart1_output, use_container_width=False)
         
         
-
-Model Building
-~~~~~~~~~~~~~~
-
 Citing 
 ~~~~~~
 
-
-The following block of code shows a function that is used to build columns. The generated columns are based on a time constrain.
-The data ranges include: a week, a month(4 weeks), a quarter(12 weeks), half the year(26 weeks), and an entire year(52 weeks).
-The columns that are created/updated are 'injured", 'injury_count', and 'cum_injury'. 
-
-The injured column is similar to the one above, but this is time this column is build around the time range.
-
-.. code:: python
-
-    # Creating target column 'injured_in_one_week' and creating cumulative features
-    
-    def shift_by_time_period(df, shift_factor, column):
-        df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
-        return df
-
-    dataset = shift_by_time_period(dataset, 1, 'injured')
-    dataset = shift_by_time_period(dataset, 4, 'injured')
-    dataset = shift_by_time_period(dataset, 12, 'injured')
-    dataset = shift_by_time_period(dataset, 26, 'injured')
-    dataset = shift_by_time_period(dataset, 52, 'injured')
-
-    dataset = shift_by_time_period(dataset, 1, 'injury_count')
-    dataset = shift_by_time_period(dataset, 4, 'injury_count')
-    dataset = shift_by_time_period(dataset, 12, 'injury_count')
-    dataset = shift_by_time_period(dataset, 26, 'injury_count')
-    dataset = shift_by_time_period(dataset, 52, 'injury_count')
-
-    dataset = shift_by_time_period(dataset, 1, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 4, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 12, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 26, 'cum_injury')
-    dataset = shift_by_time_period(dataset, 52, 'cum_injury'
+- FBref.com. 2021. Football Statistics and History | FBref.com. [online] Available at: <https://fbref.com/en/>
+- Transfermarkt.com. 2021. Football transfers, rumours, market values and news. [online] Available at: <https://www.transfermarkt.com/>
+- Medium. 2021. Beating soccer odds using Machine Learning — Project Walkthrough. [online] Available at: <https://medium.com/analytics-vidhya/beating-soccer-odds-using-machine-learning-project-walkthrough-a1c3445b285a>
+- Kaggle.com. 2021. Comprehensive data exploration with Python. [online] Available at: <https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python>
+- Medium. 2021. Creating Multipage applications using Streamlit (efficiently!). [online] Available at: <https://towardsdatascience.com/creating-multipage-applications-using-streamlit-efficiently-b58a58134030>
 
 
-Next, we develop a new colum to serve a base for the cummulative features that will be added. 
+
+
