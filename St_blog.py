@@ -47,11 +47,14 @@ st.markdown("""
 
 
 if section == "Introduction":
-    imgstadium = Image.open("images/stadium1.png")
-    st.image(imgstadium)
-    st.title("**Anticipate Sooner**")
-    st.title("*Walkthrough to predict when an elite soccer player will get injured.*")
-    st.markdown("***")
+    # imgstadium = Image.open("images/stadium1.png")
+    # st.image(imgstadium)
+    st.video('https://youtu.be/bnq4hXZoCt0')
+
+    st.title("Anticipate Sooner")
+         
+    st.title("Walkthrough to predict when an elite soccer player will get injured.")
+
     st.write("Sravan Rajupalem (sravanr@umich.edu)") 
     st.write("Renzo Maldonado (renzom@umich.edu)")
     st.write("Victor Ruiz (dsvictor@umich.edu)")
