@@ -916,6 +916,7 @@ individually.
 
     tuned_model = tune_model(model, optimize = 'F1')
 
+.. image:: images/image28.PNG
 
 
 Blog/Website
