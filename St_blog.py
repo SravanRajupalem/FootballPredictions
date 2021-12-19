@@ -512,7 +512,8 @@ exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred
         using the set_config() method as we will do now to adjust the algorithms to use our train and test datasets rather than the ones compiled by PyCaret.
             """, unsafe_allow_html=True)
     
-    st.code("""        set_config('X_train', X_train)
+    st.code("""        
+set_config('X_train', X_train)
 set_config('X_test', X_test)
 set_config('y_train', y_train)
 set_config('y_test', y_test)
@@ -523,7 +524,8 @@ set_config('y_test', y_test)
             """, unsafe_allow_html=True)
     
     st.code("""best_model = compare_models()""")
-    
+    img9 = Image.open("images/results_1_week.png")
+    st.image(img9, width = 700)
     
     
 
