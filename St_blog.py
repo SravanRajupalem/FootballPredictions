@@ -698,7 +698,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     df = pd.read_parquet('dataframes_blog/actual_vs_predicted_1_week.parquet')
     
-    fig = px.line(df_plot_final[df_plot_final['cum_week'] > 0], x="cum_week", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
+    fig = px.line(df[df['cum_week'] > 0], x="cum_week", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
     fig.add_shape(go.layout.Shape(type="rect", x0 = 0, y0=0, x1=52, y1=80, opacity=0.2, fillcolor='blue', 
                                   line=dict(color='blue', dash='dash')))
     # fig.update_traces(textposition='top center')
