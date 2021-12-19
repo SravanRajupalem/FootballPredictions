@@ -919,6 +919,8 @@ recall, precision and F1 across all the models for easy comparison.
 
 .. image:: images/image28.PNG
 
+Refer to the complete notebooks to review all of the remaining results.
+
 
 Blog/Website
 ~~~~~~~~~~~~
