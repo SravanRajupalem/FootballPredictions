@@ -656,7 +656,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     
     fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week (%)')
     fig.add_shape(go.layout.Shape(type="rect", x0 = 0, y0=0, x1=500, y1=100, opacity=0.2, fillcolor='blue', 
-                                  line=dict(color='blue', dash='dots')))
+                                  line=dict(color='blue', dash='dash')))
     fig.update_traces(textposition='top center')
     fig.update_layout(title_text='80%')
     st.plotly_chart(fig)
