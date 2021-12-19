@@ -8,6 +8,7 @@ import requests
 import copy
 import dask.dataframe as dd
 import streamlit.components.v1 as components
+import plotly.express as px
 
 imglogo = Image.open("images/logo.png")
 
@@ -539,13 +540,29 @@ set_config('y_test', y_test)
     
     st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light Gradient Boosting Machine was the best performing model in terms of \
         the F1 score. In the next section we will dive deeper into further tuning and evaluating this one week model. Here is a summary of all the algorithms selected for each \
-            of the forecast horizons. 
+            of the forecast horizons.
             """, unsafe_allow_html=True)
     
-    img10 = Image.open("images/Evaluation Metric Selection.jpeg")
-    st.image(img10, width = 700)
+    df = pd.DataFrame(columns=['Horizon', 'Model', 'Accuracy', 'AUC', 'Recall', 'Precision', 'F1', 'Kappa', 'MCC', 'TT (Sec)'])
+    df['Horizon'] = ['1 Week', '1 Month', '1 Quarter', '1 Semester', '1 Year']
+    df['Model'] = ['Light Gradient Boosting Machine', 'Light Gradient Boosting Machine', 'Gradient Boosting Classifier', 'Ada Boost Classifier', 'Ada Boost Classifier']
+    df['Accuracy'] = [0.9708, 0.946, 0.8344, 0.7407, 0.7482]
+    df['AUC'] = [0.8228, 0.7051, 0.6682, 0.6246, 0.6062]
+    df['Recall'] = [0.3684, 0.1647, 0.2907, 0.3896, 0.3527]
+    df['Precision'] = [0.4547, 0.2725, 0.1259, 0.1153, 0.1217]
+    df['F1'] = [0.407, 0.205, 0.1756, 0.1779, 0.181]
+    df['Kappa'] = [0.3922, 0.1788, 0.0994, 0.0752, 0.0721]
+    df['MCC'] = [0.3945, 0.185, 0.1102, 0.095, 0.0865]
+    df['TT (Sec)'] = [23.68, 23.345, 424.82, 105.18, 117.04]
+    
+    df
+    
+    fig = px.scatter(df, x="Recall", y="Precision",
+	         size="AUC", color="Horizon",
+                 hover_name="Model")
+    
+    fig.show()
 
-   
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
