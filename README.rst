@@ -895,7 +895,8 @@ allocated to the training dataset and the remaining 25% was allocated to the tes
 
 
 The following operation allows to compare multiple models at once. This method is very powerfull since we avoid the need to create models
-individually.
+individually. We run a range of classification algorithms all with one simple line of code. This produces an output with accuracy, AUC, 
+recall, precision and F1 across all the models for easy comparison.
 
 .. image:: images/image26.PNG
 
