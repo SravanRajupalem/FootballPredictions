@@ -46,8 +46,8 @@ st.markdown("""
 if section == "Introduction":
     # imgstadium = Image.open("images/stadium1.png")
     # st.image(imgstadium)
-    st.image('https://youtu.be/bnq4hXZoCt0')
-    
+    st.video('https://youtu.be/bnq4hXZoCt0')
+
     st.title("Anticipate Sooner")
          
     st.title("Walkthrough to predict when an elite soccer player will get injured.")
