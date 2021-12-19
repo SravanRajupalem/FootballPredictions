@@ -573,6 +573,16 @@ set_config('y_test', y_test)
                         \n<p style='text-align: justify; font-size: 15px'> In the next section we will dive deeper into further tuning and evaluating the one week model. 
             """, unsafe_allow_html=True)
     
+    st.header('Model Evaluation')
+    st.write("""<p style='text-align: justify; font-size: 15px'>After comparing all algorithms, we selected the model that performed the best in terms of F1 score, which was the \
+        Light Gradient Boosting Machine for the one-week model. We then fit this model with 10 cross validation folds.""", unsafe_allow_html=True)
+    
+    st.code("""model = create_model(df.index[0], fold=10)
+            save_model(model, 'model_1_week')""")
+    
+    img11 = Image.open("images/One Week Model Initial.png")
+    st.image(img11, width = 700)
+    
 
 
 # SECTION: INJURY PREDICTION TOOL
