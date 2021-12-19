@@ -472,12 +472,15 @@ elif section == "Injury Prediction":
     semester = Image.open('images/semester.png')
     st.image(semester, width=800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>The one semester prediction tells us that Neymar will only have 1 injury during the next semester.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>This graph will give us a 1 semester (26 weeks) injury prediction. This is similar \
+        to our visualization above, where Neymar experienced one injury after 7 weeks. Here, Neymar also experienced a single injury, but if we \
+        take a closer look, our prediction tells us that Neymar will get injured in around 15 weeks..</h1>", unsafe_allow_html=True)
     
     year = Image.open('images/year.png')
     st.image(year, width=800)
 
-    st.write("<p style='text-align: justify; font-size: 15px'>Finally, the one year prediction yields that Neymar is going to get injures 3 times in the next year.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 15px'>Finally, the one-year prediction yields that Neymar is going to get injured \
+        3 times in the next year, where the first injury occurs only after a few weeks.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 15px'>Please use our interactive prediction tool which is located two sections down.</h1>", unsafe_allow_html=True)
     
