@@ -457,10 +457,10 @@ for var in cum_cols:
                     'Cumulative games played in UEFA Euro', 'Cumulative games played in Copa América', 'Cumulative games played Away', 'Cumulative games played Home',
                     'Cumulative games played in Neutral venues']
     
-    # df['Features'] = extended_features
-    # df['descriptions'] = descriptions
+    df['Features'] = extended_features
+    df['descriptions'] = descriptions
     
-    st.write(len(extended_features), len(descriptions))
+    df
 
 
 # SECTION: INJURY PREDICTION TOOL
