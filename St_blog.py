@@ -597,7 +597,31 @@ set_config('y_test', y_test)
     
     img12 = Image.open("images/One Week Model Tuned.png")
     st.image(img12, width = 400)
+    st.code("""LGBMClassifier(bagging_fraction=0.8, bagging_freq=0, feature_fraction=0.9,
+               learning_rate=0.15, min_child_samples=100, min_split_gain=0,
+               num_leaves=30, random_state=4936, reg_alpha=10, reg_lambda=2)""")
     
+    st.write("""<p style='text-align: justify; font-size: 15px'>Once we were comfortable with the tuning, we moved on the analyse various elements of the model, starting with observing the F1 score \
+        across the train and test datasets to identify any oversfitting.
+             """, unsafe_allow_html=True) 
+    
+    st.code("""
+from sklearn.metrics import f1_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import precision_score
+
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+print(f1_score(y_test, y_pred, average='macro'))
+print(f1_score(y_train, clf.predict(X_train), average='macro'))
+
+print(recall_score(y_test, y_pred, average='macro'))
+print(recall_score(y_train, clf.predict(X_train), average='macro'))
+
+print(precision_score(y_test, y_pred, average='macro'))
+print(precision_score(y_train, clf.predict(X_train), average='macro'))
+""")  
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
