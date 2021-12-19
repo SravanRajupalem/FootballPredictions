@@ -367,9 +367,11 @@ elif section == "Injury Prediction":
 
     st.write('Our system predicts that Neymar will not get injured during the next week.')
 
-    # month = Image.open('images/month.png')
-    # st.image(month, width = 800)
+    month = Image.open('images/month.png')
+    st.image(month, width = 800)
     
+    st.write('Our system also predicts that Neymar will not get injured during the next month.')
+
     quarter = Image.open('images/quarter.png')
     st.image(quarter, width = 800)
 
@@ -578,10 +580,6 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
     st.write('Please feel free to try out our interactive prediction tool!')
 
     st.write('* (sample dataset used for performance purposes)')
-
-    
-
-
 
 else:
     imgvic = Image.open("images/vic.png")
