@@ -647,6 +647,9 @@ else:
     
     st.subheader("Challenges")
     st.write("")
+    img25 = Image.open("images/image25.png")
+    st.image(imgsoccer)
+    
     st.write("**Data Scrapping**")
     st.write("<p style='text-align: justify; font-size: 15px'>There was a considerable number of roadblocks in data scrapping, and we did not envision the challenges before we \
         proceeded with the harvesting of data. The process of scrapping data from the web was a challenge for most of us because \
