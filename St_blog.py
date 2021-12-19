@@ -434,9 +434,9 @@ for var in cum_cols:
                          'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
                          'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
     
-    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy vaiable of whether the player is a defender (1 if defender)', 
-                    'Dummy vaiable of whether the player is a attacker (1 if attacker)', 'Dummy vaiable of whether the player is a midfielder (1 if midfielder)',
-                    'Dummy vaiable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy vaiable of whether the player is right footed (1 if right footed)',
+    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy variable of whether the player is a defender (1 if defender)', 
+                    'Dummy variable of whether the player is a attacker (1 if attacker)', 'Dummy variable of whether the player is a midfielder (1 if midfielder)',
+                    'Dummy variable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy variable of whether the player is right footed (1 if right footed)',
                     'Age of Player at each data point', 'Total number of injuries till the datapoint for each player', 'Number of weeks since last injury', 
                     'Total number of Minutes played in matches till the datapoint for each player', 'Cumulative Goals scored or allowed', 'Cumulative Completed assists',
                     'Cumulative Penalty kicks made', 'Cumulative Penalty kicks attempted', 'Cumulative Shots (not including penalty kicks)',
@@ -465,7 +465,8 @@ for var in cum_cols:
     
     st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
-            for this analysis we have decided to implement the PyCaret library. [PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.
+            for this analysis we have decided to implement the PyCaret library. \
+            [PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.
                 """, unsafe_allow_html=True)
 
 
