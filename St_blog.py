@@ -699,7 +699,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     df = pd.read_parquet('dataframes_blog/actual_vs_predicted_1_week.parquet')
     df.rename(columns={'cum_week':'Week of Career'}, inplace=True)
     
-    fig = px.line(df[df['cum_week'] > 0], x="Week of Career", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
+    fig = px.line(df[df['Week of Career'] > 0], x="Week of Career", y="Cumulative Injuries", title='Actual vs Predicted Injuries', color='Actual_Predicted_Train_Test')
     st.plotly_chart(fig)
     
     st.write("""<p style='text-align: justify; font-size: 15px'>As expected model consistently under-predicts when compared with the actual injuries for the same time period.
