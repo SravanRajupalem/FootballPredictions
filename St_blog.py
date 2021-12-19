@@ -629,7 +629,7 @@ else:
         gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
         encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
         and supported each other at all times. We all agree that this has been the greatest takeaway from the \
-        course and even the entire program. It was definitely not a simple task to complete .....</h1>", unsafe_allow_html=True)")
+        course and even the entire program. It was definitely not a simple task to complete .....</h1>", unsafe_allow_html=True)
     
     st.subheader("Challenges")
     st.write("")
