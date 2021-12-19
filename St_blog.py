@@ -641,7 +641,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
              """, unsafe_allow_html=True)
     
     img12 = Image.open("images/1 Week Feature Importance.png")
-    st.image(img11, width = 700)
+    st.image(img12, width = 700)
     
 
 # SECTION: INJURY PREDICTION TOOL
