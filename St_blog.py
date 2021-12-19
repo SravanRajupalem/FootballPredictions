@@ -326,6 +326,7 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
+    
     st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
@@ -405,9 +406,7 @@ for var in cum_cols:
     cummulative_sum(dataset, var+'_cum', var)
     """, language='python')
 
-    st.subheader('Classification Algorithms')
-    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
-        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. 
+    st.write("""<p style='text-align: justify; font-size: 15px'>
         \n<p style='text-align: justify; font-size: 15px'>The first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
             capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
                 explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
@@ -424,7 +423,7 @@ for var in cum_cols:
             """)
     
     st.write("""<p style='text-align: justify; font-size: 15px'>We selected a subset of the features in the data which we determined to be have some predictive power based on\
-        trends we observed in the data exploration phase. They are outlined in the table below.
+        trends we observed in the data exploration phase. They are outlined in the table below:
                 """, unsafe_allow_html=True)
     
     df = pd.DataFrame(columns=['Features', 'Description'])
@@ -435,9 +434,9 @@ for var in cum_cols:
                          'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
                          'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
     
-    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy vaiable of whether the player is a defender (1 if defender)', 
-                    'Dummy vaiable of whether the player is a attacker (1 if attacker)', 'Dummy vaiable of whether the player is a midfielder (1 if midfielder)',
-                    'Dummy vaiable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy vaiable of whether the player is right footed (1 if right footed)',
+    descriptions = ['Height of Player in meters', 'Weight of Player in kilograms', 'Dummy variable of whether the player is a defender (1 if defender)', 
+                    'Dummy variable of whether the player is a attacker (1 if attacker)', 'Dummy variable of whether the player is a midfielder (1 if midfielder)',
+                    'Dummy variable of whether the player is a goalkeeper (1 if goalkeeper)', 'Dummy variable of whether the player is right footed (1 if right footed)',
                     'Age of Player at each data point', 'Total number of injuries till the datapoint for each player', 'Number of weeks since last injury', 
                     'Total number of Minutes played in matches till the datapoint for each player', 'Cumulative Goals scored or allowed', 'Cumulative Completed assists',
                     'Cumulative Penalty kicks made', 'Cumulative Penalty kicks attempted', 'Cumulative Shots (not including penalty kicks)',
@@ -461,7 +460,60 @@ for var in cum_cols:
     df['Description'] = descriptions
     
     df
+    
+    st.subheader('Classification Algorithms')
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
+        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
+            for this analysis we have decided to implement the PyCaret library.""", unsafe_allow_html=True) 
+    st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
+    
+    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+                """, unsafe_allow_html=True)
 
+    st.code("""
+injured_pred = 'injured_in_1_week'
+
+extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
+ 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
+ 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum','PKcon_cum', 'Serie A_cum',
+ 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 'UEFA Nations League_cum', 'UEFA Euro_cum',
+ 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum']
+ 
+X_train = df_train[extended_features]
+y_train = df_train[injured_pred]
+
+X_test = df_test[extended_features]
+y_test = df_test[injured_pred]
+            
+exp_clf = setup(dataset[extended_features + [injured_pred]], target=injured_pred, fix_imbalance=True, feature_selection=True, fold=2, fold_strategy='timeseries')      
+            """)
+
+    df = pd.DataFrame(columns=['Description', 'Value'])    
+
+    description = ['session_id',	'Target',	'Target Type',	'Label Encoded',	'Original Data',	'Missing Values',	'Numeric Features',	'Categorical Features',	'Ordinal Features',	'High Cardinality Features',	'High Cardinality Method',	'Transformed Train Set',
+               'Transformed Test Set',	'Shuffle Train-Test',	'Stratify Train-Test',	'Fold Generator',	'Fold Number',	'CPU Jobs',	'Use GPU',	'Log Experiment',	'Experiment Name',	'USI',	'Imputation Type',	'Iterative Imputation Iteration',	'Numeric Imputer',
+               'Iterative Imputation Numeric Model',	'Categorical Imputer',	'Iterative Imputation Categorical Model',	'Unknown Categoricals Handling',	'Normalize',	'Normalize Method',	'Transformation',	'Transformation Method',	'PCA',	'PCA Method',	'PCA Components',	'Ignore Low Variance',
+               'Combine Rare Levels',	'Rare Level Threshold',	'Numeric Binning',	'Remove Outliers',	'Outliers Threshold',	'Remove Multicollinearity',	'Multicollinearity Threshold',	'Remove Perfect Collinearity',	'Clustering',	'Clustering Iteration',	'Polynomial Features',	'Polynomial Degree',	
+               'Trignometry Features',	'Polynomial Threshold',	'Group Features',	'Feature Selection',	'Feature Selection Method',	'Features Selection Threshold',	'Feature Interaction',	'Feature Ratio',	'Interaction Threshold',	'Fix Imbalance',	'Fix Imbalance Method']		
+
+    value = ['4936',	'injured_in_1_week',	'Binary',	'0.0: 0, 1.0: 1',	'(1787492, 59)',	'TRUE',	'53',	'5',	'FALSE',	'FALSE',	'None',	'(1248469, 54)',
+         '(534994, 54)',	'TRUE',	'FALSE',	'TimeSeriesSplit',	'2',	'-1',	'FALSE',	'FALSE',	'clf-default-name',	'00f0',	'simple',	'None',
+         'mean',	'None',	'constant',	'None',	'least_frequent',	'FALSE',	'None',	'FALSE',	'None',	'FALSE',	'None',	'None',
+         'FALSE',	'FALSE',	'None',	'FALSE',	'FALSE',	'None',	'FALSE',	'None',	'TRUE',	'FALSE',	'None',	'FALSE',
+         'None',	'FALSE',	'None',	'FALSE',	'TRUE',	'classic',	'0.8',	'FALSE',	'FALSE',	'None',	'TRUE',	'SMOTE']
+
+    df['Description'] = description
+    df['Value'] = value
+
+    df
+
+    st.write("""<p style='text-align: justify; font-size: 15px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+        such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'.
+                """, unsafe_allow_html=True)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
