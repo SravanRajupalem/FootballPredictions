@@ -899,6 +899,22 @@ individually.
 
 .. image:: images/image26.PNG
 
+.. code:: python
+
+    # df = pull()
+    # df.to_csv('results_1_year.csv', index=False)
+    df = pull().sort_values(by=['F1'], ascending=False)
+
+
+    # Select best model
+    model = create_model(df.index[0], fold=10)
+    save_model(model, 'model_1_week')
+
+.. image:: images/image27.PNG
+
+.. code:: python
+
+    tuned_model = tune_model(model, optimize = 'F1')
 
 
 
