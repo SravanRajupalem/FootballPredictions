@@ -12,27 +12,35 @@ import plotly.express as px
 import plotly.graph_objects as go
 # from streamlit_player import st_player
 
-# imglogo = Image.open("images/logo.png")
 newlogo = Image.open("images/new_logo.png")
 
-# img7 = Image.open("images/ball.png")
-# st.image(img7, width = 700)
-
-# st.sidebar.image(imglogo, use_column_width=True)
-
-
 st.sidebar.image(newlogo)
-
-
-# st.sidebar.image("<p style='text-align: justify; font-size: 16px'>imglogo, unsafe_allow_html=True)
-
-
-# st.sidebar.image(imglogo, width=200)
-
-
 section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
     "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
     "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
+
+st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
+st.markdown("""
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #32AEB3;">
+  <a class="navbar-brand" href="https://github.com/SravanRajupalem/FootballPredictions" target="_blank">GitHub</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.youtube.com/watch?v=cJOSvvdy27I" target="_blank">YouTube</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://twitter.com/peruproductor" target="_blank">Twitter</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+""", unsafe_allow_html=True)
 
 
 if section == "Introduction":
