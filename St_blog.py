@@ -427,7 +427,7 @@ for var in cum_cols:
         trends we observed in the data exploration phase. They are outlined in the table below.
                 """, unsafe_allow_html=True)
     
-    df = pd.DataFrame(['Features', 'Description'])
+    df = pd.DataFrame(columns=['Features', 'Description'])
     
     extended_features = ['Height', 'Weight', 'defender', 'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'age', 'cum_injury_total', 'weeks_since_last_injury', 'Min_cum', 'Gls_cum', 'Ast_cum', 'PK_cum', 'PKatt_cum',
                          'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum',
