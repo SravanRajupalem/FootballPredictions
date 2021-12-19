@@ -537,8 +537,13 @@ set_config('y_test', y_test)
     img10 = Image.open("images/Evaluation Metric Selection.jpeg")
     st.image(img10, width = 700)
     
-    st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light
+    st.write("""<p style='text-align: justify; font-size: 15px'> For the one week model, the Light Gradient Boosting Machine was the best performing model in terms of \
+        the F1 score. In the next section we will dive deeper into further tuning and evaluating this one week model. Here is a summary of all the algorithms selected for each \
+            of the forecast horizons. 
             """, unsafe_allow_html=True)
+    
+    img10 = Image.open("images/Evaluation Metric Selection.jpeg")
+    st.image(img10, width = 700)
 
    
 
