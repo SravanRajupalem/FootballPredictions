@@ -326,7 +326,7 @@ elif section == "Visual Exploration of Data":
     st.image(img22)
     
 elif section == "Model Building":
-    st.image(imglogo, width=250)
+        st.image(imglogo, width=250)
 
     img8 = Image.open("images/footballfire.jpeg")
     st.image(img8, width = 700)
@@ -375,8 +375,8 @@ dataset = shift_by_time_period(dataset, 52, 'cum_injury')
         For example, for the one week horizon, if a player gets injured in week 60 in the data, \
         the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
             The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur. Rather, we \
-                would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.\
-                    \nThe same function was then applied to the count of injuries at each point in time for each player and also the cumulative injuries for each player at each point in time.
+                would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.\n
+                The same function was then applied to the count of injuries at each point in time for each player and also the cumulative injuries for each player at each point in time.
                 <INSERT IMAGE HERE>
                 """, unsafe_allow_html=True)
     
@@ -403,6 +403,24 @@ cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'To
 for var in cum_cols:
     cummulative_sum(dataset, var+'_cum', var)
     """, language='python')
+
+    st.subheader('Classification Algorithms')
+    st.write("""<p style='text-align: justify; font-size: 15px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
+        in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. 
+        \nThe first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
+            capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
+                explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
+                    
+                    \nOnce the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
+                        can be randomly allocated across the dataset, this analysis requries a different approach as it is a time series analysis for each player. Hence, the \
+                            number of weeks each player plays was determined and the first 75% of the player's career in weeks was allocated to the training dataset and the remaining 25% was \
+                                allocated to the test set (as shown below).
+                """, unsafe_allow_html=True)
+    
+    st.code("""
+    df_train = dataset[dataset['cum_week'] <= dataset["train_split"]].dropna()
+    df_test = dataset[dataset['cum_week'] > dataset["train_split"]].dropna()
+            """)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
