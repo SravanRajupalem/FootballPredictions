@@ -9,6 +9,7 @@ import copy
 import dask.dataframe as dd
 import streamlit.components.v1 as components
 import plotly.express as px
+import plotly.graph_objects as go
 
 imglogo = Image.open("images/logo.png")
 
@@ -653,7 +654,8 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
     df['Cumulative Injuries in 1 Week'] = df['injured_in_1_week'].cumsum()
     df['Cumulative Injuries in 1 Week (%)'] = 100*df['Cumulative Injuries in 1 Week']/df['injured_in_1_week'].sum()
     
-    fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week (%)', fill='self', mode='lines')
+    fig = px.scatter(df, x='weeks_since_last_injury', y='Cumulative Injuries in 1 Week (%)')
+    fig.add_shape(go.layout.Shape(type="rect", x0 = 0, y0=1000, x1=500, y1=1000))
     st.plotly_chart(fig)
 
 # SECTION: INJURY PREDICTION TOOL
