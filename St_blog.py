@@ -346,11 +346,29 @@ elif section == "Model Building":
             \nThis was done by creating the target variables in the dataset using the function below:
             """, unsafe_allow_html=True)
     
-    with st.echo():
-        
-        def shift_by_time_period(df, shift_factor, column):
-            df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
-            return df
+    st.code("""# Creating target column 'injured_in_one_week' and creating cumulative features
+def shift_by_time_period(df, shift_factor, column):
+    df[column + '_in_' + str(shift_factor) + '_week'] = df.groupby('FBRefID')[column].shift(shift_factor*-1)
+    return df
+
+dataset = shift_by_time_period(dataset, 1, 'injured')
+dataset = shift_by_time_period(dataset, 4, 'injured')
+dataset = shift_by_time_period(dataset, 12, 'injured')
+dataset = shift_by_time_period(dataset, 26, 'injured')
+dataset = shift_by_time_period(dataset, 52, 'injured')
+
+dataset = shift_by_time_period(dataset, 1, 'injury_count')
+dataset = shift_by_time_period(dataset, 4, 'injury_count')
+dataset = shift_by_time_period(dataset, 12, 'injury_count')
+dataset = shift_by_time_period(dataset, 26, 'injury_count')
+dataset = shift_by_time_period(dataset, 52, 'injury_count')
+
+dataset = shift_by_time_period(dataset, 1, 'cum_injury')
+dataset = shift_by_time_period(dataset, 4, 'cum_injury')
+dataset = shift_by_time_period(dataset, 12, 'cum_injury')
+dataset = shift_by_time_period(dataset, 26, 'cum_injury')
+dataset = shift_by_time_period(dataset, 52, 'cum_injury')
+    """)
         
     st.write("""<p style='text-align: justify; font-size: 15px'>This function was used to determine an injury indicator shifted by the time horizons specified. For example, for the one week horizon, if a player gets injured in week 60 in the data, \
         the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
@@ -374,7 +392,7 @@ def cummulative_sum(dataset, cum_column, original_column):
     dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
     return dataset
     
-    # Creating cummulative variables
+# Creating cummulative variables
 cum_cols = ['Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 
     'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 
     'Loss', 'Draw', 'was_match']
