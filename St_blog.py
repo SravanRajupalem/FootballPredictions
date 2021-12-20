@@ -1212,8 +1212,8 @@ elif section == "Injury Prediction Tool (BETA)":
 
 ###############################################################################################################################
 
-elif section == "Conclusions, Challenges, Ethical Concerns & Future Work" :
-    st.header("Conclusion, Challenges, and Future Work")
+elif section == "Conclusions, Ethics & Future" :
+    st.header("Conclusion, Ethics & Future")
  
     st.subheader("Conclusion")
     st.write("<p style='text-align: justify; font-size: 16px'>In today’s football, players compete more and moreover a single year. Apart from playing more than one \
