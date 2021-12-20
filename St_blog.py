@@ -152,7 +152,7 @@ elif section == "Data Scraping":
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
     st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new \
-        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. Were all these features \
         actually used in our models? Please stay tuned...</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenationL</h1>", unsafe_allow_html=True)
     img5f = Image.open("images/image5f.PNG")
