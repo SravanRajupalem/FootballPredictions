@@ -15,9 +15,9 @@ import plotly.graph_objects as go
 newlogo = Image.open("images/new_logo.png")
 
 st.sidebar.image(newlogo)
-section = st.sidebar.selectbox("Sections", ("Introduction", "Scraping the Web for Data", "Data Manipulation & Feature Engineering", 
-    "Visual Exploration of Data", "Model Building and Evaluation", "Injury Prediction", "Interactive Exploration Tool (BETA)", 
-    "Interactive Injury Prediction Tool (BETA)", "Conclusions, Challenges, and Future Work"))
+section = st.sidebar.selectbox("Sections", ("Introduction", "Data Scraping", "Data Manipulation", 
+    "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
+    "Injury Prediction Tool (BETA)", "Conclusion"))
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
@@ -29,13 +29,16 @@ st.markdown("""
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav"> 
       <li class="nav-item active">
-        <a class="nav-link" href="https://www.youtube.com/watch?v=cJOSvvdy27I" target="_blank">YouTube</a>
+        <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/videos" target="_blank">YouTube</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="https://www.transfermarkt.com" target="_blank">TransferMarkt</a>
+        <a class="nav-link" href="https://transfermarkt.com" target="_blank">TransferMarkt</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="mailto:providemus2021@gmail.com" target="_blank">Contact Us</a>
       </li>
     </ul>
   </div>
@@ -73,12 +76,12 @@ if section == "Introduction":
 
 ###############################################################################################################################
 
-elif section == "Scraping the Web for Data":
+elif section == "Data Scraping":
 
     imgcorner = Image.open("images/corner.jpg")
     st.image(imgcorner)
     
-    st.header('Scraping the Web for Data')
+    st.header('Data Scraping')
     st.write("<p style='text-align: justify; font-size: 16px'>We hunted the web to get the most information we could about soccer \
         players and matches. After scanning several options our runners up due to the completeness of their data \
         were:  fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
@@ -160,12 +163,12 @@ elif section == "Scraping the Web for Data":
 
 ###############################################################################################################################
 
-elif section == "Data Manipulation & Feature Engineering":
+elif section == "Data Manipulation":
 
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
    
-    st.header("Data Manipulation & Feature Engineering")
+    st.header("Data Manipulation")
 
     st.write("<p style='text-align: justify; font-size: 16px'>This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
         and select a subset of input features from the final dataset in order to construct our machine learning tool. We achieved this by merging on the \
@@ -268,12 +271,12 @@ elif section == "Data Manipulation & Feature Engineering":
 
 ###############################################################################################################################
 
-elif section == "Visual Exploration of Data":
+elif section == "Data Exploration":
 
     img7 = Image.open("images/ball.png")
     st.image(img7, width = 700)
     
-    st.header('Visual Exploration of Data')
+    st.header('Data Exploration')
     st.write("<p style='text-align: justify; font-size: 16px'>The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
@@ -360,7 +363,7 @@ elif section == "Visual Exploration of Data":
 
 ###############################################################################################################################
 
-elif section == "Model Building and Evaluation":
+elif section == "Data Modeling":
     
 
     img8 = Image.open("images/footballfire.jpeg")
@@ -873,7 +876,7 @@ elif section == "Injury Prediction":
 
 ###############################################################################################################################
   
-elif section == "Interactive Exploration Tool (BETA)":
+elif section == "Exploration Tool (BETA)":
 
     imgsoccer = Image.open("images/soccer.jpg")
     st.image(imgsoccer, width = 700)
@@ -1052,7 +1055,7 @@ elif section == "Interactive Exploration Tool (BETA)":
 
 ###############################################################################################################################
 
-elif section == "Interactive Injury Prediction Tool (BETA)":
+elif section == "Injury Prediction Tool (BETA)":
     
     imgfield = Image.open("images/fields.jpg")
     st.image(imgfield, width = 700)
