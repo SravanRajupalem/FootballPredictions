@@ -1038,8 +1038,8 @@ elif section == "Exploration Tool (BETA)":
 elif section == "Injury Prediction Tool (BETA)":
     
     st.header("Interactive Injury Prediction Tool (BETA)")
-    st.image(imgfield)
     imgfield = Image.open("images/fields.jpg")
+    st.image(imgfield, use_column_width ="always")
     
     st.write('Please feel free to try out our interactive prediction tool!')
 
