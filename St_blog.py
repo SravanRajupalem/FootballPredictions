@@ -177,7 +177,7 @@ elif section == "Data Manipulation":
         with various methods to find the most successful features. We also needed to avoid adding redundant variables as this could have reduced the \
         generalization capability of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
         plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
-        believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
+        believed that weight could have also been a key feature to keep. However, most soccer players have to go through rigorous training and \
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
         features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or an attacker? \
         At first, we thought of the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
