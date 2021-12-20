@@ -151,7 +151,7 @@ elif section == "Data Scraping":
         A similar scraping process to the one used with the fbref.com website was applied here. First, we scraped the league URLs, then we used these league URLs \
         to scrape the team URLs, and then those team URLs were utilized to find the player URLs. Finally, we employed the player URLs to scrape the injury information\
         for each player. This yielded a dataset of 55,216 rows and 8 columns named player_injuries_df.</h1>", unsafe_allow_html=True)
-    player_injuries_df = pd.read_csv('player_injuries_df.csv')
+    player_injuries_df = pd.read_csv('dataframes_blog/player_injuries_df.csv')
     player_injuries_df
     st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profiles was scraped from transfermarkt.com by using the player URLs.  This \
         process was accomplished employing 3 batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
