@@ -17,7 +17,7 @@ newlogo = Image.open("images/new_logo.png")
 st.sidebar.image(newlogo)
 section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough", "Data Scraping", "Data Manipulation", 
     "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
-    "Injury Prediction Tool (BETA)", "Conclusion", "Statement of Work"))
+    "Injury Prediction Tool (BETA)", "Conclusions, Challenges, Ethical Concerns & Future Work", "Statement of Work"))
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
@@ -1216,7 +1216,7 @@ elif section == "Injury Prediction Tool (BETA)":
 
 ###############################################################################################################################
 
-elif section == "Conclusion" :
+elif section == "Conclusions, Challenges, Ethical Concerns & Future Work" :
     st.header("Conclusion, Challenges, and Future Work")
  
     st.subheader("Conclusion")
@@ -1289,6 +1289,19 @@ elif section == "Conclusion" :
         frustration between our users, so we decided to take a different approach. First, we converted our main data frame from \
         a CSVfile to a parquet file. This significantly reduced the weight of the dataset; nevertheless, the tool barely improve.</h1>", unsafe_allow_html=True)
 
+    st.subheader('Ethical Concerns')
+    
+    st.write("<p style='text-align: justify; font-size: 16px'>Confidentiality of player data is an issue is of the upmost importance. \
+    There may be potential ethical concerns that could arise due to the use of this information. For example, some players \
+    might be aprehensive to share their data because the prediction models might bring unexpected consequences to the development \
+    of their careers.</h1>", unsafe_allow_html=True)
+    
+    st.write("<p style='text-align: justify; font-size: 16px'>Furthermore, there could be issues around data compliance, as the \
+        should not be used for any other purpose other than for prediction of injuries. For example, this data can also be used to \
+            predict market values of players, however, if it is going to be used for that purpose, permission must be \
+                sought from the players and it must be made clear that unique player biometric data is going to be used for more than the scope of \
+                    injury prediction. Moreover, this information should not ever be disclosed in the public domain.</h1>", unsafe_allow_html=True)
+
     st.subheader("Future Work")
     
     st.write("<p style='text-align: justify; font-size: 16px'>We have collected a significant amount of data that contains players’ \
@@ -1303,14 +1316,10 @@ elif section == "Conclusion" :
     to recover, and also have to go through rigorous training. In fact, there are many players that get injured \
     during training. On top of that, they also have to constantly travel which can also contribute to \
     accumulating more fatigue over time. Accessing biometrics and GPS data to evaluate the \
-    rigorous training and collect features that are disregarded in this iteration of the models could improve our predictions in the future. Nevertheless, this \
-    could be a challenge due to confidentiality of data. </h1>", unsafe_allow_html=True)
+    rigorous training and collect features that are disregarded in this iteration of the models could improve our predictions in the future.</h1>", unsafe_allow_html=True)
     
-    st.subheader('Ethical Concerns')
-    This confidentiality issue is of the upmost importance. \
-    There may be potential ethical concerns that could arise due to the use of this information. For example, some players \
-    might be aprehensive to share their data because the prediction models might bring unexpected consequences to the development \
-    of their careers.</h1>", unsafe_allow_html=True)
+
+
     
     
     ###############################################################################################################################
