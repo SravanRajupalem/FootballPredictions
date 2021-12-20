@@ -785,7 +785,7 @@ elif section == "Injury Prediction":
 
     st.header('Injury Prediction')
 
-    st.write("<p style='text-align: justify; font-size: 16px'>As we have mentioned before in our blog, there have been 5 previous stages before being able to do any kind of prediction. \
+    st.write("<p style='text-align: justify; font-size: 16px'>As we have mentioned before, there have been 5 previous stages before being able to do any kind of prediction. \
         Scraping of data from the web, data manipulation, feature engineering, visual exploration of data and model building, all gave \
         us the best models to predict injuries.</h1>", unsafe_allow_html=True)
     
