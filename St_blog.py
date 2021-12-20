@@ -174,7 +174,7 @@ elif section == "Data Manipulation":
         producing a final dataset to train our machine learning models. We achieved this by merging on the \
         intersection of all dataframes using the fbref_to_tm_df reference table on columns FBRefID (FBRef unique IDs) and TMID (TransferMarkt unique IDs) respectively. This phase \
         of the project required unbiased analysis and the evaluation of how each attribute could contribute to our models as well as trial and error to experiment \
-        with various methods to find the most successful features. We needed to also avoid adding redundant variables as this could have reduced the \
+        with various methods to find the most successful features. We also needed to avoid adding redundant variables as this could have reduced the \
         generalization capability of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
         plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
         believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
