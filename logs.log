@@ -440,3 +440,23 @@ Name: injured_in_26_week, Length: 211790, dtype: float64
 2021-12-14 20:51:29,318:INFO:Logistic Regression Imported succesfully
 2021-12-14 20:51:29,356:INFO:Starting cross validation
 2021-12-14 20:51:29,361:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2021-12-19 18:44:24,064:INFO:Initializing load_model()
+2021-12-19 18:44:24,075:INFO:load_model(model_name=model_1_week_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 18:44:24,169:INFO:Initializing load_model()
+2021-12-19 18:44:24,169:INFO:load_model(model_name=model_1_month_final, platform=None, authentication=None, verbose=True)
+2021-12-19 18:44:24,194:INFO:Initializing load_model()
+2021-12-19 18:44:24,194:INFO:load_model(model_name=model_1_quarter_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 18:44:24,382:INFO:Initializing load_model()
+2021-12-19 18:44:24,382:INFO:load_model(model_name=model_1_semester_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 18:44:24,438:INFO:Initializing load_model()
+2021-12-19 18:44:24,439:INFO:load_model(model_name=model_1_year_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 20:10:37,432:INFO:Initializing load_model()
+2021-12-19 20:10:37,454:INFO:load_model(model_name=model_1_week_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 20:10:37,869:INFO:Initializing load_model()
+2021-12-19 20:10:37,870:INFO:load_model(model_name=model_1_month_final, platform=None, authentication=None, verbose=True)
+2021-12-19 20:10:37,917:INFO:Initializing load_model()
+2021-12-19 20:10:37,917:INFO:load_model(model_name=model_1_quarter_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 20:10:38,136:INFO:Initializing load_model()
+2021-12-19 20:10:38,136:INFO:load_model(model_name=model_1_semester_tuned_final, platform=None, authentication=None, verbose=True)
+2021-12-19 20:10:38,205:INFO:Initializing load_model()
+2021-12-19 20:10:38,205:INFO:load_model(model_name=model_1_year_tuned_final, platform=None, authentication=None, verbose=True)
