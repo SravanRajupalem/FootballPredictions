@@ -236,7 +236,7 @@ elif section == "Data Manipulation":
     st.image(img15)
     
     st.write("<p style='text-align: justify; font-size: 16px'>Consequently, we created dummy variables to come up with new features for all competitions available and the venue.</h1>", unsafe_allow_html=True)
-    img16 = Image.open("images/image16.PNG", use_column_width ="always")
+    img16 = Image.open("images/image16.PNG")
     st.image(img16)
     
     img17 = Image.open("images/image17.jpg")
