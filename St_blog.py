@@ -1292,7 +1292,8 @@ elif section == "Conclusions, Challenges, Ethical Concerns & Future Work" :
     st.subheader('Ethical Concerns')
     
     st.write("<p style='text-align: justify; font-size: 16px'>Confidentiality of player data is an issue is of the upmost importance. \
-    There may be potential ethical concerns that could arise due to the use of this information. For example, some players \
+    There may be potential ethical concerns that could arise due to the use of this information especially if we were to expand the scope of the data \
+        to include biometric and GPS data for each player. For example, some players \
     might be aprehensive to share their data because the prediction models might bring unexpected consequences to the development \
     of their careers.</h1>", unsafe_allow_html=True)
     
