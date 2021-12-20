@@ -99,7 +99,7 @@ elif section == "Data Scraping":
     st.write("<p style='text-align: justify; font-size: 16px'>From FBRef we first scraped the URLs from the big 5 European leagues. With that base, we again scraped the website \
         for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
         This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
-        19,572 players found in. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
+        19,572 players found. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
         website, we decided to only pull data for the players whose information was available on both sites.</h1>", unsafe_allow_html=True)   
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
         FBRefID and TMID (TransferMarkt ID), which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) \
@@ -124,7 +124,7 @@ elif section == "Data Scraping":
         the age of a player must be relevant to our predictions.</h1>", unsafe_allow_html=True)
     img5c = Image.open("images/image5c.gif")
     st.image(img5c)
-    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely you are to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
+    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely you are to get injured... Right? Before we spun the wheels, we had to push down on the brakes and head back to \
         the fbref.com website to harvest more data. This process was similar, but in this case, we scraped information on a per-country basis to \
         obtain each player's profile information. This yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
@@ -134,15 +134,15 @@ elif section == "Data Scraping":
     table['Rows'] = [6626,8255,7274,7354,6318]
     table['Columns'] = [15,15,15,15,15]
     table
-    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, they were combined into a single dataframe of all players' profiles, where we ended up with a number \
-        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, they were combined into a single dataframe of all players' profiles, where we ended up with \
+        10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
     st.write("<p style='text-align: justify; font-size: 16px'>The transfermarkt.com website was our source for detailed data about each player's injury history. \
         A similar scraping process to the one used with the fbref.com website was applied here. First, we scraped the league URLs, then we used these league URLs \
         to scrape the team URLs, and then those team URLs were utilized to find the player URLs. Finally, we employed the player URLs to scrape the injury information\
-        for each player. This yielded a dataset of shape (55,216, 8) named player_injuries_df.</h1>", unsafe_allow_html=True)
+        for each player. This yielded a dataset of 55,216 rows and 8 columns named player_injuries_df.</h1>", unsafe_allow_html=True)
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
     player_injuries_df
     st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profiles was scraped from transfermarkt.com by using the player URLs.  This \
@@ -152,9 +152,9 @@ elif section == "Data Scraping":
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
     st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new \
-        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. Were all these features \
         actually used in our models? Please stay tuned...</h1>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenationL</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenation:</h1>", unsafe_allow_html=True)
     img5f = Image.open("images/image5f.PNG")
     st.image(img5f)
     st.write("")
@@ -170,17 +170,17 @@ elif section == "Data Manipulation":
    
     st.header("Data Manipulation")
 
-    st.write("<p style='text-align: justify; font-size: 16px'>This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
-        producing a final dataset to construct our machine learning tools. We achieved this by merging on the \
-        intersection of all dataframes using the fbref_to_tm_df reference table on columns TMId(FBRef unique IDs) and TMID(TransferMarkt unique IDs) respectively. This phase \
+    st.write("<p style='text-align: justify; font-size: 16px'>At this point we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
+        producing a final dataset to train our machine learning models. We achieved this by merging on the \
+        intersection of all dataframes using the fbref_to_tm_df reference table on columns FBRefID (FBRef unique IDs) and TMID (TransferMarkt unique IDs) respectively. This phase \
         of the project required unbiased analysis and the evaluation of how each attribute could contribute to our models as well as trial and error to experiment \
-        with various methods until finding the most successful features. We needed to also avoid adding redundant variables as this could have reduced the \
+        with various methods to find the most successful features. We also needed to avoid adding redundant variables as this could have reduced the \
         generalization capability of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
         plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
-        believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
+        believed that weight could have also been a key feature to keep. However, most soccer players have to go through rigorous training and \
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
         features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or an attacker? \
-        At first, we thought of the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
+        We were not sure. Again, at this stage, we were just learning and discovering trends \
         from our data. Furthermore, we created dummy variables to distinguish the positions of the players. Did the position of the player contribute \
         to our model? We will see!</h1>", unsafe_allow_html=True)
     img5e = Image.open("images/image5e.jpg")
@@ -188,8 +188,8 @@ elif section == "Data Manipulation":
     st.write("")
     st.write("<p style='text-align: justify; font-size: 16px'>Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
         (FBRef profiles), and player_injuries_df (TransferMarkt injuries). We named this new dataframe as player_injuries_profile_final, \
-        which yielded a shape of (159362, 75). However, this dataset changed several times since many steps were taken as we were cleaning and defining \
-        all features. Removing duplicates, dropping NaNs, updating column types, and any other basic operations were applied. Most importantly, we \
+        which yielded a dataframe of 159,362 rows and 75 columns. However, this dataset changed several times since many steps were taken as we were cleaning and defining \
+        all features. Removing duplicates, dropping NaNs, updating column types, and many other basic operations were applied. Most importantly, we \
         aggregated all columns at the week level. In other words, our final dataset contained all players' profile data, match logs, and injuries at the \
         week level. For example, a football player played 2 entire games within a week; then the footballer  played a total of 180 minutes. The same \
         concept arose when a player scored in multiple games within a week; if a player scored a hattrick on Tuesday and a brace on Sunday, then a \
@@ -201,7 +201,7 @@ elif section == "Data Manipulation":
     st.write("<p style='text-align: justify; font-size: 16px'>This is how the dataset looked before we aggregated the dates:</h1>", unsafe_allow_html=True) 
     img14 = Image.open("images/image14.PNG")
     st.image(img14) 
-    st.write("<p style='text-align: justify; font-size: 16px'>There were more new features we developed as we were exploring our new dataset. To name a few more, we constructed new columns to highlight \
+    st.write("<p style='text-align: justify; font-size: 16px'>As we explored the dataset, new features were developed. To name a few more, we constructed new columns to highlight \
         when a player's team wins, loses, or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning.</h1>", unsafe_allow_html=True) 
     img13 = Image.open("images/image13.PNG")
