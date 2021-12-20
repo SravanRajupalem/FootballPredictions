@@ -242,7 +242,7 @@ elif section == "Data Exploration":
     st.write("<p style='text-align: justify; font-size: 16px'>Data exploration helps us understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
-        the next quarter, the next semester, or the next year. These classes had the following proportions:</h1>", unsafe_allow_html=True)
+        the next week, quarter, semester, or the next year. These classes had the following proportions:</h1>", unsafe_allow_html=True)
     img7 = Image.open("images/image7.png")
     st.image(img7)
     st.write("<p style='text-align: justify; font-size: 16px'>We can see that the dominant class is 0: when players are not injured, which makes sense because we don't expect players \
