@@ -566,7 +566,7 @@ set_config('y_test', y_test)
             This will be particularly useful for coaches for week-to-week management of the players. If they wanted to be cautious they could rest both players or if it is very important game \
                 they may choose to take the risk and play both players. 
                 
-                \n<p style='text-align: justify; font-size: 16px'>The overall performance of the models reduce when we try to predict in longer time periods. Intuitively, this is because as the horizon gets longer \
+                \n<p style='text-align: justify; font-size: 16px'>The overall performance of the models reduces when we try to predict in longer time periods. Intuitively, this is because as the horizon gets longer \
                     there are more uncertainties and hence prediction is a more difficult task. There was some overfitting observed in the larger horizon models which was partially reduced by applying cross validation. \
                         In future work, this be further could be reduced by training with more data, removing features that are not predictive in the long-term, early stopping and ensembling.
                         
