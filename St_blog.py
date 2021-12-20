@@ -15,7 +15,7 @@ import plotly.graph_objects as go
 newlogo = Image.open("images/new_logo.png")
 
 st.sidebar.image(newlogo)
-section = st.sidebar.selectbox("Sections", ("Introduction", "Data Scraping", "Data Manipulation", 
+section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough", "Data Scraping", "Data Manipulation", 
     "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
     "Injury Prediction Tool (BETA)", "Conclusion", "Statement of Work"))
 
@@ -74,6 +74,18 @@ if section == "Introduction":
         a week, a month, a quarter, a semester, or a year. This system is meant to be used as a complementary tool for \
         soccer managers in their decisions to play or rest their players.</h1>", unsafe_allow_html=True)
 
+###############################################################################################################################
+
+elif section == "Video Walkthrough"
+    
+    imgstadium = Image.open("images/stadium1.png")
+    st.image(imgstadium)
+    
+    st.title("Video Walkthrough")
+
+    st.write("Please press play and enjoy our video walkthrough to get a bird's-eye view of our whole project!")
+
+    st.video('https://youtu.be/Yv_xuTDFyWI')
 ###############################################################################################################################
 
 elif section == "Data Scraping":
