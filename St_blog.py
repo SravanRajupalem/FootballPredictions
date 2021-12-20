@@ -29,7 +29,7 @@ st.markdown("""
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav"> 
       <li class="nav-item active">
-        <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/videos" target="_blank">YouTube</a>
+        <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/featured" target="_blank">YouTube</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
@@ -1222,7 +1222,7 @@ elif section == "Conclusions, Ethics & Future" :
         countries. It is normal to see footballers get injured from time to time since this sport requires physical \
         demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
         players have to go through rigorous training and do not have much time to rest. Our goal was to create \
-        a machine learning model that could predict when a player will get injured......</h1>", unsafe_allow_html=True)
+        a machine learning model that could predict when a player will get injured.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 16px'>The project has been a great experience for all of us. Not only because we were challenged to come up \
         with a data science project that could be applied to the real world and also learned a great number of \
@@ -1230,7 +1230,7 @@ elif section == "Conclusions, Ethics & Future" :
         gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
         encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
         and supported each other at all times. We all agree that this has been the greatest takeaway from the \
-        course and even the entire program. It was definitely not a simple task to complete .....</h1>", unsafe_allow_html=True)
+        course and even the entire program. It was definitely not a simple task to complete...</h1>", unsafe_allow_html=True)
     
     st.subheader("Challenges")
     st.write("")
@@ -1268,13 +1268,13 @@ elif section == "Conclusions, Ethics & Future" :
         to run scripts that required a great amount of memory usage. The process of setting AWS was lengthy, and although we found guidelines\
         on how to install and integrate AWS into our machines, it was still confusing to deal with it. Once AWS was installed and running, \
         all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
-        decided to avoid employing AWS for the data scrapping..</h1>", unsafe_allow_html=True)
+        decided to avoid employing AWS for the data scrapping.</h1>", unsafe_allow_html=True)
     st.write("")
     st.write("**Time Series Model**")
     st.write("<p style='text-align: justify; font-size: 16px'>Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
         was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
         to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
-        before we prepare the final dataset..</h1>", unsafe_allow_html=True)
+        before we prepare the final dataset.</h1>", unsafe_allow_html=True)
     st.write("")
     st.write("**StreamLit**")
     st.write("<p style='text-align: justify; font-size: 16px'>This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
