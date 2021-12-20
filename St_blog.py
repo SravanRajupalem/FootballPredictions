@@ -55,11 +55,10 @@ if section == "Introduction":
          
     st.title("Walkthrough to predict when an elite soccer player will get injured.")
 
-    st.write("Sravan Rajupalem (sravanr@umich.edu)") 
-    st.write("Renzo Maldonado (renzom@umich.edu)")
-    st.write("Victor Ruiz (dsvictor@umich.edu)")
+    st.markdown('Sravan Rajupalem - sravanr@umich.edu [![Sravan Rajupalem](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/sravan-rajupalem-55b26420/)')
+    st.markdown('Renzo Maldonado - renzom@umich.edu [![Renzo Maldonado](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/renzo-maldonado-05ab4835/)')
+    st.markdown('Victor Ruiz - dsvictor@umich.edu [![Victor Ruiz](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/victor-ruiz-8b2036228/)')
     st.markdown("***")
-
 
     st.write("<p style='text-align: justify; font-size: 16px'>For quite a while, 'Sports Analytics' has been the buzzword \
         in the world of Data Science. Magically using complex\
