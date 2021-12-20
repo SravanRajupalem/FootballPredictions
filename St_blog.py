@@ -91,9 +91,9 @@ elif section == "Data Scraping":
     st.image(img)
     st.image(img2)
     st.image(img3)
-    st.write("<p style='text-align: justify; font-size: 16px'>The first major decision was that we would only get information from the five most competitive soccer leagues in \
+    st.write("<p style='text-align: justify; font-size: 16px'>The first major decision was to only get information from the five most competitive soccer leagues in \
         the world: the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France), and the Serie A (Italy). \
-        We selected the top 5 European leagues because we believed that these leagues would have better player documentation.</h1>", unsafe_allow_html=True)
+        We selected the top 5 European leagues because we believed that these leagues would have more data of players and matches.</h1>", unsafe_allow_html=True)
     img4 = Image.open("images/image4.png")
     st.image(img4)
     st.write("<p style='text-align: justify; font-size: 16px'>From FBRef we first scraped the URLs from the big 5 European leagues. With that base, we again scraped the website \
