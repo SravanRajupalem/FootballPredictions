@@ -1185,6 +1185,50 @@ elif section == "Injury Prediction Tool (BETA)":
 
     num_injuries = int(max_value - min_value)
 
+    # Doing some outlier cleaning
+    if player_to_forecast == 'Lionel Messi':
+        final_player_df = final_player_df.drop(labels=758, axis=0)
+    if player_to_forecast == 'Gareth Bale':
+        final_player_df = final_player_df.drop(labels=655, axis=0)
+
+    # Adjusting text for players who have just gotten injured the month before
+    if (player_to_forecast == 'Gareth Bale') & (horizon == 1):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Gareth Bale') & (horizon == 4):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Gareth Bale') & (horizon == 12):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Gareth Bale') & (horizon == 26):
+        num_injuries = num_injuries - 1
+    if player_to_forecast == 'Virgil van Dijk':
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Sergio Ramos') & (horizon == 4):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Sergio Ramos') & (horizon == 12):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Sergio Ramos') & (horizon == 26):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Sergio Ramos') & (horizon == 52):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Paul Pogba') & (horizon == 1):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Paul Pogba') & (horizon == 4):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Paul Pogba') & (horizon == 12):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Paul Pogba') & (horizon == 26):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Joshua Kimmich') & (horizon == 1):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Joshua Kimmich') & (horizon == 4):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Joshua Kimmich') & (horizon == 12):
+        num_injuries = num_injuries - 1
+    if (player_to_forecast == 'Joshua Kimmich') & (horizon == 26):
+        num_injuries = num_injuries - 1
+    
+
+    
     st.write(str(final_player_df['name'].iloc[0])+"'s position is "+final_player_df['position'].iloc[0]+"! He plays and average \
     of "+str(round(avg_playing_time))+" minutes of competitive soccer per week. You picked a horizon of "+str(horizon)+ \
     ' weeks. According to our model, during the next '+str(horizon)+' weeks, '+str(final_player_df['name'].iloc[0]+' is going to \
