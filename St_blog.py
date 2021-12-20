@@ -139,26 +139,26 @@ elif section == "Data Scraping":
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
-    st.write("<p style='text-align: justify; font-size: 16px'>The transfermarkt.com website was our source for detailed data about each player's injury history. A similar \
-        scraping process to the one used with the fbref.com website was applied here. First scraping the league URLs, then using \
-        these league URLs to scrape the team URLs and then these team URLs to find the player URLs. Finally we used the player URLs \
-        to scrape the injury information for each player. This yielded a DataFrame with shape (55,216, 8) named player_injuries_df.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>The transfermarkt.com website was our source for detailed data about each player's injury history. \
+        A similar scraping process to the one used with the fbref.com website was applied here. First, we scraped the league URLs, then we used these league URLs \
+        to scrape the team URLs, and then those team URLs were utilized to find the player URLs. Finally, we employed the player URLs to scrape the injury information\
+        for each player. This yielded a dataset of shape (55,216, 8) named player_injuries_df.</h1>", unsafe_allow_html=True)
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
     player_injuries_df
-    st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profile was scraped from transfermarkt.com by using the player URLs.  This \
-        process was done in batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profiles was scraped from transfermarkt.com by using the player URLs.  This \
+        process was accomplished employing 3 batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table2 = pd.DataFrame(columns=['DataFrame Name', 'Shape'])
     table2['DataFrame Name'] = ['player_profile_df_1', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
-    st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
-        a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+    st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new \
+        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...</h1>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenation.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenationL</h1>", unsafe_allow_html=True)
     img5f = Image.open("images/image5f.PNG")
     st.image(img5f)
     st.write("")
-    st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
+    st.write("The complete scraping process to harvest the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library")
 
 ###############################################################################################################################
