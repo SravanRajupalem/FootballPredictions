@@ -348,7 +348,7 @@ elif section == "Data Modeling":
             \n- One Semester (6 months)
             \n- One Year (12 months)
             
-            \nThis was done by creating the target variables in the dataset using the function below:
+            \nWe created the target variables in the dataset using the function below:
             """, unsafe_allow_html=True)
     
     st.code("""# Creating target column 'injured_in_one_week' and creating cumulative features
