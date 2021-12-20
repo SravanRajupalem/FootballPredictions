@@ -766,7 +766,7 @@ best_model = compare_models(turbo=False)
             players activities outside of competitive games (i.e. in training). This information is generally not publicly available. 
             
             \nAnother piece of \
-                information that we have not taken into account is biometric data of players. As mentioned in the book, <i>"Why we Sleep"<\i> by Matthew Walker, \
+                information that we have not taken into account is biometric data of players. As mentioned in the book, <i>"Why we Sleep"<i> by Matthew Walker, \
                     the occurence of injuries has been linked to lack of sleep. Other information such as the amount of running a player does on the field \
                         could also be captured via GPS tracking devices. Again, this information is generally not publicly available but club would maintain \
                             databases on their players related to this. If this information can be obtained, the accuracy of the models will be expected to \
