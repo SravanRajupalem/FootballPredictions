@@ -263,7 +263,8 @@ elif section == "Data Exploration":
     img10 = Image.open("images/image10.png")
     st.image(img10)
     st.write("<p style='text-align: justify; font-size: 16px'>Here there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
-        is probably due to the fact that most players weigh in that range.</h1>", unsafe_allow_html=True)
+        is probably due to the fact that we are looking at proffesional players in the most competitive leagues.  Most of them \
+        weigh in that range.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.</h1>", unsafe_allow_html=True)
     img11 = Image.open("images/image11.png")
     st.image(img11)
