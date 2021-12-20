@@ -29,7 +29,7 @@ st.markdown("""
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav"> 
       <li class="nav-item active">
-        <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/videos" target="_blank">YouTube</a>
+        <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/featured" target="_blank">YouTube</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
