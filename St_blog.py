@@ -27,7 +27,7 @@ st.markdown("""
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav"> 
+    <ul class="navbar-nav navbar-left"> 
       <li class="nav-item active">
         <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/featured" target="_blank">YouTube</a>
       </li>
