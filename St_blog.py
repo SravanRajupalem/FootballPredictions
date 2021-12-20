@@ -790,7 +790,7 @@ elif section == "Injury Prediction":
         us the best models to predict injuries.</h1>", unsafe_allow_html=True)
     
     st.write("<p style='text-align: justify; font-size: 16px'>To start our prediction process we broke up the task into prediction horizons. We decided to predict if a player would \
-        get injured during the next week, month, quarter, or year. Our model numbers showed that as our prediction was further away, \
+        get injured during the next week, month, quarter, semester, or year. Our model numbers showed that as our prediction was further away, \
         it was harder to predict with accuracy if a player would get injured.  The best horizon was the week horizon with an F1-score \
         of .41 using the Light Gradient Boosting Machine.</h1>", unsafe_allow_html=True)
 
