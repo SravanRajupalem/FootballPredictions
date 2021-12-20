@@ -285,7 +285,7 @@ elif section == "Data Exploration":
         how players start accumulating injures throughout time, where time is displayed in cumulative weeks. For this example, we are showing a model comparison on \
         3 players with similar attributes. Football fans love to compare Ronaldo and Messi. They both have had an amazing career, have scored many goals, and have broken \
         all the records, and it seems that they will continue to do so for the next few years.  However, Leo has accumulated more injuries than CR7 even though Leo has \
-        played fewer games. We are including Leo and Cristiano for our comparison, and also incorporate Robert Lewandoski since he has become a scoring machine the past \
+        played fewer games. We are including Leo and Cristiano for our comparison, and also incorporate Robert Lewandoski since he has become a 'scoring machine' the past \
         years. It seems that Lewandoski is projected to accumulate fewer injuries than Leo. Why did Lionel Messi accumulate more injuries than Cristiano? Lionel Messi plays \
         the South American qualifiers and Copa America while Cristiano and Lewandoski play the European qualifiers and the Eurocup. Is it because of the competitions? \
         One thing to mention is that Messi is a midfielder while Cristiano and Lewandoski are strikers. May the position of the player influence the likeliness of a player \
@@ -293,11 +293,11 @@ elif section == "Data Exploration":
         help us answer this.</h1>", unsafe_allow_html=True)
     img18 = Image.open("images/image18.PNG")
     st.image(img18)
-    st.subheader("Compare Cummulative Injury History According to Position")
+    st.subheader("Compare Cumulative Injury History According to Position")
     st.write("<p style='text-align: justify; font-size: 16px'>This tool allows you to compare the variation of injuries based on the player's position. We have previously defined 4 different positions for each player, \
         in this tool, you can compare all players' positions at the same time. When we only select the goalkeeper position, we can immediately notice that they \
-        are less likely to get injured compared to other positions. Now, we can strongly say that, in fact, goalkeepers have a much lower chance of getting injured. Furthermore, \
-        you may think that attackers are the ones with the higher risk of getting injured; however, this graph verifies that defenders are the ones that accumulate more injuries.</h1>", unsafe_allow_html=True)
+        are less likely to get injured compared to other positions. Now, we can strongly say that goalkeepers have a much lower chance of getting injured. Furthermore, \
+        you may think that attackers are the ones with a higher risk of getting injured; however, this graph verifies that defenders are the ones that accumulate the most injuries.</h1>", unsafe_allow_html=True)
     img19 = Image.open("images/image19.PNG")
     st.image(img19)
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
