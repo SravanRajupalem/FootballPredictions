@@ -171,7 +171,7 @@ elif section == "Data Manipulation":
     st.header("Data Manipulation")
 
     st.write("<p style='text-align: justify; font-size: 16px'>At this point we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
-        producing a final dataset to construct our machine learning tools. We achieved this by merging on the \
+        producing a final dataset to train our machine learning models. We achieved this by merging on the \
         intersection of all dataframes using the fbref_to_tm_df reference table on columns TMId(FBRef unique IDs) and TMID(TransferMarkt unique IDs) respectively. This phase \
         of the project required unbiased analysis and the evaluation of how each attribute could contribute to our models as well as trial and error to experiment \
         with various methods until finding the most successful features. We needed to also avoid adding redundant variables as this could have reduced the \
