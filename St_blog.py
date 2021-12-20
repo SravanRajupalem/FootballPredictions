@@ -170,48 +170,48 @@ elif section == "Data Manipulation":
    
     st.header("Data Manipulation")
 
-    st.write("<p style='text-align: justify; font-size: 16px'>This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of producing a final dataset where \
-        and select a subset of input features from the final dataset in order to construct our machine learning tool. We achieved this by merging on the \
+    st.write("<p style='text-align: justify; font-size: 16px'>This is the time when we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
+        producing a final dataset to construct our machine learning tools. We achieved this by merging on the \
         intersection of all dataframes using the fbref_to_tm_df reference table on columns TMId(FBRef unique IDs) and TMID(TransferMarkt unique IDs) respectively. This phase \
-        of the project required unbiased analysis or evaluation of how each attribute could contribute to our models as well as trial and error to experiment \
+        of the project required unbiased analysis and the evaluation of how each attribute could contribute to our models as well as trial and error to experiment \
         with various methods until finding the most successful features. We needed to also avoid adding redundant variables as this could have reduced the \
         generalization capability of the model and decreased the overall accuracy. Attributes such as a player's number of minutes played could imply that the more a player \
         plays, the more likely a player is to get injured. Thus, we concluded that this feature had to be included. On the other hand, we first \
         believed that weight could have also been a key feature to maintain. However, most soccer players have to go through rigorous training and \
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
         features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or an attacker? \
-        At first, we thought the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
-        from our data. Furthermore, we created dummy variables to distinguish the positions of the players. So did the position of the player contribute \
+        At first, we thought of the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
+        from our data. Furthermore, we created dummy variables to distinguish the positions of the players. Did the position of the player contribute \
         to our model? We will see!</h1>", unsafe_allow_html=True)
     img5e = Image.open("images/image5e.jpg")
     st.image(img5e, use_column_width ="always") 
     st.write("")
     st.write("<p style='text-align: justify; font-size: 16px'>Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
-        (FBRef profiles), player_injuries_df (TransferMarkt injuries), and the players_info_df. We named this new dataframe as player_injuries_profile_final, \
-        which yielded a shape of (159362, 75). However, this dataset changed too many times since several steps were taken as we were clean and defining \
-        all features. Removing duplicates, dropping NaNs, updating the column types, and any other basic operations were applied. Most importantly, we \
+        (FBRef profiles), and player_injuries_df (TransferMarkt injuries). We named this new dataframe as player_injuries_profile_final, \
+        which yielded a shape of (159362, 75). However, this dataset changed several times since many steps were taken as we were cleaning and defining \
+        all features. Removing duplicates, dropping NaNs, updating column types, and any other basic operations were applied. Most importantly, we \
         aggregated all columns at the week level. In other words, our final dataset contained all players' profile data, match logs, and injuries at the \
-        week level. For example, a football player played 2 entire games within a week; then the soccer player played a total of 180 minutes. The same \
-        concept arised when a player scored in multiple games within a week; if a player scored a hattrick on Tuesday and then a brace on Sunday, then a \
+        week level. For example, a football player played 2 entire games within a week; then the footballer  played a total of 180 minutes. The same \
+        concept arose when a player scored in multiple games within a week; if a player scored a hattrick on Tuesday and a brace on Sunday, then a \
         single instance(row) of the data showed that this player had 5 goals. This step aggregated all column values with the groupby function and the sum() \
         operator. This was a critical step for our time series models. Likewise, we added the weeks when players did not play and filled those with 0s. \
-        That is to say, if a player didn't play a certain week, then we added a row and populate all the date columns accordingly and the remaining columns \
-        were filled with 0s. Additionally, we created new columns of the week and year a player gets injured as well as the week the player is released.</h1>", unsafe_allow_html=True)
+        That is to say, if a player didn't play a certain week, then we added a row and populated all date columns accordingly and the remaining columns \
+        were loaded with 0s. Additionally, we created new columns to include the week and year a player gets injured as well as the week the player is released.</h1>", unsafe_allow_html=True)
     st.write("")
     st.write("<p style='text-align: justify; font-size: 16px'>This is how the dataset looked before we aggregated the dates:</h1>", unsafe_allow_html=True) 
     img14 = Image.open("images/image14.PNG")
     st.image(img14) 
-    st.write("<p style='text-align: justify; font-size: 16px'>There are more new features we begun to develop as we explored our new dataset. To name a few more, we constructed new columns to highlight \
-        when player's team wins, loses or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
+    st.write("<p style='text-align: justify; font-size: 16px'>There were more new features we developed as we were exploring our new dataset. To name a few more, we constructed new columns to highlight \
+        when a player's team wins, loses, or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning.</h1>", unsafe_allow_html=True) 
     img13 = Image.open("images/image13.PNG")
     st.image(img13) 
     st.write("<p style='text-align: justify; font-size: 16px'>We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
-        during major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
-        the player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't too great \
+        to play for major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
+        the player's national team, but we are not interested in that. We are more interested to comprehend how during a period of time players weren't performing at their best \
         at their respective clubs, but they were outstanding in their national teams. With this being said, are players more prone to get injured if they perform better? \
         Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
-        of a game could also have an influence on players' performance and may boost the likeliness to get injured.</h1>", unsafe_allow_html=True)
+        of a game could also have an influence on players' performance and may even boost the likeliness to get injured.</h1>", unsafe_allow_html=True)
     img15 = Image.open("images/image15.PNG")
     st.image(img15)
     
@@ -221,9 +221,9 @@ elif section == "Data Manipulation":
     
     img17 = Image.open("images/image17.jpg")
     st.image(img17)
-    st.write("<p style='text-align: justify; font-size: 16px'>After all the data manipulation and feature engineering, we produced a new dataset we named complete_final_df_all with a 1,910,255 rows and 169 \
-        columns for a total of 4,588 players. We are now ready to start building our data models, but first let's take a look at the dataset. Here we \
-        want to show a subset of one of Cristiano Ronaldo's best seasons during the time he lead Real Madrid to win 'La Decima' where he broke an all time \
+    st.write("<p style='text-align: justify; font-size: 16px'>After all the data manipulation process and feature engineering, we produced a new dataset we named complete_final_df_all with. It consisted of 1,910,255 rows and 169 \
+        columns for a total of 4,588 players. We were then ready to start building our data models, but first, let's take a look at the dataset. Here we \
+        want to show you a subset of one of Cristiano Ronaldo's best seasons during the time he lead Real Madrid to win 'La Decima' where he broke an all-time \
         record and scored 17 goals in a single season for the Champions League.</h1>", unsafe_allow_html=True) 
     st.write("<p style='text-align: justify; font-size: 16px'>Feel free to scroll up, down, left, and right")
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
