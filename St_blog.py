@@ -257,7 +257,7 @@ elif section == "Data Exploration":
 
     st.header('Data Exploration')
     img7 = Image.open("images/ball.png")
-    st.image(img7, width = 700)
+    st.image(img7, use_column_width ="always")
     
     st.write("<p style='text-align: justify; font-size: 16px'>Data exploration helps us understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
