@@ -833,7 +833,7 @@ elif section == "Injury Prediction":
     # st.image(month, width = 800)
     
     quarter = Image.open('images/quarter.png')
-    st.image(quarter, , use_column_width ="always")
+    st.image(quarter, use_column_width ="always")
 
     st.write("<p style='text-align: justify; font-size: 16px'>This visualization is making a quarter prediction(12 weeks). We can already see \
         that the orange line is not straight anymore when comparing it to the previous graph. The quarter window injury prediction is informing \
