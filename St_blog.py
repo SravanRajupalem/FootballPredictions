@@ -318,7 +318,7 @@ elif section == "Data Exploration":
     st.image(img21)
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
     st.write("<p style='text-align: justify; font-size: 16px'>Last, this is a comparison of a single player's injuries history against the average injuries of all players. The x-axis represents the cumulative minutes \
-        of all games played, and on the y-axis, the graph displays the cumulative injuries through time. Again, we chose Robert Lewandoski to be the player to be compared. As \
+        of all games played, and on the y-axis, the graph displays the cumulative injuries through time. Again, we chose Robert Lewandoski. As \
 		shown on this graph, as he started to accumulate minutes at the beginning of his career, he wouldn't get as many injuries as the average football player. Once he \
 		reaches over 40,000 minutes, he overtakes this average and starts to accumulate more injuries than the average player.</h1>", unsafe_allow_html=True)
     img22 = Image.open("images/image22.PNG")
