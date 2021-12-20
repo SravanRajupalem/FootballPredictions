@@ -239,7 +239,7 @@ elif section == "Data Exploration":
     st.image(img7, width = 700)
     
     st.header('Data Exploration')
-    st.write("<p style='text-align: justify; font-size: 16px'>The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
+    st.write("<p style='text-align: justify; font-size: 16px'>Data exploration helps us understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
         the next quarter, the next semester, or the next year. These classes had the following proportions:</h1>", unsafe_allow_html=True)
