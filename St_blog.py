@@ -61,17 +61,17 @@ if section == "Introduction":
     st.markdown("***")
 
 
-    st.write("<p style='text-align: justify; font-size: 16px'>For quite a while, 'Sports Analytics' has been the buzz-word \
+    st.write("<p style='text-align: justify; font-size: 16px'>For quite a while, 'Sports Analytics' has been the buzzword \
         in the world of Data Science. Magically using complex\
-        algorithms, machine learning models and neural networks to predict sports results and players' performance attract the interest \
+        algorithms, and machine learning models to predict sports results and players' performance attract the interest \
         of people for different reasons. Soccer is probably one of the most unpredictable sports out there. In the hope of aiding soccer \
-        managers' decisions, we decided to apply Data Science tools to predict how likely a player was to have an injury within a \
+        managers' decisions, we decided to apply Data Science tools to predict how likely a player is to have an injury within a \
         certain time frame.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 16px'>Presenting Providemus, a tool to predict when a player will get injured. \
         By using data from the most reliable international soccer sources, our data scientists have been able to train machine learning \
-        models to predict with considerable accuracy when will a player get injured. The time frame the tool has are if a player will get injured \
-        during the next week, month, quarter, semester or year. This system is meant to be used as a complementary tool for \
+        models to predict with considerable accuracy when a player will get injured. The time frame the tool has is if a player will get injured \
+        during the next week, month, quarter, semester, or year. This system is meant to be used as a complementary tool for \
         soccer managers in their decisions to play or rest their players.</h1>", unsafe_allow_html=True)
 
 ###############################################################################################################################
@@ -83,7 +83,7 @@ elif section == "Data Scraping":
     
     st.header('Data Scraping')
     st.write("<p style='text-align: justify; font-size: 16px'>We hunted the web to get the most information we could about soccer \
-        players and matches. After scanning several options our runners up due to the completeness of their data \
+        players and matches. After scanning several options our runners due to the completeness of their data \
         were:  fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
     img = Image.open("images/image1.png")
     img2 = Image.open("images/image2.png")
@@ -92,14 +92,14 @@ elif section == "Data Scraping":
     st.image(img2)
     st.image(img3)
     st.write("<p style='text-align: justify; font-size: 16px'>The first major decision was that we would only get information from the five most competitive soccer leagues in \
-        the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France) and the Serie A (Italy). \
-        The reason for this decision was that we thought that these leagues would have better player documentation.</h1>", unsafe_allow_html=True)
+        the world: the world: Premier League (England), La Liga (Spain), Bundesliga (Germany), Ligue 1 (France), and the Serie A (Italy). \
+        We selected the top 5 European leagues because we believed that these leagues would have better player documentation.</h1>", unsafe_allow_html=True)
     img4 = Image.open("images/image4.png")
     st.image(img4)
-    st.write("<p style='text-align: justify; font-size: 16px'>From FBRef we first scraped urls from the big 5 European leagues. With that base, we again scraped the website \
-        for all the seasons for each league. Then we scraped the players' urls from each of all available seasons of the top 5. \
-        This operation yielded a list of 78,959 unique records. Those embedded urls contained an identifier (FBRefID) for each of the \
-        19,572 players from this fbref.com. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
+    st.write("<p style='text-align: justify; font-size: 16px'>From FBRef we first scraped the URLs from the big 5 European leagues. With that base, we again scraped the website \
+        for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
+        This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
+        19,572 players found in. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
         website, we decided to only pull data for the players whose information was available on both sites.</h1>", unsafe_allow_html=True)   
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
         FBRefID and TMID (TransferMarkt ID), which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) \
@@ -110,22 +110,22 @@ elif section == "Data Scraping":
     img5 = Image.open("images/image5.png")
     st.image(img5)
     st.write("<p style='text-align: justify; font-size: 16px'>This effort helped us reduce a significant amount of memory usage when performing the data scrapping given that only 5,192 \
-        players had attainable data from both sites. Now we can execute another pull, but this time we obtained a list of 51,196 the complete \
-        match logs urls of all the consolidated players.</h1>", unsafe_allow_html=True)
+        players had attainable data from both sites. We executed another pull and obtained a list of 51,196 complete \
+        match logs URLs of all the consolidated players.</h1>", unsafe_allow_html=True)
     img5a = Image.open("images/image5a.PNG")
     st.image(img5a)
-    st.write("<p style='text-align: justify; font-size: 16px'>This is where the real data scraping of the players' match logs begun. The extraction of all players matches required high \
-        computation; thus, our team divided the data extraction in multiple batches, where we extracted the match logs from each batch individually. \
+    st.write("<p style='text-align: justify; font-size: 16px'>This is where the real data scraping of the players' match logs began. The extraction of all players' matches required high \
+        computation; thus, our team divided the data extraction into multiple batches, where we extracted the match logs from each batch individually. \
         In the end, all these datasets were concatenated into a final dataframe we named consolidated_df_final.</h1>", unsafe_allow_html=True)
     img5b = Image.open("images/image5b.PNG")
     st.image(img5b)
-    st.write("<p style='text-align: justify; font-size: 16px'>As we started building our main dataset, we begun to understand more of the potential features that were going to be included in \
-        our Machine Learning models. We quickly realized that players' profile data was critical to generate predictions. Attributes such as \
+    st.write("<p style='text-align: justify; font-size: 16px'>As we started building our main dataset, we began to understand more of the potential features that were going to be included in \
+        our Machine Learning models. We quickly realized that players' profile data was critical in order to generate predictions. Attributes such as \
         the age of a player must be relevant to our predictions.</h1>", unsafe_allow_html=True)
     img5c = Image.open("images/image5c.gif")
     st.image(img5c)
-    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
-        the fbref.com website to harvest more data. This process was similar, but in this case we scraped information on a per country basis to \
+    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely you are to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
+        the fbref.com website to harvest more data. This process was similar, but in this case, we scraped information on a per-country basis to \
         obtain each player's profile information. This yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
     table['Country'] = ['England', 'Italy', 'Spain', 'France', 'Germany']
@@ -134,31 +134,31 @@ elif section == "Data Scraping":
     table['Rows'] = [6626,8255,7274,7354,6318]
     table['Columns'] = [15,15,15,15,15]
     table
-    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, those are combined into a single dataframe of all players' profiles, where we end up with a number \
+    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, they were combined into a single dataframe of all players' profiles, where we ended up with a number \
         of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
-    st.write("<p style='text-align: justify; font-size: 16px'>The transfermarkt.com website was our source for detailed data about each player's injury history. A similar \
-        scraping process to the one used with the fbref.com website was applied here. First scraping the league urls, then using \
-        these league urls to scrape the team urls and then these team urls to find the player urls. Finally we used the player urls \
-        to scrape the injury information for each player. This yielded a DataFrame with shape (55,216, 8) named player_injuries_df.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>The transfermarkt.com website was our source for detailed data about each player's injury history. \
+        A similar scraping process to the one used with the fbref.com website was applied here. First, we scraped the league URLs, then we used these league URLs \
+        to scrape the team URLs, and then those team URLs were utilized to find the player URLs. Finally, we employed the player URLs to scrape the injury information\
+        for each player. This yielded a dataset of shape (55,216, 8) named player_injuries_df.</h1>", unsafe_allow_html=True)
     player_injuries_df = pd.read_csv('player_injuries_df.csv')
     player_injuries_df
-    st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profile was scraped from transfermarkt.com by using the player urls.  This \
-        process was done in batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Additional information about the players' profiles was scraped from transfermarkt.com by using the player URLs.  This \
+        process was accomplished employing 3 batches of 4,000 records and it yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table2 = pd.DataFrame(columns=['DataFrame Name', 'Shape'])
     table2['DataFrame Name'] = ['player_profile_df_1', 'player_profile_df_2', 'player_profile_df_3']
     table2['Shape'] = ['(4000, 41)', '(4000, 41)', '(4000, 41)']
     table2
-    st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new attributes such the date \
-        a player joinned a club, the date they retired, and other features we believed could be useful. However, were any of those features \
+    st.write("<p style='text-align: justify; font-size: 16px'>This dataset contained additional information that the FBRef site did not provide. Here we found new \
+        attributes such as the date a player joined a club, the date they retired, and other features we believed could be useful. However, were any of those features \
         actually used in our models? Please stay tuned...</h1>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenation.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Here is the new tm_profile_df dataset after the concatenationL</h1>", unsafe_allow_html=True)
     img5f = Image.open("images/image5f.PNG")
     st.image(img5f)
     st.write("")
-    st.write("The complete scraping process to get the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
+    st.write("The complete scraping process to harvest the data was done using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) \
         Python library")
 
 ###############################################################################################################################
