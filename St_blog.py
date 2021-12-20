@@ -249,7 +249,7 @@ elif section == "Data Exploration":
         to be injured more time than they are not injured. So our data is unbalanced which had to be taken into account when we \
         modeling.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We did some additional explorations to see if the data made 'sense'.  We wanted to observe the relationship between minutes \
-        played and the age of players.</h1>", unsafe_allow_html=True)
+        played and the age of players and the positions they played in.</h1>", unsafe_allow_html=True)
     img8 = Image.open("images/image8.png")
     st.image(img8)
     st.write("<p style='text-align: justify; font-size: 16px'>In this case, it's interesting to see that there seems to be an 'optimal' age where players tend to play more minutes. \
