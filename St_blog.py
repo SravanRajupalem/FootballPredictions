@@ -1103,7 +1103,7 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
         df.loc[df['goalkeeper'] == 1, 'position'] = 'goalkeeper'
         df.loc[df['midfielder'] == 1, 'position'] = 'midfielder'
 
-        df = df[['FBRefID', 'name', 'date', 'cum_week', 'position', 'Min_cum', 'cum_injury_prediction_in_'+str(weeks)+'_week', 'type_for_'+str(weeks)]]
+        df = df[['FBRefID', 'name', 'date', 'cum_week', 'position', 'Min', 'cum_injury_prediction_in_'+str(weeks)+'_week', 'type_for_'+str(weeks)]]
         
         df.loc[df['cum_injury_prediction_in_'+str(weeks)+'_week'] == '', 'cum_injury_prediction_in_'+str(weeks)+'_week'] = None
         df['cum_injury_prediction_in_'+str(weeks)+'_week'] = df['cum_injury_prediction_in_'+str(weeks)+'_week'].ffill()
@@ -1163,7 +1163,7 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
     horizons = ['1 week', '1 month', '1 quarter', '1 semester', '1 year']
     player_horizon = st.selectbox('Please select player horizon:',horizons)
 
-    st.write(str(final_player_df['name'].iloc[0])+"'s position is "+final_player_df['position'].iloc[0]+"!")
+    avg_playing_time = final_player_df['Min'].mean()
 
     if player_horizon == '1 week':
         horizon = 1
@@ -1175,6 +1175,17 @@ elif section == "Interactive Injury Prediction Tool (BETA)":
         horizon = 26
     else:
         horizon = 52
+
+    df_injuries = final_player_df[final_player_df['horizon'] == horizon]
+    min_value = df_injuries[df_injuries['label'] == 'Actual Injuries'][-2:]['predicted_cum_injuries'].iloc[0]
+    max_value = df_injuries[df_injuries['label'] == 'Predicted Injuries'][-2:]['predicted_cum_injuries'].iloc[0]
+
+    num_injuries = int(max_value - min_value)
+
+    st.write(str(final_player_df['name'].iloc[0])+"'s position is "+final_player_df['position'].iloc[0]+"! He plays and average \
+    of "+str(round(avg_playing_time))+" minutes of competitive soccer per week. You picked a horizon of "+str(horizon)+ \
+    ' weeks. According to our model, during the next '+str(horizon)+' weeks, '+str(final_player_df['name'].iloc[0]+' is going to \
+    get '+str(num_injuries)+' injuries.'))
 
     chart_output = copy.deepcopy(plot_it(horizon, final_player_df))    
     st.altair_chart(chart_output, use_container_width=False)
