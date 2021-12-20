@@ -379,7 +379,7 @@ dataset = shift_by_time_period(dataset, 52, 'cum_injury')
         For example, for the one-week horizon, if a player gets injured in week 60 in the data, \
         the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one-week horizon model using the range of the features specified in the previous section.\
             The reason this approach is taken is that this model is designed to be an anticipatory tool, hence there will be no value in predicting the exact instance when an injury will occur. Rather, we \
-                would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.\
+                would like managers to make informed decisions about their players by perhaps resting or focusing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.\
                     The same function was then applied to the count of injuries at each point in time for each player and also the cumulative injuries for each player at each point in time.
                 """, unsafe_allow_html=True)
     
