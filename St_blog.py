@@ -17,7 +17,7 @@ newlogo = Image.open("images/new_logo.png")
 st.sidebar.image(newlogo)
 section = st.sidebar.selectbox("Sections", ("Introduction", "Data Scraping", "Data Manipulation", 
     "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
-    "Injury Prediction Tool (BETA)", "Conclusion"))
+    "Injury Prediction Tool (BETA)", "Conclusion", "Statement of Work"))
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
@@ -1204,7 +1204,7 @@ elif section == "Injury Prediction Tool (BETA)":
 
 ###############################################################################################################################
 
-else:
+elif section == "Conclusion" :
     st.header("Conclusion, Challenges, and Future Work")
  
     st.subheader("Conclusion")
@@ -1295,8 +1295,38 @@ else:
     was not possible due to the confidentiality of data and the time that it may take to incorporate new \
     information. In addition, accessing the number of hours players rest before and after may be challenging \
     to obtain and even raise some ethical issues.</h1>", unsafe_allow_html=True)
+    
+    
+    ###############################################################################################################################
+    
+else:
+    
+    # st.header("Statement of Work and Citations")
+ 
+    st.subheader("Statement of Work")
 
-   
+    st.write("<p style='text-align: justify; font-size: 16px'>The members of this project were separated by 15 hours due to their locations \
+        (Australia, North America, South America). To complete this project each team member was assigned an iteration of every step. This way \
+        all team members participated in every step of the way and contributed to the whole process being aware of the steps taken in each iteration.\
+        All team members participated and presented in every single stand-up as well as all weekly status updates. The project blog/website was \
+        designed and proofread by all team participants. Collaboration was achieved with Visual Studio Code via Jupyter notebooks. \
+        In addition, the presentation and project overview video were previously discussed and produced among team members. For communication \
+        purposes, text messaging and conference calls were employed via personal cellphone and Zoom video calls with screen sharing.</h1>", unsafe_allow_html=True)
 
-
+    st.write("<p style='text-align: justify; font-size: 16px'>The project has been a fantastic experience for all of us. Not only because we\
+        were challenged to come up with a data science project that could be applied to the real world and also learned a great number of new\
+        tools, we previously did not have any knowledge about. Most importantly, this capstone allowed all of us to work with one another as\
+        data scientists. We all faced many challenges, encountered multiple roadblocks, stayed up long hours, but we also discovered new\
+        capabilities together and supported each other at all times. We all agree that this has been the greatest takeaway from the\
+        course and the entire MADS program. It was not a simple task to complete, but we can now say that the reward is greater\
+        than the sacrifice.</h1>", unsafe_allow_html=True)
+    
+    st.write("*Sravan Rajupalem, Renzo Maldonado, Victor Ruiz*")
+    
+    st.subheader("Citations")
      
+    st.write("FBref.com. 2021. Football Statistics and History | FBref.com. [online] Available at: <https://fbref.com/en/>")
+    st.write("Transfermarkt.com. 2021. Football transfers, rumours, market values and news. [online] Available at: <https://www.transfermarkt.com/>")
+    st.write("Medium. 2021. Beating soccer odds using Machine Learning — Project Walkthrough. [online] Available at: <https://medium.com/analytics-vidhya/beating-soccer-odds-using-machine-learning-project-walkthrough-a1c3445b285a>")
+    st.write("Kaggle.com. 2021. Comprehensive data exploration with Python. [online] Available at: <https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python>")
+    st.write("Medium. 2021. Creating Multipage applications using Streamlit (efficiently!). [online] Available at: <https://towardsdatascience.com/creating-multipage-applications-using-streamlit-efficiently-b58a58134030>")
