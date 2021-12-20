@@ -188,7 +188,7 @@ elif section == "Data Manipulation":
     st.write("")
     st.write("<p style='text-align: justify; font-size: 16px'>Before defining our features, we first merged all of our datasets: consolidated_df_final (FBRef match logs), players_info_df \
         (FBRef profiles), and player_injuries_df (TransferMarkt injuries). We named this new dataframe as player_injuries_profile_final, \
-        which yielded a shape of (159362, 75). However, this dataset changed several times since many steps were taken as we were cleaning and defining \
+        which yielded a dataframe of 159,362 rows and 75 columns. However, this dataset changed several times since many steps were taken as we were cleaning and defining \
         all features. Removing duplicates, dropping NaNs, updating column types, and any other basic operations were applied. Most importantly, we \
         aggregated all columns at the week level. In other words, our final dataset contained all players' profile data, match logs, and injuries at the \
         week level. For example, a football player played 2 entire games within a week; then the footballer  played a total of 180 minutes. The same \
