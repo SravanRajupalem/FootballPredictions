@@ -337,7 +337,7 @@ elif section == "Data Modeling":
     st.subheader("Target Variable Preparation")
     
     st.write("""<p style='text-align: justify; font-size: 16px'>Now we are into the model building phase of the project. The first thing we need to do is to specify the target variables. In this case, \
-        we are looking at historic data of players to see when injuries occured and try to use that information to anticipate when injuries are likely to happen in the future.\
+        we are looking at historic data of players to see when injuries occurred and try to use that information to anticipate when injuries are likely to happen in the future.\
             This was done by creating the target variable, whether a player got injured or not, using five different time periods:
             \n- One Week
             \n- One Month
@@ -373,9 +373,9 @@ dataset = shift_by_time_period(dataset, 52, 'cum_injury')
     """)
         
     st.write("""<p style='text-align: justify; font-size: 16px'>This function was used to determine an injury indicator shifted by the time horizons specified (note that 'FBRefID' was used as the unique player identifier).\
-        For example, for the one week horizon, if a player gets injured in week 60 in the data, \
-        the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one week horizon model using the range of the features specified in the previous section.\
-            The reason this approach is taken is because this model is designed to be anticipatory tool, hence there will be no value in predicting the exact instance when injury will occur. Rather, we \
+        For example, for the one-week horizon, if a player gets injured in week 60 in the data, \
+        the "injured_in_one_week" column will show 1 in week 59. This can then be used as the target variable in the one-week horizon model using the range of the features specified in the previous section.\
+            The reason this approach is taken is that this model is designed to be an anticipatory tool, hence there will be no value in predicting the exact instance when an injury will occur. Rather, we \
                 would like managers to make informed decisions about their players by perhaps resting or focussing on rehab when injuries are predicted in the future, hence avoiding injuries before they happen.\
                     The same function was then applied to the count of injuries at each point in time for each player and also the cumulative injuries for each player at each point in time.
                 """, unsafe_allow_html=True)
@@ -384,12 +384,12 @@ dataset = shift_by_time_period(dataset, 52, 'cum_injury')
     
     st.write("""<p style='text-align: justify; font-size: 16px'>Now that we have our target variables defined for each model we also need to make some adjustments to the features available in the data.\
         For example, the number of minutes played in matches should be an important indicator of potential injury concerns for a player. However, we would need a cumulative sum of this variable up until\
-            each datapoint (i.e. number of cumulative minutes played until week 60). We will need this accumulation over the lifespan of the players career. This was done via the function\
-            below where any columns that required an accumulation over the players career were recalculated. Other examples of accumulated features were number of games won, lost and drawn as well as number\
-                of games player in certain leagues (i.e. Champions League games of their career).
+            each data point (i.e. number of cumulative minutes played until week 60). We will need this accumulation over the lifespan of the player's career. This was done via the function\
+            below where any columns that required an accumulation over the player's career were recalculated. Other examples of accumulated features were the number of games won, lost, and drawn as well as the number\
+                of games played in certain leagues (i.e. Champions League games of their career).
                 """, unsafe_allow_html=True)
     
-    st.code("""# Creating function to add cummulative columns
+    st.code("""# Creating a function to add cumulative columns
 
 def cummulative_sum(dataset, cum_column, original_column):
     dataset[cum_column] = dataset.groupby(['FBRefID', 'cum_sum'])[original_column].cumsum()
@@ -406,12 +406,12 @@ for var in cum_cols:
 
     st.write("""<p style='text-align: justify; font-size: 16px'>
         \n<p style='text-align: justify; font-size: 16px'>The first step before diving into the algorithms themselves was to drop any weeks in the dataset where the player had sustained an injury and was not playing. We are only interested in \
-            capturing the week in which the injury occured and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
+            capturing the week in which the injury occurred and any subsequent weeks in which the player was still recovering from the same injury is not useful for this model. We did however \
                 explore an injury duration prediction model as well, which will predict the time that the player is expected to take once an injury has been sustained. We will briefly touch on this model later in this post.\
                     
                     \n<p style='text-align: justify; font-size: 16px'>Once the redundant injury weeks are removed from the dataset. We created the train and test datasets. Unlike normal machine learning models in which the train and test datasets \
-                        can be randomly allocated across the dataset, this analysis requries a different approach as it is a time series analysis for each player. Hence, the \
-                            number of weeks each player plays was determined and the first 75% of the player's career in weeks was allocated to the training dataset and the remaining 25% was \
+                        can be randomly allocated across the dataset, this analysis requires a different approach as it is a time series analysis for each player. Hence, the \
+                            number of weeks each player plays was determined, and the first 75% of the player's career in weeks was allocated to the training dataset and the remaining 25% was \
                                 allocated to the test set (as shown below).
                 """, unsafe_allow_html=True)
     
@@ -461,15 +461,15 @@ for var in cum_cols:
     
     st.subheader('Classification Algorithms')
     
-    st.write("""<p style='text-align: justify; font-size: 16px'>Now we are ready to proceed to building classification models for each of the time horizons. We will use the one week model as an example\
+    st.write("""<p style='text-align: justify; font-size: 16px'>Now we are ready to proceed to build classification models for each of the time horizons. We will use the one-week model as an example\
         in this post but you can refer to the GitHub repository for the associated code for all the other time horizons. The general library used for machine learning in Python is Sci-kit Learn, however, \
-            for this analysis we have decided to implement the PyCaret library.""", unsafe_allow_html=True) 
-    st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning libary with lots of cool functionality.""")
+            for this analysis, we have decided to implement the PyCaret library.""", unsafe_allow_html=True) 
+    st.write("""[PyCaret](https://pycaret.org/) is open source low-code machine learning library with lots of cool functionality.""")
     
-    st.write("""<p style='text-align: justify; font-size: 16px'>First we set up the configuration of our model via the setup function in PyCaret. In this case there are a couple of parameters we should tweak \
+    st.write("""<p style='text-align: justify; font-size: 16px'>First, we set up the configuration of our model via the setup function in PyCaret. In this case, there are a couple of parameters we should tweak \
         such as adjusting for the imbalance in classes by setting 'fix_imbalance' parameter to 'True' and also the 'fold_strategy' to 'timeseries' to account for the time element in the dataset. We have also \
-            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'. Due to computation and time contraints, the initial set of models was \
-                build using only 2 folds.
+            allowed for the algorithm to select the most predictive features by letting 'feature_selection' equal 'True'. Due to computation and time constraints, the initial set of models was \
+                to build using only 2 folds.
                 """, unsafe_allow_html=True)
 
     st.code("""
@@ -558,7 +558,7 @@ set_config('y_test', y_test)
     
     st.plotly_chart(fig)
     
-    st.write("""<p style='text-align: justify; font-size: 16px'> As shown in the above chart, injury prediction is a difficult task. The one week model is by far the best performing with F1 score of <i>0.41</i>, \
+    st.write("""<p style='text-align: justify; font-size: 16px'> As shown in the above chart, injury prediction is a difficult task. The one-week model is by far the best performing with F1 score of <i>0.41</i>, \
         recall of <i>0.37</i> and precision of <i>0.45</i> using the <b>Light Gradient Boosting Machine</b>. This suggests that in any given week, if the model predicts that two players will get injured, one of the player actually will get injured. \
             This will be particularly useful for coaches for week-to-week management of the players. If they wanted to be cautious they could rest both players or if it is very important game \
                 they may choose to take the risk and play both players. 
@@ -567,7 +567,7 @@ set_config('y_test', y_test)
                     there are more uncertainties and hence prediction is a more difficult task. There was some overfitting observed in the larger horizon models which was partially reduced by applying cross validation. \
                         In future work, this be further could be reduced by training with more data, removing features that are not predictive in the long-term, early stopping and ensembling.
                         
-                        \n<p style='text-align: justify; font-size: 16px'> In the next section we will dive deeper into further tuning and evaluating the one week model. 
+                        \n<p style='text-align: justify; font-size: 16px'> In the next section we will dive deeper into further tuning and evaluating the one-week model. 
             """, unsafe_allow_html=True)
     
     st.header('Model Evaluation')
