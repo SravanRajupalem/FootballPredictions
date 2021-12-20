@@ -799,7 +799,7 @@ elif section == "Injury Prediction":
         as its best performing model. The 1-semester horizon had the Ada Boost Classifier as its best performing model. Producing \
         predictions was a fairly simple process after we had finished all the preceding tasks.  We loaded the models and fired up a \
         prediction for all the values in our data set.  Then we accounted for the predicted injuries that had an injury the week before. \
-        That is if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
+        That is, if the model predicted an injury the week before we would reset the next week to zero assuming that an already injured \
         player could not get injured again.  Once we had these numbers we accumulated them in a single column and accounted for the time \
         window we were predicting.  These predicted values were finally combined with the real values of the dataset to create a continuous \
         time series with a line with two colors, blue for real injuries and orange for predicted injuries. We decided to do \
