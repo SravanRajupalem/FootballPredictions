@@ -77,10 +77,7 @@ if section == "Introduction":
 ###############################################################################################################################
 
 elif section == "Video Walkthrough":
-    
-    imgstadium = Image.open("images/stadium1.png")
-    st.image(imgstadium)
-    
+       
     st.title("Video Walkthrough")
 
     st.write("Please press play and enjoy our video walkthrough to get a bird's-eye view of our whole project!")
