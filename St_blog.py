@@ -544,7 +544,7 @@ set_config('y_test', y_test)
     
     st.code("""best_model = compare_models()""")
     img9 = Image.open("images/results_1_week.png")
-    st.image(img9, width = 700)
+    st.image(img9, use_column_width ="always")
     
     st.markdown("""<p style='text-align: justify; font-size: 16px'> In this case, the model with the best overall accuracy was the _Dummy Classifier_, however, for this application in which we \
         have a highly imbalanced dataset, accuracy is not a good metric to evaluate the performance of the model. Instead, since we are predicting class labels and the positive class (i.e. whether \
@@ -553,7 +553,7 @@ set_config('y_test', y_test)
             """, unsafe_allow_html=True)
     
     img10 = Image.open("images/Metric Selection Imbalanced.png")
-    st.image(img10, width = 700)
+    st.image(img10, use_column_width ="always")
     
     st.write("""<p style='text-align: justify; font-size: 16px'> Here is a summary of all the algorithms selected for each of the forecast horizons.
             """, unsafe_allow_html=True)
@@ -600,7 +600,7 @@ set_config('y_test', y_test)
     """)
     
     img11 = Image.open("images/One Week Model Initial.png")
-    st.image(img11, width = 500)
+    st.image(img11, use_column_width ="always")
     
     st.write("""<p style='text-align: justify; font-size: 16px'>After fitting with 10 folds, we see that the average F1 score remains at 0.41. We then go ahead and perform hyperparameter tuning, \
         this is very simple when using PyCaret as it can be done with just one line of code: 
@@ -613,7 +613,7 @@ set_config('y_test', y_test)
              """, unsafe_allow_html=True)
     
     img12 = Image.open("images/One Week Model Tuned.png")
-    st.image(img12, width = 400)
+    st.image(img12, use_column_width ="always")
     st.code("""LGBMClassifier(bagging_fraction=0.8, bagging_freq=0, feature_fraction=0.9,
                learning_rate=0.15, min_child_samples=100, min_split_gain=0,
                num_leaves=30, random_state=4936, reg_alpha=10, reg_lambda=2)""")
@@ -624,7 +624,7 @@ set_config('y_test', y_test)
              """, unsafe_allow_html=True)    
     
     img12 = Image.open("images/Discrimination_1_week.png")
-    st.image(img12, width = 700) 
+    st.image(img12, use_column_width ="always") 
     
     st.write("""<p style='text-align: justify; font-size: 16px'>Once we were comfortable with the tuning, we moved on the analyse various elements of the model, starting with observing the F1 score \
         across the train and test datasets to identify any overfitting.
@@ -668,13 +668,13 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
              """, unsafe_allow_html=True)
     
     img12 = Image.open("images/Learning Curves for 1 Week Model.png")
-    st.image(img12, width = 700)
+    st.image(img12, use_column_width ="always")
     
     st.write("""<p style='text-align: justify; font-size: 16px'>Firstly, below are top 10 most important features in the model.
              """, unsafe_allow_html=True)
     
     img12 = Image.open("images/1 Week Feature Importance.png")
-    st.image(img12, width = 700)
+    st.image(img12, use_column_width ="always")
     
     st.write("""<p style='text-align: justify; font-size: 16px'>Weeks since last injury is the most important feature in this model (and was the same for \
              most of the longer horizon models). This seems to make intuitive sense, as if you have gove injured recently, there is probably a higher chance \
@@ -698,7 +698,7 @@ print("Train Precision Score: " + str(precision_score(y_train, clf.predict(X_tra
              """, unsafe_allow_html=True)  
     
     img13 = Image.open("images/Confusion Matrix One Week.png")
-    st.image(img13, width = 500)
+    st.image(img13, use_column_width ="always")
     
     st.write("""<p style='text-align: justify; font-size: 16px'>You can see that that model misclassifies a lot of non-injuries (91543 false positives) and \
         a smaller proportion of non-injuries are classified as injuries (2007 false negatives).         
@@ -822,7 +822,7 @@ elif section == "Injury Prediction":
         this to aid the viewer in detecting injuries and making inferences from them.</h1>", unsafe_allow_html=True)
 
     week = Image.open('images/week.png')
-    st.image(week, width = 800)
+    st.image(week, use_column_width ="always")
 
     st.write("<p style='text-align: justify; font-size: 16px'> On the first visualization, we observe Neymar's injuries history, which is \
         represented by the blue line, along with our injury prediction for the following week, which is displayed in orange. Since the line \
@@ -858,10 +858,10 @@ elif section == "Injury Prediction":
   
 elif section == "Exploration Tool (BETA)":
 
-    imgsoccer = Image.open("images/soccer.jpg")
-    st.image(imgsoccer, width = 700)
-    
     st.header('Interactive Exploration Tool (BETA)')
+    imgsoccer = Image.open("images/soccer.jpg")
+    st.image(imgsoccer, use_column_width ="always")
+    
     st.write('Please feel free to try out our interactive exploration tool!')
     
     # @st.cache(allow_output_mutation = True)
@@ -1037,10 +1037,10 @@ elif section == "Exploration Tool (BETA)":
 
 elif section == "Injury Prediction Tool (BETA)":
     
-    imgfield = Image.open("images/fields.jpg")
-    st.image(imgfield, width = 700)
-    
     st.header("Interactive Injury Prediction Tool (BETA)")
+    st.image(imgfield, use_column_width ="always")
+    imgfield = Image.open("images/fields.jpg")
+    
     st.write('Please feel free to try out our interactive prediction tool!')
 
     st.write('* (sample dataset used for performance purposes)')
