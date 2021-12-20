@@ -237,7 +237,7 @@ elif section == "Data Manipulation":
     
     st.write("<p style='text-align: justify; font-size: 16px'>Consequently, we created dummy variables to come up with new features for all competitions available and the venue.</h1>", unsafe_allow_html=True)
     img16 = Image.open("images/image16.PNG")
-    st.image(img16)
+    st.image(img16, use_column_width ="always")
     
     img17 = Image.open("images/image17.jpg")
     st.image(img17)
@@ -269,30 +269,30 @@ elif section == "Data Exploration":
         to be injured more time than they are not injured. So our data is unbalanced which had to be taken into account when we \
         modeling.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We did some additional explorations to see if the data made 'sense'.  We wanted to observe the relationship between minutes \
-        played and the age of players and the positions they played in.</h1>", unsafe_allow_html=True)
+        played and the age of players and the positions they played.</h1>", unsafe_allow_html=True)
     img8 = Image.open("images/image8.png")
-    st.image(img8)
+    st.image(img8, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>In this case, it's interesting to see that there seems to be an 'optimal' age where players tend to play more minutes. \
         It looks like players between 20 and 34 years old play more minutes. This is unexpected, as we would have thought younger \
         players would play more minutes, but on second thought, it makes sense due to their career development.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We also plotted minutes played (Min) vs the accumulated number of injuries per player (cum_injury_total).</h1>", unsafe_allow_html=True)
     img9 = Image.open("images/image9.png")
-    st.image(img9)
+    st.image(img9, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>We found a logical pattern, players with less accumulated injuries tend to play more minutes.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>Additionally, we plotted the players' weight (Weight) vs the accumulated number of injuries per player (cum_injury_total).</h1>", unsafe_allow_html=True)
     img10 = Image.open("images/image10.png")
-    st.image(img10)
+    st.image(img10, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>Here there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
         is probably due to the fact that we are looking at proffesional players in the most competitive leagues.  Most of them \
         weigh in that range.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.</h1>", unsafe_allow_html=True)
     img11 = Image.open("images/image11.png")
-    st.image(img11)
+    st.image(img11, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>As we can see, com_injury_total seems to have a higher positive correlation with variables like Weight and Age.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>To get idea of how variables are correlated we 'zoomed-in' to just 5 variables like: 'Height', 'Weight', 'age', \
         'cum_injury_total', 'weeks_since_injury', and 'Min_cum'.</h1>", unsafe_allow_html=True)
     img12 = Image.open("images/image12.png")
-    st.image(img12)
+    st.image(img12, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>Here we can analyze if there are any correlations between variables.  Logically, height is positively correlated with \
         weight. Being that we are analyzing active athletes, there doesn't seem to be any correlation between weight and age. We also \
         see a positive correlation between age and the cum_injury_total.</h1>", unsafe_allow_html=True)
@@ -313,14 +313,14 @@ elif section == "Data Exploration":
         getting injured? We mentioned earlier that goalkeepers may not be as exposed as other positions. However, they do get injured. The following visualization will \
         help us answer this.</h1>", unsafe_allow_html=True)
     img18 = Image.open("images/image18.PNG")
-    st.image(img18)
+    st.image(img18, use_column_width ="always")
     st.subheader("Compare Cumulative Injury History According to Position")
     st.write("<p style='text-align: justify; font-size: 16px'>This tool allows you to compare the variation of injuries based on the player's position. We have previously defined 4 different positions for each player, \
         in this tool, you can compare all players' positions at the same time. When we only select the goalkeeper position, we can immediately notice that they \
         are less likely to get injured compared to other positions. Now, we can strongly say that goalkeepers have a much lower chance of getting injured. Furthermore, \
         you may think that attackers are the ones with a higher risk of getting injured; however, this graph verifies that defenders are the ones that accumulate the most injuries.</h1>", unsafe_allow_html=True)
     img19 = Image.open("images/image19.PNG")
-    st.image(img19)
+    st.image(img19, use_column_width ="always")
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
     st.write("<p style='text-align: justify; font-size: 16px'>The next visualization helps us compare a player's injuries through his entire career against the average injuries of players in the same position of \
         the player you select. It is crucial to understand how this player is doing compared to other players in his position. Here you can visualize where a \
@@ -329,13 +329,13 @@ elif section == "Data Exploration":
         end of his career.</h1>", unsafe_allow_html=True)
     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
     img20 = Image.open("images/image20.PNG")
-    st.image(img20)
+    st.image(img20, use_column_width ="always")
     st.write("<p style='text-align: justify; font-size: 16px'>Here, we wanted to take a very similar approach by comparing a player's injury history against the average injuries for players of the same age as the selected player. Again, \
         we used Gareth Bale as an example, and the same trend occurs where he's above the average cumulative total injuries of players his age. Bale's \
         injuries have continued to increase at a steady phase during the years. It seems that he has not been able to have a full season without injuries. He is \
         just one of those players who keeps suffering from injury setbacks.</h1>", unsafe_allow_html=True)
     img21 = Image.open("images/image21.PNG")
-    st.image(img21)
+    st.image(img21, use_column_width ="always")
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
     st.write("<p style='text-align: justify; font-size: 16px'>Last, this is a comparison of a single player's injuries history against the average injuries of all players. The x-axis represents the cumulative minutes \
         of all games played, and on the y-axis, the graph displays the cumulative injuries through time. Again, we chose Robert Lewandoski. As \
@@ -344,7 +344,7 @@ elif section == "Data Exploration":
         after a certain amount of accumulated minutes, injuries tend to decrease, this is because as players get older they tend to play \
         tend to play less.</h1>", unsafe_allow_html=True)
     img22 = Image.open("images/image22.PNG")
-    st.image(img22)
+    st.image(img22, use_column_width ="always")
 
 ###############################################################################################################################
 
