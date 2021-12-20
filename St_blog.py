@@ -1222,7 +1222,7 @@ elif section == "Conclusions, Ethics & Future" :
         countries. It is normal to see footballers get injured from time to time since this sport requires physical \
         demand and players are constantly being tackled and exposed to full body or kick collisions. Additionally, \
         players have to go through rigorous training and do not have much time to rest. Our goal was to create \
-        a machine learning model that could predict when a player will get injured......</h1>", unsafe_allow_html=True)
+        a machine learning model that could predict when a player will get injured.</h1>", unsafe_allow_html=True)
 
     st.write("<p style='text-align: justify; font-size: 16px'>The project has been a great experience for all of us. Not only because we were challenged to come up \
         with a data science project that could be applied to the real world and also learned a great number of \
@@ -1230,7 +1230,7 @@ elif section == "Conclusions, Ethics & Future" :
         gave all of us the opportunity to work with one another as data scientists. We all faced many challenges, \
         encountered multiple roadblocks, stayed up long hours, but we also discovered new capabilities together \
         and supported each other at all times. We all agree that this has been the greatest takeaway from the \
-        course and even the entire program. It was definitely not a simple task to complete .....</h1>", unsafe_allow_html=True)
+        course and even the entire program. It was definitely not a simple task to complete...</h1>", unsafe_allow_html=True)
     
     st.subheader("Challenges")
     st.write("")
