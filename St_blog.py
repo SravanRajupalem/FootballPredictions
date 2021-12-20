@@ -32,6 +32,12 @@ st.markdown("""
         <a class="nav-link" href="https://www.youtube.com/channel/UCawuViij7J33V5zscJH2G8A/featured" target="_blank">YouTube</a>
       </li>
       <li class="nav-item active">
+        <a class="nav-link" href="https://fbref.com" target="_blank">FBRef</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="https://transfermarkt.com" target="_blank">TransferMarkt</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" href="mailto:providemus2021@gmail.com" target="_blank">Contact Us</a>
       </li>
     </ul>
