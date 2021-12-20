@@ -14,11 +14,6 @@ import plotly.graph_objects as go
 
 newlogo = Image.open("images/new_logo.png")
 
-st.sidebar.image(newlogo)
-section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough", "Data Scraping", "Data Manipulation", 
-    "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
-    "Injury Prediction Tool (BETA)", "Conclusions, Ethics & Future", "Statement of Work"))
-
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #32AEB3;">
@@ -45,6 +40,11 @@ st.markdown("""
 </nav>
 """, unsafe_allow_html=True)
 
+
+st.sidebar.image(newlogo)
+section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough", "Data Scraping", "Data Manipulation", 
+    "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
+    "Injury Prediction Tool (BETA)", "Conclusions, Ethics & Future", "Statement of Work"))
 
 if section == "Introduction":
     # imgstadium = Image.open("images/stadium1.png")
