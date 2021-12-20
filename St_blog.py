@@ -134,8 +134,8 @@ elif section == "Data Scraping":
     table['Rows'] = [6626,8255,7274,7354,6318]
     table['Columns'] = [15,15,15,15,15]
     table
-    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, they were combined into a single dataframe of all players' profiles, where we ended up with a number \
-        of 10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Once all tables were completed, they were combined into a single dataframe of all players' profiles, where we ended up with \
+        10,720 players. However, we only used 5,192 players since those had data available from both sources. Here is the new players_info_df:</h1>", unsafe_allow_html=True)
     img5d = Image.open("images/image5d.png")
     st.image(img5d)
     st.write("")
