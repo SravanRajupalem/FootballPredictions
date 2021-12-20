@@ -1268,13 +1268,13 @@ elif section == "Conclusions, Ethics & Future" :
         to run scripts that required a great amount of memory usage. The process of setting AWS was lengthy, and although we found guidelines\
         on how to install and integrate AWS into our machines, it was still confusing to deal with it. Once AWS was installed and running, \
         all of us started to experience problems with the connection during the web scrapping phase. This occurred regularly, thus we \
-        decided to avoid employing AWS for the data scrapping..</h1>", unsafe_allow_html=True)
+        decided to avoid employing AWS for the data scrapping.</h1>", unsafe_allow_html=True)
     st.write("")
     st.write("**Time Series Model**")
     st.write("<p style='text-align: justify; font-size: 16px'>Building our time series dataset was not an easy task. It required a great amount of time to examine and debate how the model \
         was going to be built as well as what features had to be included, and what data instances we had to drop. It took multiple attempts \
         to construct the desired data frame, and it also required us to investigate the actual machine learning algorithms we were going to employ \
-        before we prepare the final dataset..</h1>", unsafe_allow_html=True)
+        before we prepare the final dataset.</h1>", unsafe_allow_html=True)
     st.write("")
     st.write("**StreamLit**")
     st.write("<p style='text-align: justify; font-size: 16px'>This python library allowed us to build our blog for the audience. It did not take a great amount of research since \
