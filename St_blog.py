@@ -225,49 +225,11 @@ elif section == "Data Manipulation":
         columns for a total of 4,588 players. We were then ready to start building our data models, but first, let's take a look at the dataset. Here we \
         want to show you a subset of one of Cristiano Ronaldo's best seasons during the time he lead Real Madrid to win 'La Decima' where he broke an all-time \
         record and scored 17 goals in a single season for the Champions League.</h1>", unsafe_allow_html=True) 
-    st.write("<p style='text-align: justify; font-size: 16px'>Feel free to scroll up, down, left, and right")
+    st.write("<p style='text-align: justify; font-size: 16px'>Feel free to scroll up, down, left, and right", unsafe_allow_html=True) 
     cr7_df = pd.read_csv('dataframes_blog/df_cristiano.csv')
     cr7_df
-    st.write("<p style='text-align: justify; font-size: 16px'>Here is the list of all columns from our final dataframe. All of those features were available for our time series models:</h1>", unsafe_allow_html=True)
-    df_final = pd.DataFrame(columns=['Features'])
-    df_final['Features'] = ['FBRefID', 'date', 'agg_week', 'agg_year', 'Injury', 'injury_week', 'injury_year', 'Min', 'Gls', 'Ast', 'PK', 'PKatt', 'Sh', 
-        'SoT', 'CrdY', 'CrdR', 'Touches', 'Press', 'Tkl', 'Int', 'Blocks', 'xG', 'npxG', 'xA', 'SCA', 'GCA', 'Cmp', 'Att', 'Prog', 'Carries', 'Prog.1', 
-        'Succ', 'Att.1', 'Fls', 'Fld', 'Off', 'Crs', 'TklW', 'OG', 'PKwon', 'PKcon', 'Won', 'Loss', 'Draw', 'FootAbility', 'release_week', 'was_match',
-        'Serie A', 'Premier League', 'La Liga', 'Ligue 1', 'Bundesliga', 'Champions Lg', 'Europa Lg', 'FIFA World Cup', 'UEFA Nations League',
-        'UEFA Euro', 'Copa América', 'Away', 'Home', 'Neutral', 'week', 'year', 'PlayerFullName', 'name', 'Position:', 'Height', 'Weight', 'Foot',
-        'Birth', 'Nationality', 'Photo', 'InternationalReputation', 'Twitter', 'Instagram', 'Place of birth:', 'Citizenship:', 'cum_week', 'defender',
-        'attacker', 'midfielder', 'goalkeeper', 'right_foot', 'left_foot', 'injury_count', 'cum_injury', 'age', 'unique_injury_count',
-        'cum_injury_total', 'previous_injury_week', 'weeks_since_last_injury', 'injured', 'injured_in_1_week', 'injured_in_4_week',
-        'injured_in_12_week', 'injured_in_26_week', 'injured_in_52_week', 'injury_count_in_1_week', 'injury_count_in_4_week',
-        'injury_count_in_12_week', 'injury_count_in_26_week',  'injury_count_in_52_week', 'cum_injury_in_1_week', 'cum_injury_in_4_week',
-        'cum_injury_in_12_week', 'cum_injury_in_26_week', 'cum_injury_in_52_week', 'cum_sum', 'Min_cum',  'Gls_cum', 'Ast_cum', 'PK_cum', 
-        'PKatt_cum', 'Sh_cum', 'SoT_cum', 'CrdY_cum', 'CrdR_cum', 'Touches_cum', 'Press_cum', 'Tkl_cum', 'Int_cum', 'Blocks_cum', 'xG_cum', 
-        'npxG_cum', 'xA_cum', 'SCA_cum', 'GCA_cum', 'Cmp_cum', 'Att_cum', 'Prog_cum', 'Carries_cum', 'Prog.1_cum', 'Succ_cum', 'Att.1_cum', 
-        'Fls_cum', 'Fld_cum', 'Off_cum', 'Crs_cum', 'TklW_cum', 'OG_cum', 'PKwon_cum', 'PKcon_cum', 'Won_cum', 'Loss_cum', 'Draw_cum', 'was_match_cum', 
-        'Serie A_cum', 'Premier League_cum', 'La Liga_cum', 'Ligue 1_cum', 'Bundesliga_cum', 'Champions Lg_cum', 'Europa Lg_cum', 'FIFA World Cup_cum', 
-        'UEFA Nations League_cum', 'UEFA Euro_cum', 'Copa América_cum', 'Away_cum', 'Home_cum', 'Neutral_cum', 'defender_cum', 'attacker_cum', 
-        'midfielder_cum', 'goalkeeper_cum', 'right_foot_cum', 'left_foot_cum', 'drop', 'last_week', 'train_split']
-    # df_final['Description'] = ['Name of soccer player', 'FBRef Id', 'Date of the occurrence: game, injury or both', \
-    #     'Week of the occurrence: game, injury or both', 'Year of the occurrence: game, injury or both', 'Type of injury', \
-    #     'Week when injury occurred', 'Year when injury occurred', 'Minutes played', 'Goals scored or allowed', 'Completed assists', \
-    #     'Penalty kicks made', 'Penalty kicks attempted', 'Shots (not including penalty kicks)', \
-    #     'Shots on target (not including penalty kicks)', 'Yellow cards', 'Red cards', 'Touches in attacking penalty area', \
-    #     'Passess made while under pressure of opponent', 'Number of players tackled', 'Interceptions', \
-    #     'Number of times blocking the ball by standing on its path', 'Expected goals', 'Non-penalty expected goals', \
-    #     'Expected assists previous to a goal', 'Two offensive actions previous to a shot', \
-    #     'Two offensive actions previous to a goal', 'Passess completed', 'Passess attempted', \
-    #     'Passess that move the ball at least 10 yards toward opponent goal', \
-    #     'Number of times player controlled the ball with his feet', \
-    #     "Carries that move the ball toward opponent's goal at least 5 yards", 'Dribbles completed successfully', \
-    #     'Dribbles attempted', 'Fouls committed', 'Fouls drawn', 'Offsides', 'Crosses', \
-    #     'Tackles were possession of the ball was won', 'Own goals', 'Penalty kicks won', 'Penalty kicks conceded', 'Game won', \
-    #     'Game lost', 'Game draw', 'Week when player was released from injury', \
-    #     'If there was a match during that week, variable = 1', 'Player height', 'Player weight', 'Player date of birth', \
-    #     'Cumulative week', 'Player is a defender', 'Player is an attacker', 'Player is a midfielder', 'Player is a goalkeeper', \
-    #     'Player age', 'Player is right-footed', 'Player is left-footed', 'Player number of injuries', 'Player cumulative injuries']
-    df_final
     
-    st.write("<p style='text-align: justify; font-size: 16px'>Did we use all features for our predictions? Of course not...</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>We continued creating features in the next sections...</h1>", unsafe_allow_html=True)
 
 ###############################################################################################################################
 
@@ -280,32 +242,32 @@ elif section == "Data Exploration":
     st.write("<p style='text-align: justify; font-size: 16px'>The idea here was to execute data exploration to understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
-        the next quarter, the next semester or the next year. These classes had the following proportions:</h1>", unsafe_allow_html=True)
+        the next quarter, the next semester, or the next year. These classes had the following proportions:</h1>", unsafe_allow_html=True)
     img7 = Image.open("images/image7.png")
     st.image(img7)
     st.write("<p style='text-align: justify; font-size: 16px'>We can see that the dominant class is 0: when players are not injured, which makes sense because we don't expect players \
-        to be injured more time than they are not injured. So our data is unbalanced which will have to be taken into account when we \
-        modelling.</h1>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify; font-size: 16px'>We did some additional explorations to see if the data made 'sense'.  We wanted to see the relationship between minutes \
+        to be injured more time than they are not injured. So our data is unbalanced which had to be taken into account when we \
+        modeling.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>We did some additional explorations to see if the data made 'sense'.  We wanted to observe the relationship between minutes \
         played and the age of players.</h1>", unsafe_allow_html=True)
     img8 = Image.open("images/image8.png")
     st.image(img8)
-    st.write("<p style='text-align: justify; font-size: 16px'>In this case it's interesting to see that there seems to be an 'optimal' age where players tend to play more minutes. \
-        It looks like players between 20 and 34 years old play more minutes. This is unexpected, as we would have thougt that younger \
+    st.write("<p style='text-align: justify; font-size: 16px'>In this case, it's interesting to see that there seems to be an 'optimal' age where players tend to play more minutes. \
+        It looks like players between 20 and 34 years old play more minutes. This is unexpected, as we would have thought younger \
         players would play more minutes, but on second thought, it makes sense due to their career development.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We also plotted minutes played (Min) vs the accumulated number of injuries per player (cum_injury_total).</h1>", unsafe_allow_html=True)
     img9 = Image.open("images/image9.png")
     st.image(img9)
-    st.write("<p style='text-align: justify; font-size: 16px'>In this case we find a logical pattern, that player with less accumulated injuries tend to play more minutes.</h1>", unsafe_allow_html=True)
-    st.write("<p style='text-align: justify; font-size: 16px'>Additionally, we plotted player's weight (Weight) vs the accumulated number of injuries per player (cum_injury_total).</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>We found a logical pattern, players with less accumulated injuries tend to play more minutes.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>Additionally, we plotted the players' weight (Weight) vs the accumulated number of injuries per player (cum_injury_total).</h1>", unsafe_allow_html=True)
     img10 = Image.open("images/image10.png")
     st.image(img10)
-    st.write("<p style='text-align: justify; font-size: 16px'>In this case there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
+    st.write("<p style='text-align: justify; font-size: 16px'>For this, there seems to be a concentration of players between 65 kilos and 85 kilos that gets more injuries. This \
         is probably due to the fact that most players weigh in that range.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>We decided to plot a correlation matrix (heatmap style) to look at our whole universe of variables.</h1>", unsafe_allow_html=True)
     img11 = Image.open("images/image11.png")
     st.image(img11)
-    st.write("<p style='text-align: justify; font-size: 16px'>As we can see, com_injury_total seems to have a higher positive correlation with variables like: Weight and Age.</h1>", unsafe_allow_html=True)
+    st.write("<p style='text-align: justify; font-size: 16px'>As we can see, com_injury_total seems to have a higher positive correlation with variables like Weight and Age.</h1>", unsafe_allow_html=True)
     st.write("<p style='text-align: justify; font-size: 16px'>To get idea of how variables are correlated we 'zoomed-in' to just 5 variables like: 'Height', 'Weight', 'age', \
         'cum_injury_total', 'weeks_since_injury', and 'Min_cum'.</h1>", unsafe_allow_html=True)
     img12 = Image.open("images/image12.png")
@@ -316,7 +278,7 @@ elif section == "Data Exploration":
     st.header("Deeper Data Exploration")
     st.write("<p style='text-align: justify; font-size: 16px'>The following set of tools has been developed to evaluate and understand how players' injuries evolve over time. It is reasonable to \
         assume that as players age, they are more likely to become injured. Of course, there are some players that do not get injured as much as others \
-		while others get injured a lot more frequently. The following tools are intended to help us understand some of the differences \
+		while some get injured more frequently. The following tools are intended to help us understand some of the differences \
         between these players.</h1>", unsafe_allow_html=True) 
     st.subheader("Compare Players' Injury History")
     st.write("<p style='text-align: justify; font-size: 16px'>First, we want to individually compare players' injury history. Here, you are able to select up to 3 players. This line chart exhibits a clear comparison of \
