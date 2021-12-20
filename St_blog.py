@@ -187,7 +187,7 @@ elif section == "Data Scraping":
 elif section == "Data Manipulation":
 
     st.header("Data Manipulation")
-    img6 = Image.open("images/image6.jpg")
+    img6 = Image.open("images/image6.jpg", use_column_width ="always")
     st.image(img6)
    
     st.write("<p style='text-align: justify; font-size: 16px'>At this point we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
@@ -236,7 +236,7 @@ elif section == "Data Manipulation":
     st.image(img15)
     
     st.write("<p style='text-align: justify; font-size: 16px'>Consequently, we created dummy variables to come up with new features for all competitions available and the venue.</h1>", unsafe_allow_html=True)
-    img16 = Image.open("images/image16.PNG")
+    img16 = Image.open("images/image16.PNG", use_column_width ="always")
     st.image(img16)
     
     img17 = Image.open("images/image17.jpg")
