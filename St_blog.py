@@ -13,7 +13,20 @@ import plotly.graph_objects as go
 # from streamlit_player import st_player
 
 newlogo = Image.open("images/new_logo.png")
-
+side_bar = """
+  <style>
+    /* The whole sidebar */
+    .css-1lcbmhc.e1fqkh3o0{
+      margin-top: 3.8rem;
+    }
+     
+     /* The display arrow */
+    .css-sg054d.e1fqkh3o3 {
+      margin-top: 5rem;
+      }
+  </style> 
+  """
+st.markdown(side_bar, unsafe_allow_html=True)
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #32AEB3;">
