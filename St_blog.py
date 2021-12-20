@@ -208,10 +208,10 @@ elif section == "Data Manipulation":
     st.image(img13) 
     st.write("<p style='text-align: justify; font-size: 16px'>We believed competitions or tournaments where players participated could influence our model, especially when players are on international duty \
         to play for major tournaments such as the world qualifiers. If a football player gets injured due to international duty, this creates a battle between the club and \
-        the player's national team, but we are not interested in that. We are more interested in understanding how these variables affect players' performamce and how it makes them prone to injury. \
-        With this being said, are players more prone to get injured if they perform better? \
-        Also, are players more likely to get hurt during a world cup qualifying game since all football players may desire to play a World Cup? Additionally, the venue \
-        of a game could also have an influence on players' performance and may even boost the likeliness to get injured.</h1>", unsafe_allow_html=True)
+        the player's national team, but we are not interested in that. We are more interested in understanding how these variables affect players' performance and how it makes them prone to injury. \
+        Several questions arose. Are players more prone to get injured if they perform better? \
+        Are players more likely to get hurt during a world cup qualifying game? Does the venue \
+        of a game have an influence on a player's probability of injury?</h1>", unsafe_allow_html=True)
     img15 = Image.open("images/image15.PNG")
     st.image(img15)
     
