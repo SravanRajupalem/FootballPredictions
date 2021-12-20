@@ -772,7 +772,7 @@ best_model = compare_models(turbo=False)
                             databases on their players related to this. If this information can be obtained, the accuracy of the models will be expected to \
                                 further improve.""", unsafe_allow_html=True)
     
-    st.write("""<p style='text-align: justify; font-size: 16px'>In the next blog post, we will introduce our interactive Injury Prediction Tool, \
+    st.write("""<p style='text-align: justify; font-size: 16px'>In the next blog post, we will introduce our Injury Prediction plots, and later our Interactive Injury Prediction Tool \
         where you can play around with the predictions to determine whether your favourite player is in danger of getting an injury in the near future.""", unsafe_allow_html=True)
 
 ###############################################################################################################################
