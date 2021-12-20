@@ -83,8 +83,8 @@ elif section == "Data Scraping":
     
     st.header('Data Scraping')
     st.write("<p style='text-align: justify; font-size: 16px'>We hunted the web to get the most information we could about soccer \
-        players and matches. After scanning several options our runners due to the completeness of their data \
-        were:  fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
+        players and matches. After scanning several options and evaluating the completeness of their data, we decided to work with \
+        fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
     img = Image.open("images/image1.png")
     img2 = Image.open("images/image2.png")
     img3 = Image.open("images/image3.png")
