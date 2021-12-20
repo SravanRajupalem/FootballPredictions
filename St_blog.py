@@ -124,7 +124,7 @@ elif section == "Data Scraping":
         the age of a player must be relevant to our predictions.</h1>", unsafe_allow_html=True)
     img5c = Image.open("images/image5c.gif")
     st.image(img5c)
-    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely you are to get injured... Before we spun the wheels, we had to push down the brakes and head back to \
+    st.write("<p style='text-align: justify; font-size: 16px'>The older you get, the most likely you are to get injured... Right? Before we spun the wheels, we had to push down the brakes and head back to \
         the fbref.com website to harvest more data. This process was similar, but in this case, we scraped information on a per-country basis to \
         obtain each player's profile information. This yielded the following DataFrames:</h1>", unsafe_allow_html=True)
     table = pd.DataFrame(columns=['Country', 'DataFrame Name', 'Rows', 'Columns'])
