@@ -201,7 +201,7 @@ elif section == "Data Manipulation":
     st.write("<p style='text-align: justify; font-size: 16px'>This is how the dataset looked before we aggregated the dates:</h1>", unsafe_allow_html=True) 
     img14 = Image.open("images/image14.PNG")
     st.image(img14) 
-    st.write("<p style='text-align: justify; font-size: 16px'>There were more new features we developed as we were exploring our new dataset. To name a few more, we constructed new columns to highlight \
+    st.write("<p style='text-align: justify; font-size: 16px'>As we explored the dataset, new features were developed. To name a few more, we constructed new columns to highlight \
         when a player's team wins, loses, or draws a game. When we thought of this, it was also determined to incorporate another feature to state when a player starts \
         the game from the beginning.</h1>", unsafe_allow_html=True) 
     img13 = Image.open("images/image13.PNG")
