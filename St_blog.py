@@ -352,7 +352,7 @@ elif section == "Data Modeling":
     
     st.header("Model Building")
     img8 = Image.open("images/footballfire.jpeg")
-    st.image(img8, width = 700)
+    st.image(img8, use_column_width ="always")
     
     st.subheader("Target Variable Preparation")
     
@@ -796,11 +796,10 @@ best_model = compare_models(turbo=False)
 
 # SECTION: INJURY PREDICTION TOOL
 elif section == "Injury Prediction":
-
-    imgballinfield = Image.open("images/ballinfield.jpg")
-    st.image(imgballinfield, width = 700)
-
+    
     st.header('Injury Prediction')
+    imgballinfield = Image.open("images/ballinfield.jpg")
+    st.image(imgballinfield, use_column_width ="always")
 
     st.write("<p style='text-align: justify; font-size: 16px'>As we have mentioned before, there have been 5 previous stages before being able to do any kind of prediction. \
         Scraping of data from the web, data manipulation, feature engineering, visual exploration of data and model building, all gave \
