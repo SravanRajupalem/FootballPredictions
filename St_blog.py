@@ -180,7 +180,7 @@ elif section == "Data Manipulation":
         believed that weight could have also been a key feature to keep. However, most soccer players have to go through rigorous training and \
         stay in shape; thus, players' weights did not contribute much to our models. Additionally, our data also gave us room to reengineer some \
         features. Moreover, we created additional features from our existing dataset. Who is more likely to get injured? A goalkeeper or an attacker? \
-        At first, we thought of the attacker, but this may not be completely true. Again, in this stage, we were just learning and discovering trends \
+        We were not sure. Again, at this stage, we were just learning and discovering trends \
         from our data. Furthermore, we created dummy variables to distinguish the positions of the players. Did the position of the player contribute \
         to our model? We will see!</h1>", unsafe_allow_html=True)
     img5e = Image.open("images/image5e.jpg")
