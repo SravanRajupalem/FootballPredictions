@@ -70,8 +70,8 @@ if section == "Introduction":
 
     st.write("<p style='text-align: justify; font-size: 16px'>Presenting Providemus, a tool to predict when a player will get injured. \
         By using data from the most reliable international soccer sources, our data scientists have been able to train machine learning \
-        models to predict with considerable accuracy when a player will get injured. The time frame the tool has is if a player will get injured \
-        during the next week, month, quarter, semester, or year. This system is meant to be used as a complementary tool for \
+        models to predict with considerable accuracy when a player will get injured. Three horizons of prediction have been considered: \
+        a week, a month, a quarter, a semester, or a year. This system is meant to be used as a complementary tool for \
         soccer managers in their decisions to play or rest their players.</h1>", unsafe_allow_html=True)
 
 ###############################################################################################################################
