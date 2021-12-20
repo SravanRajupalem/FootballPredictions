@@ -99,7 +99,7 @@ elif section == "Data Scraping":
     st.write("<p style='text-align: justify; font-size: 16px'>From FBRef we first scraped the URLs from the big 5 European leagues. With that base, we again scraped the website \
         for all the seasons for each league. Then we scraped the players' URLs from each of all available seasons of the top 5. \
         This operation yielded a list of 78,959 unique records. Those embedded URLs contained an identifier (FBRefID) for each of the \
-        19,572 players found in. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
+        19,572 players found. Moreover, since we intended to scrape complementary players' data from the TransferMarkt \
         website, we decided to only pull data for the players whose information was available on both sites.</h1>", unsafe_allow_html=True)   
     st.write("Next, we had to use a handy mapping dataset called fbref_to_tm_mapping that links the websites' unique identifiers \
         FBRefID and TMID (TransferMarkt ID), which we downloaded from [Jason Zickovic](https://github.com/JaseZiv/worldfootballR_data/tree/master/raw-data/fbref-tm-player-mapping/output) \
