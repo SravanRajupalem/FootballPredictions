@@ -313,7 +313,7 @@ elif section == "Data Exploration":
     st.write("<p style='text-align: justify; font-size: 16px'>Here, we wanted to take a very similar approach by comparing a player's injury history against the average injuries for players of the same age as the selected player. Again, \
         we used Gareth Bale as an example, and the same trend occurs where he's above the average cumulative total injuries of players his age. Bale's \
         injuries have continued to increase at a steady phase during the years. It seems that he has not been able to have a full season without injuries. He is \
-        just one of those players who keeps suffering from injuries setbacks.</h1>", unsafe_allow_html=True)
+        just one of those players who keeps suffering from injury setbacks.</h1>", unsafe_allow_html=True)
     img21 = Image.open("images/image21.PNG")
     st.image(img21)
     st.subheader("Compare Player Injury History vs. the Average Player's Injuries")
