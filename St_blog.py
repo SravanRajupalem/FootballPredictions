@@ -187,7 +187,7 @@ elif section == "Data Scraping":
 elif section == "Data Manipulation":
 
     st.header("Data Manipulation")
-    img6 = Image.open("images/image6.jpg", use_column_width ="always")
+    img6 = Image.open("images/image6.jpg")
     st.image(img6)
    
     st.write("<p style='text-align: justify; font-size: 16px'>At this point we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
