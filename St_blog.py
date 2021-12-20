@@ -61,7 +61,7 @@ section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough",
 if section == "Introduction":
     # imgstadium = Image.open("images/stadium1.png")
     # st.image(imgstadium)
-    st.markdown("")
+    st.markdown(" ")
     st.markdown("")
     st.markdown("")
     st.markdown("")
