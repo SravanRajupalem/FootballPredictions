@@ -53,7 +53,7 @@ st.markdown("""
 </nav>
 """, unsafe_allow_html=True)
 
-
+st.markdown("")
 st.sidebar.image(newlogo)
 section = st.sidebar.selectbox("Sections", ("Introduction", "Video Walkthrough", "Data Scraping", "Data Manipulation", 
     "Data Exploration", "Data Modeling", "Injury Prediction", "Exploration Tool (BETA)", 
