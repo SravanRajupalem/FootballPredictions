@@ -76,7 +76,7 @@ if section == "Introduction":
 
 ###############################################################################################################################
 
-elif section == "Video Walkthrough"
+elif section == "Video Walkthrough":
     
     imgstadium = Image.open("images/stadium1.png")
     st.image(imgstadium)
