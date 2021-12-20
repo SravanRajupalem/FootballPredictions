@@ -98,10 +98,11 @@ elif section == "Video Walkthrough":
 
 elif section == "Data Scraping":
 
+    st.header('Data Scraping')
+
     imgcorner = Image.open("images/corner.jpg")
     st.image(imgcorner)
     
-    st.header('Data Scraping')
     st.write("<p style='text-align: justify; font-size: 16px'>We hunted the web to get the most information we could about soccer \
         players and matches. After scanning several options and evaluating the completeness of their data, we decided to work with \
         fbref.com and transfermarkt.com.</h1>", unsafe_allow_html=True)
@@ -185,11 +186,10 @@ elif section == "Data Scraping":
 
 elif section == "Data Manipulation":
 
+    st.header("Data Manipulation")
     img6 = Image.open("images/image6.jpg")
     st.image(img6)
    
-    st.header("Data Manipulation")
-
     st.write("<p style='text-align: justify; font-size: 16px'>At this point we inspected, cleaned, transformed, and merged our datasets with the ultimate goal of \
         producing a final dataset to train our machine learning models. We achieved this by merging on the \
         intersection of all dataframes using the fbref_to_tm_df reference table on columns FBRefID (FBRef unique IDs) and TMID (TransferMarkt unique IDs) respectively. This phase \
@@ -255,10 +255,10 @@ elif section == "Data Manipulation":
 
 elif section == "Data Exploration":
 
+    st.header('Data Exploration')
     img7 = Image.open("images/ball.png")
     st.image(img7, width = 700)
     
-    st.header('Data Exploration')
     st.write("<p style='text-align: justify; font-size: 16px'>Data exploration helps us understand the relationships between the dependent and the independent \
         variables. The dataset contained 2 possible classes in the target variable: 0 if a player is not injured and 1 if a player is \
         injured. The target value was studied at different time windows to see how probable it was that the player would get injured in \
@@ -350,12 +350,9 @@ elif section == "Data Exploration":
 
 elif section == "Data Modeling":
     
-
-    img8 = Image.open("images/footballfire.jpeg")
-    
-    st.image(img8, width = 700)
-    
     st.header("Model Building")
+    img8 = Image.open("images/footballfire.jpeg")
+    st.image(img8, width = 700)
     
     st.subheader("Target Variable Preparation")
     
