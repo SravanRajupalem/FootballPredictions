@@ -1292,9 +1292,13 @@ elif section == "Conclusion" :
     during training. On top of that, they also have to constantly travel which can also contribute to \
     accumulating more fatigue over time. Accessing biometrics and GPS data to evaluate the \
     rigorous training and collect features that are disregarded in this iteration of the models could improve our predictions in the future. Nevertheless, this \
-    was not possible due to the confidentiality of data and the time that it may take to incorporate new \
-    information. In addition, accessing the number of hours players rest before and after may be challenging \
-    to obtain and even raise some ethical issues.</h1>", unsafe_allow_html=True)
+    could be a challenge due to confidentiality of data. </h1>", unsafe_allow_html=True)
+    
+    st.subheader('Ethical Concerns')
+    This confidentiality issue is of the upmost importance. \
+    There may be potential ethical concerns that could arise due to the use of this information. For example, some players \
+    might be aprehensive to share their data because the prediction models might bring unexpected consequences to the development \
+    of their careers.</h1>", unsafe_allow_html=True)
     
     
     ###############################################################################################################################
