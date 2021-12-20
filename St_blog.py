@@ -301,11 +301,11 @@ elif section == "Data Exploration":
     img19 = Image.open("images/image19.PNG")
     st.image(img19)
     st.subheader("Compare Player Injury History vs. the Average Injuries in the Position He Plays")
-    st.write("<p style='text-align: justify; font-size: 16px'>The next visualization helps you compare a player's injuries through his entire career against the average injuries of players in the same position of \
+    st.write("<p style='text-align: justify; font-size: 16px'>The next visualization helps us compare a player's injuries through his entire career against the average injuries of players in the same position of \
         the player you select. It is crucial to understand how this player is doing compared to other players in his position. Here you can visualize where a \
         player stands with other similar players. In this case, Gareth Bale has been appointed since he is a phenomenal player who unfortunately has had had many injuries during his football career. As shown, he has \
         accumulated more injuries than the cumulative average of all the attackers from our dataset. Thus, this is a player that may continue to get injured until the \
-        end of his football profession.</h1>", unsafe_allow_html=True)
+        end of his career.</h1>", unsafe_allow_html=True)
     st.subheader("Compare Player Injury History vs. the Average Injuries for His Age")
     img20 = Image.open("images/image20.PNG")
     st.image(img20)
