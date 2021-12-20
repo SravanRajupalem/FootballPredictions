@@ -780,9 +780,9 @@ best_model = compare_models(turbo=False)
     st.write("""<p style='text-align: justify; font-size: 16px'>As demonstrated by the model accuracies, predicting whether injuries occur is a really difficult task. \
         There are some issues with overfitting which can be reduced as explained earlier. \
         The data acquired for this analysis was mainly game statistics and some player profile information. However, a lot of injuries are also acquired due to \
-            players activities outside of competitive games (i.e. in training). This information is generally not publicly available. 
+            players activities outside of competitive games (i.e. in training). This information is generally not publicly available""", unsafe_allow_html=True)
             
-            \nAnother piece of \
+            st.write("""<p style='text-align: justify; font-size: 16px'>\nAnother piece of \
                 information that we have not taken into account is biometric data of players. As mentioned in the book, <i>"Why we Sleep"<i> by Matthew Walker, \
                     the occurence of injuries has been linked to lack of sleep. Other information such as the amount of running a player does on the field \
                         could also be captured via GPS tracking devices. Again, this information is generally not publicly available but club would maintain \
